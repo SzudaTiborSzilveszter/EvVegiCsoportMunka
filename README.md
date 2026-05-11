@@ -1,6 +1,6 @@
 # 🌌 Liam/Jia Cyler - Cyberpunk Visual Novel
 
-**Egy magától készült cyberpunk-noir visual novel játék**, amit a *Serial Experiments Lain* és *Cyberpunk 2077* esztétikája ihlet. Szöveges abentúra, ahol a te választásaid formálják a főszereplő személyiségét és sorát.
+**Egy nyomasztó atmoszférájú webes játék**, amit a *Serial Experiments Lain* és *Cyberpunk 2077* esztétikája ihlet. Vizuális novella, ahol a te választásaid formálják a főszereplő személyiségét és sorsát.
 
 ---
 
