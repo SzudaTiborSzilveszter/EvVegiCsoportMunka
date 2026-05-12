@@ -388,7 +388,7 @@ const dialogs = [
 | Csapattag | Szerep | Feladatok |
 |-----------|--------|----------|
 | **Szuda Tibor Szilveszter** | Kreatív vezető | Dialógus írás, kódolás, kreatív irányítás |
-| **Vén Dávid Zsolt** | Hangmérnök | Zene, hangeffektek, hangmérnökség, kódolás |
+| **Vén Dávid Zsolt** | Hangmérnök | Zene, hangeffektek, hangmérnökség, kódolás, Jókedv |
 | **Szontagh Ágoston Botond** | Rendszer tervezó | Rendszer architektúra, kódolás, technikai tervezés |
 
 ---
