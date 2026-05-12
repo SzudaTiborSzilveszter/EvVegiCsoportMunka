@@ -393,5 +393,19 @@ const dialogs = [
 
 ---
 
+## 📊 Rendszer UML Diagramm
+
+Az alábbi ábra mutatja a **GameManager** rendszer fő komponenseit és azok kapcsolatait:
+
+![GameManager UML Diagram](./GameManager%20Inventory-2026-05-12-100913.png)
+
+**Ábra magyarázata:**
+- A **GameManager** a központi rendszer, amely összeköti az összes almodult
+- **DialogSystem**: Dialógusok kezelése és megjelenítése
+- **TraitSystem**: Karaktertulajdonságok (empátia, agresszivitás, stb.)
+- **InventorySystem**: Tárgyak tárolása és kezelése
+- **Minigame**: Logikai játékok és minigamek
+- Minden modul szigetelten működik, de a GameManager összeköti őket
+
 
 
