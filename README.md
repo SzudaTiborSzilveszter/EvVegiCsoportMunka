@@ -327,7 +327,7 @@ Szálkezelés: dialógusok, minigamek, inventory, trait módosítások összekap
 ## 🚀 Fejlesztői Útmutató
 
 ### Szükséges technológiák
-- **HTML5 Canvas** vagy egyszerű **DOM manipuláció**
+- **Egyszerű DOM manipuláció**
 - **Vanilla JavaScript** (ES6+)
 - **JSON** adattároláshoz
 - **Web Audio API** vagy **Howler.js** zenelejátszáshoz
