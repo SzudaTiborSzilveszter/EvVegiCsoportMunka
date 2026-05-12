@@ -21,7 +21,7 @@ export const mainCharacterDialogs = [
             {
                 text: "Elso válaszlehetőség",
                 nextCharacter: "sibling",
-                nextDialogIndex: 1,
+                nextDialogIndex: 0,
                 traitMod:{
                     empathy: +2,
                     aggression: -1
@@ -30,7 +30,7 @@ export const mainCharacterDialogs = [
             {
                 text: "Masodik válaszlehetőség",
                 nextCharacter: "sibling",
-                nextDialogIndex: 2,
+                nextDialogIndex: 1,
                 traitMod:{
                     empathy: -3,
                     aggression: +4
@@ -39,7 +39,7 @@ export const mainCharacterDialogs = [
             {
                 text: "Harmadik válaszlehetőség",
                 nextCharacter: "sibling",
-                nextDialogIndex: 3,
+                nextDialogIndex: 2,
                 traitMod:{
                     empathy: -3,
                     aggression: -2
