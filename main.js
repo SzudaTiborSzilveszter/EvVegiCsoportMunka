@@ -11,4 +11,5 @@ const dialogSystem = new DialogSystem(mockCharacterData);
 const container = document.getElementById('dialog-container');
 const dialogPanel = new DialogPanel(dialogSystem, container);
 
-dialogPanel.render();
+// Export for use in other modules if needed
+export { dialogSystem, dialogPanel };

@@ -8,7 +8,22 @@ export default class DialogPanel {
         this.#container = containerElement;
     }
 
+    /**
+     * Start displaying a dialog conversation
+     * @param {string} character - Character key to start conversation with
+     * @param {number} dialogIndex - Dialog ID to display
+     */
+    startDialog(character, dialogIndex) {
+        this.#dialogSystem.startDialog(character, dialogIndex);
+        this.render();
+    }
+
     render() {
+        if (!this.#dialogSystem.isConversationActive()) {
+            this.#container.innerHTML = "";
+            return;
+        }
+
         this.#container.innerHTML = "";
 
         const speakerName = this.#dialogSystem.getCurrentCharacter();
@@ -42,7 +57,7 @@ export default class DialogPanel {
                     </div>
                     </div>`;
         
-        this.#container.insertAdjacentHTML("beforeend",code)
+        this.#container.insertAdjacentHTML("beforeend", code)
         
         const choiceButtons = this.#container.querySelectorAll('.choice-btn');
         choiceButtons.forEach((button, index) => {
@@ -58,5 +73,13 @@ export default class DialogPanel {
                 this.render();
             });
         }
+    }
+
+    /**
+     * End the current conversation and clear the dialog panel
+     */
+    endDialog() {
+        this.#dialogSystem.endConversation();
+        this.render();
     }
 }

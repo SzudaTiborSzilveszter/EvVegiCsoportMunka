@@ -10,11 +10,22 @@ export default class DialogSystem {
     constructor(characterData) {
         this.#characterData = characterData;
         this.#dialogs = dialogs;
-        this.#currentCharacter = "mainCharacter";
-        this.#currentDialogIndex = 0;
+        this.#currentCharacter = null;
+        this.#currentDialogIndex = null;
+    }
+
+    /**
+     * Start a new dialog conversation
+     * @param {string} character - Character key (e.g., "mainCharacter", "sibling")
+     * @param {number} dialogIndex - Dialog ID to start with
+     */
+    startDialog(character, dialogIndex) {
+        this.#currentCharacter = character;
+        this.#currentDialogIndex = dialogIndex;
     }
 
     getCurrentDialog() {
+        if (!this.#currentCharacter) return null;
         const characterDialogs = this.#dialogs[this.#currentCharacter];
         return characterDialogs.find((d) => d.id === this.#currentDialogIndex);
     }
@@ -54,5 +65,14 @@ export default class DialogSystem {
 
     getCurrentDialogIndex() {
         return this.#currentDialogIndex;
+    }
+
+    isConversationActive() {
+        return this.#currentCharacter !== null;
+    }
+
+    endConversation() {
+        this.#currentCharacter = null;
+        this.#currentDialogIndex = null;
     }
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/main.js"></script>
+    <script type="module" src="/test.js"></script>
+    <link rel="stylesheet" href="public/style.css">
+    <title>Dialog System - Test</title>
+    
+</head>
+<body>
+    <audio id="bg-music" src="assets/music/ambient.mp3" loop></audio>
+    
+    <!-- Test Controls -->
+    <div id="test-controls" style="position: fixed; top: 20px; left: 20px; z-index: 100;">
+        <div style="margin-bottom: 10px; padding: 10px; background: rgba(0,255,153,0.1); border: 1px solid #00ff99; border-radius: 4px;">
+            <div style="font-size: 11px; color: #00ff99; margin-bottom: 8px; font-weight: bold;">DIALOG TESTS</div>
+            <button id="start-main-dialog" style="padding: 12px 24px; margin: 5px; background: #00ff99; color: #0a0e27; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Start Main Dialog</button>
+            <button id="start-sibling-dialog" style="padding: 12px 24px; margin: 5px; background: #ff7bff; color: #0a0e27; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Start Sibling Dialog</button>
+            <button id="end-dialog" style="padding: 12px 24px; margin: 5px; background: #ff4444; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">End Dialog</button>
+        </div>
+        
+        <div style="padding: 10px; background: rgba(179,0,255,0.1); border: 1px solid #b300ff; border-radius: 4px;">
+            <div style="font-size: 11px; color: #b300ff; margin-bottom: 8px; font-weight: bold;">MINIGAME TESTS</div>
+            <button id="start-lockpicking" style="padding: 12px 24px; margin: 5px; background: #ff9933; color: #0a0e27; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Start Lockpicking</button>
+            <button id="start-hacking" style="padding: 12px 24px; margin: 5px; background: #33ff99; color: #0a0e27; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Start Hacking</button>
+            <button id="start-puzzle" style="padding: 12px 24px; margin: 5px; background: #3399ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Start Puzzle</button>
+        </div>
+    </div>
+    
+    <div id="dialog-container"></div>
+    <div id="minigame-container"></div>
+</body>
+</html>
