@@ -3,5 +3,6 @@ export class InventorySystem{
 
     
     this.táska={};
+    
     }
 }
