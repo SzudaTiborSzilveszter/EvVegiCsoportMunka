@@ -3,13 +3,16 @@ import DialogPanel from './ui/DialogPanel.js';
 import MinigameManager from './modules/MinigameManager.js';
 import MinigameUI from './ui/MinigameUI.js';
 import { minigames } from './data/minigames.js';
+import { InventorySystem } from './modules/InventorySystem.js';
+import InventoryUI from './ui/InventoryUI.js';
 
 const mockCharacterData = {
     modifyTraits(modifier) {
         console.log('Traits modified:', modifier);
     }
 };
-
+const inventory = new InventorySystem(20);
+const inventoryUI = new InventoryUI(inventory);
 const dialogSystem = new DialogSystem(mockCharacterData);
 const container = document.getElementById('dialog-container');
 const dialogPanel = new DialogPanel(dialogSystem, container);
@@ -28,6 +31,13 @@ const endDialogBtn = document.getElementById('end-dialog');
 const startLockpickingBtn = document.getElementById('start-lockpicking');
 const startHackingBtn = document.getElementById('start-hacking');
 const startPuzzleBtn = document.getElementById('start-puzzle');
+
+inventory.addItem({
+    id: 'test_chip',
+    name: 'Adat-chip',
+    stackable: false,
+    description: 'Titkosított vállalati adatokkal.'
+});
 
 startMainBtn.addEventListener('click', () => {
     dialogPanel.startDialog('mainCharacter', 0);
