@@ -13,6 +13,7 @@ export default class MinigameManager {
     #dialogPanel;
     #minigameUI;
     #gameConfig;
+    #audioManager;
 
     /**
      * @param {DialogSystem} dialogSystem - Reference to the dialog system
@@ -20,11 +21,12 @@ export default class MinigameManager {
      * @param {MinigameUI} minigameUI - Reference to the UI renderer
      * @param {Object} gameConfig - Minigame configuration data
      */
-    constructor(dialogSystem, dialogPanel, minigameUI, gameConfig) {
+    constructor(dialogSystem, dialogPanel, minigameUI, gameConfig, audioManager) {
         this.#dialogSystem = dialogSystem;
         this.#dialogPanel = dialogPanel;
         this.#minigameUI = minigameUI;
         this.#gameConfig = gameConfig;
+        this.#audioManager = audioManager;
         this.#currentGame = null;
         this.#currentSpecificGame = null;
     }
@@ -105,7 +107,7 @@ export default class MinigameManager {
         
         // UI tisztítás - visszatérés a respawn ponthoz 🎮
         this.#minigameUI.clear();
-        
+        this.#audioManager.switchTrack('dialogue');
         if (config.onSuccess) {
             // DialogPanel közvetlenül rendereli az új dialógust
             this.#dialogPanel.startDialog(
@@ -126,7 +128,7 @@ export default class MinigameManager {
         
         // UI tisztítás - visszatérés a respawn ponthoz 🎮
         this.#minigameUI.clear();
-        
+        this.#audioManager.switchTrack('dialogue'); 
         if (config.onFailure) {
             // DialogPanel közvetlenül rendereli az új dialógust
             this.#dialogPanel.startDialog(
