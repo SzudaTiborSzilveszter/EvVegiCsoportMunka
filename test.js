@@ -3,6 +3,8 @@ import DialogPanel from './ui/DialogPanel.js';
 import MinigameManager from './modules/MinigameManager.js';
 import MinigameUI from './ui/MinigameUI.js';
 import { minigames } from './data/minigames.js';
+// 1. Karakter osztály importálása
+import Karakter from '../modules/Karakter.js'; 
 
 const mockCharacterData = {
     modifyTraits(modifier) {
@@ -13,6 +15,15 @@ const mockCharacterData = {
 const dialogSystem = new DialogSystem(mockCharacterData);
 const container = document.getElementById('dialog-container');
 const dialogPanel = new DialogPanel(dialogSystem, container);
+
+// --- 2. MS. BROWN LÉTREHOZÁSA ÉS MEGJELENÍTÉSE ---
+// Az 1.jpg-t használjuk képként
+const msBrown = new Karakter("Ms. Brown", 120, 15, dialogSystem, "/1.jpg");
+
+// Létrehozunk egy helyet a karakternek a HTML-ben, ha még nincs
+document.body.insertAdjacentHTML('beforeend', '<div id="character-area"></div>');
+msBrown.render("#character-area");
+// ------------------------------------------------
 
 // Initialize minigame system
 const minigameContainer = document.getElementById('minigame-container');
@@ -28,6 +39,8 @@ const endDialogBtn = document.getElementById('end-dialog');
 const startLockpickingBtn = document.getElementById('start-lockpicking');
 const startHackingBtn = document.getElementById('start-hacking');
 const startPuzzleBtn = document.getElementById('start-puzzle');
+
+window.dialogPanel = dialogPanel; // Elérhetővé tesszük a Karakter osztály számára
 
 startMainBtn.addEventListener('click', () => {
     dialogPanel.startDialog('mainCharacter', 0);
