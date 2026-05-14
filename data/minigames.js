@@ -25,7 +25,7 @@ export const minigames = {
         description: 'Simple door lock',
         onSuccess: {
             character: 'mainCharacter',
-            dialogIndex: 1
+            dialogIndex: 0
         },
         onFailure: {
             character: 'mainCharacter',
@@ -39,11 +39,11 @@ export const minigames = {
         description: 'Security door lock',
         onSuccess: {
             character: 'sibling',
-            dialogIndex: 1
+            dialogIndex: 0
         },
         onFailure: {
             character: 'sibling',
-            dialogIndex: 2
+            dialogIndex: 1
         }
     },
 
@@ -52,15 +52,15 @@ export const minigames = {
      */
     hacking_1: {
         type: 'hacking',
-        difficulty: 2,
+        difficulty: 5,
         description: 'Simple terminal',
         onSuccess: {
             character: 'mainCharacter',
-            dialogIndex: 3
+            dialogIndex: 0
         },
         onFailure: {
             character: 'mainCharacter',
-            dialogIndex: 4
+            dialogIndex: 0
         }
     },
 
@@ -70,11 +70,11 @@ export const minigames = {
         description: 'Military firewall',
         onSuccess: {
             character: 'sibling',
-            dialogIndex: 3
+            dialogIndex: 2
         },
         onFailure: {
             character: 'sibling',
-            dialogIndex: 4
+            dialogIndex: 1
         }
     },
 
@@ -87,11 +87,11 @@ export const minigames = {
         description: 'Simple pattern',
         onSuccess: {
             character: 'mainCharacter',
-            dialogIndex: 5
+            dialogIndex: 0
         },
         onFailure: {
             character: 'mainCharacter',
-            dialogIndex: 6
+            dialogIndex: 0
         }
     },
 
@@ -101,11 +101,11 @@ export const minigames = {
         description: 'Complex cipher',
         onSuccess: {
             character: 'sibling',
-            dialogIndex: 5
+            dialogIndex: 0
         },
         onFailure: {
             character: 'sibling',
-            dialogIndex: 6
+            dialogIndex: 1
         }
     }
 };

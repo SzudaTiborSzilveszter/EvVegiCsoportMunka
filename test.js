@@ -17,7 +17,7 @@ const dialogPanel = new DialogPanel(dialogSystem, container);
 // Initialize minigame system
 const minigameContainer = document.getElementById('minigame-container');
 const minigameUI = new MinigameUI(minigameContainer);
-const minigameManager = new MinigameManager(dialogSystem, minigameUI, minigames);
+const minigameManager = new MinigameManager(dialogSystem, dialogPanel, minigameUI, minigames);
 
 // Test button event listeners - Dialog
 const startMainBtn = document.getElementById('start-main-dialog');

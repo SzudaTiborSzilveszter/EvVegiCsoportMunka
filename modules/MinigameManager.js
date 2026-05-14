@@ -1,4 +1,6 @@
 import Minigame from './Minigame.js';
+import HackingGame from './HackingGame.js';
+import HackingUI from '../ui/HackingUI.js';
 
 /**
  * MinigameManager - Central orchestrator for all minigames
@@ -6,20 +8,25 @@ import Minigame from './Minigame.js';
  */
 export default class MinigameManager {
     #currentGame;
+    #currentSpecificGame;
     #dialogSystem;
+    #dialogPanel;
     #minigameUI;
     #gameConfig;
 
     /**
      * @param {DialogSystem} dialogSystem - Reference to the dialog system
+     * @param {DialogPanel} dialogPanel - Reference to the dialog panel UI
      * @param {MinigameUI} minigameUI - Reference to the UI renderer
      * @param {Object} gameConfig - Minigame configuration data
      */
-    constructor(dialogSystem, minigameUI, gameConfig) {
+    constructor(dialogSystem, dialogPanel, minigameUI, gameConfig) {
         this.#dialogSystem = dialogSystem;
+        this.#dialogPanel = dialogPanel;
         this.#minigameUI = minigameUI;
         this.#gameConfig = gameConfig;
         this.#currentGame = null;
+        this.#currentSpecificGame = null;
     }
 
     /**
@@ -50,7 +57,43 @@ export default class MinigameManager {
 
         this.#minigameUI.render(this.#currentGame, config);
 
+        // Típustól függően inicializáljuk a konkrét játékot
+        if (config.type === 'hacking') {
+            this.#initializeHackingGame(config.difficulty, onSuccess, onFailure);
+        } else if (config.type === 'lockpicking') {
+            // Később majd a lockpicking játék...
+            console.log('[MinigameManager] Lockpicking játék még nincs implementálva');
+        } else if (config.type === 'puzzle') {
+            // Később majd a puzzle játék...
+            console.log('[MinigameManager] Puzzle játék még nincs implementálva');
+        }
+
         return true;
+    }
+
+    /**
+     * Hacking játék inicializálása
+     * @private
+     */
+    #initializeHackingGame(difficulty, onSuccess, onFailure) {
+        const hackingGame = new HackingGame(
+            difficulty,
+            () => {
+                this.#currentGame.succeed();
+                onSuccess();
+            },
+            () => {
+                this.#currentGame.fail();
+                onFailure();
+            }
+        );
+
+        this.#currentSpecificGame = hackingGame;
+
+        // UI renderelése
+        const gameBoard = this.#minigameUI.getGameBoard();
+        const hackingUI = new HackingUI(gameBoard);
+        hackingUI.render(hackingGame);
     }
 
     /**
@@ -60,8 +103,12 @@ export default class MinigameManager {
     #handleSuccess(config) {
         console.log(`[MinigameManager] Game succeeded! Next dialog: ${config.onSuccess.character} / ${config.onSuccess.dialogIndex}`);
         
+        // UI tisztítás - visszatérés a respawn ponthoz 🎮
+        this.#minigameUI.clear();
+        
         if (config.onSuccess) {
-            this.#dialogSystem.startDialog(
+            // DialogPanel közvetlenül rendereli az új dialógust
+            this.#dialogPanel.startDialog(
                 config.onSuccess.character,
                 config.onSuccess.dialogIndex
             );
@@ -77,8 +124,12 @@ export default class MinigameManager {
     #handleFailure(config) {
         console.log(`[MinigameManager] Game failed! Next dialog: ${config.onFailure.character} / ${config.onFailure.dialogIndex}`);
         
+        // UI tisztítás - visszatérés a respawn ponthoz 🎮
+        this.#minigameUI.clear();
+        
         if (config.onFailure) {
-            this.#dialogSystem.startDialog(
+            // DialogPanel közvetlenül rendereli az új dialógust
+            this.#dialogPanel.startDialog(
                 config.onFailure.character,
                 config.onFailure.dialogIndex
             );
