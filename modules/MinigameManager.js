@@ -9,6 +9,7 @@ export default class MinigameManager {
     #dialogSystem;
     #minigameUI;
     #gameConfig;
+    #audioManager;
 
     /**
      * @param {DialogSystem} dialogSystem - Reference to the dialog system
@@ -19,6 +20,7 @@ export default class MinigameManager {
         this.#dialogSystem = dialogSystem;
         this.#minigameUI = minigameUI;
         this.#gameConfig = gameConfig;
+        this.#audioManager = audioManager;
         this.#currentGame = null;
     }
 
@@ -59,7 +61,7 @@ export default class MinigameManager {
      */
     #handleSuccess(config) {
         console.log(`[MinigameManager] Game succeeded! Next dialog: ${config.onSuccess.character} / ${config.onSuccess.dialogIndex}`);
-        
+        this.#audioManager.switchTrack('dialogue');
         if (config.onSuccess) {
             this.#dialogSystem.startDialog(
                 config.onSuccess.character,
@@ -76,7 +78,7 @@ export default class MinigameManager {
      */
     #handleFailure(config) {
         console.log(`[MinigameManager] Game failed! Next dialog: ${config.onFailure.character} / ${config.onFailure.dialogIndex}`);
-        
+        this.#audioManager.switchTrack('dialogue'); 
         if (config.onFailure) {
             this.#dialogSystem.startDialog(
                 config.onFailure.character,
