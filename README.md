@@ -23,7 +23,8 @@ A dialógusok **nested objektumlisták**, ahol minden válasz egy `nextDialog` i
 **Koncepció (Inventory slot analógia):**
 - Minden dialógus egy "inventory slotban" van (`dialogs` array)
 - Amikor választasz, az index alapján a rendszer az új slotba ugrik
-- Könnyen bővíthető: csak add hozzá az új dialógust az arrayba
+- Könnyen bővíthető: csak adj hozzá új objektumot a listába
+- 
 
 **Implementáció (pszeudokód):**
 ```javascript
@@ -86,7 +87,7 @@ A főszereplő **5-8 trait-je** van, amely a játékos választásai alapján v�
 
 **Trait Kör:**
 - **Empathy** (Empátia): Mennyire segítőkész vagy mások iránt
-- **Aggression** (Agresszivitás): Milyen durván bánol az emberekkel
+- **Aggression** (Agresszivitás): Milyen durván bánsz az emberekkel
 - **Desperation** (Kétségbeesettség): Milyen erős a szükséghelyzet
 - **Coldness** (Közömbösség): Mennyire vakmerő vagy szívtelen
 - **Trust** (Bizalom): Mennyire bízol az emberekben
