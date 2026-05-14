@@ -48,12 +48,9 @@ const startPuzzleBtn = document.getElementById('start-puzzle');
 
 window.dialogPanel = dialogPanel; // Elérhetővé tesszük a Karakter osztály számára
 
-inventory.addItem({
-    id: 'test_chip',
-    name: 'Adat-chip',
-    stackable: false,
-    description: 'Titkosított vállalati adatokkal.'
-});
+inventory.addItem('synth_caffeine');
+inventory.addItem('broken_neural_link');
+
 
 startMainBtn.addEventListener('click', () => {
     dialogPanel.startDialog('mainCharacter', 0);
