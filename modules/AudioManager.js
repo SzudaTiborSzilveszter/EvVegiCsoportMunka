@@ -1,4 +1,4 @@
-export class AudioManager{
+export default class AudioManager{
     constructor(){
         this.music = document.getElementById('bg-music');
         this.muted = false;

@@ -7,6 +7,8 @@ import { minigames } from './data/minigames.js';
 import Karakter from '../modules/Karakter.js'; 
 import { InventorySystem } from './modules/InventorySystem.js';
 import InventoryUI from './ui/InventoryUI.js';
+import AudioManager from './modules/AudioManager.js'
+
 
 const mockCharacterData = {
     modifyTraits(modifier) {
@@ -18,6 +20,7 @@ const inventoryUI = new InventoryUI(inventory);
 const dialogSystem = new DialogSystem(mockCharacterData);
 const container = document.getElementById('dialog-container');
 const dialogPanel = new DialogPanel(dialogSystem, container);
+const audioManager = new AudioManager();
 
 // --- 2. MS. BROWN LÉTREHOZÁSA ÉS MEGJELENÍTÉSE ---
 // Az 1.jpg-t használjuk képként
@@ -31,7 +34,7 @@ msBrown.render("#character-area");
 // Initialize minigame system
 const minigameContainer = document.getElementById('minigame-container');
 const minigameUI = new MinigameUI(minigameContainer);
-const minigameManager = new MinigameManager(dialogSystem, minigameUI, minigames);
+const minigameManager = new MinigameManager(dialogSystem, minigameUI, minigames, );
 
 // Test button event listeners - Dialog
 const startMainBtn = document.getElementById('start-main-dialog');

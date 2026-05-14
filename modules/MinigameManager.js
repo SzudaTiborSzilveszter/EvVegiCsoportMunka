@@ -16,7 +16,7 @@ export default class MinigameManager {
      * @param {MinigameUI} minigameUI - Reference to the UI renderer
      * @param {Object} gameConfig - Minigame configuration data
      */
-    constructor(dialogSystem, minigameUI, gameConfig) {
+    constructor(dialogSystem, minigameUI, gameConfig, audioManager) {
         this.#dialogSystem = dialogSystem;
         this.#minigameUI = minigameUI;
         this.#gameConfig = gameConfig;
