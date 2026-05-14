@@ -1,3 +1,8 @@
+// JAVÍTOTT SOR: Mivel egy mappában vannak
+import TraitSystem from './TraitSystem.js'; 
+// JAVÍTOTT SOR: A data mappa a modules mellett van, így innen nézve ../data/
+import { characterTraits } from '../data/traits.js';
+
 export default class Karakter {
     constructor(name, health, strength, dialogSystem, imageSrc) {
         this.name = name;
@@ -5,8 +10,13 @@ export default class Karakter {
         this.maxHealth = health;
         this.strength = strength;
         this.dialogSystem = dialogSystem;
-        this.imageSrc = imageSrc; // Itt adjuk át az 1.jpg-t
-        this.elementId = `char-${this.name.toLowerCase().replace(/\s/g, '-')}`;
+        this.imageSrc = imageSrc;
+        
+        const traitKey = this.name.toLowerCase().replace(/\s/g, '-');
+        this.elementId = `char-${traitKey}`;
+
+        const initialTraits = characterTraits[traitKey] || characterTraits["maincharacter"];
+        this.traitSystem = new TraitSystem(initialTraits);
     }
 
     render(containerSelector) {
@@ -24,30 +34,36 @@ export default class Karakter {
 
         container.insertAdjacentHTML('beforeend', htmlTemplate);
 
-        // Eseménykezelő a kattintáshoz
         const element = document.getElementById(this.elementId);
-        // Karakter.js-ben a render metóduson belül:
-        element.addEventListener('click', () => {
-            // Itt a talk-nak átadjuk a DialogPanel példányt
-            // Ehhez a talk hívásnál a test.js-ben lévő dialogPanel-t kell használnunk
+        
+        // Biztosítjuk, hogy a kattintás esemény regisztrálva legyen
+        element.addEventListener('click', (e) => {
+            e.preventDefault();
             this.talk(window.dialogPanel); 
         });
 
-        // Kis vizuális visszacsatolás (hover effekt)
         element.addEventListener('mouseenter', () => {
-            element.querySelector('img').style.transform = 'scale(1.05)';
+            const img = element.querySelector('img');
+            if(img) img.style.transform = 'scale(1.05)';
         });
         element.addEventListener('mouseleave', () => {
-            element.querySelector('img').style.transform = 'scale(1)';
+            const img = element.querySelector('img');
+            if(img) img.style.transform = 'scale(1)';
         });
-        
     }
 
     talk(uiPanel) {
-        if (uiPanel) {
+        const panel = uiPanel || window.dialogPanel;
+        if (panel) {
             console.log(`Interacting with ${this.name}...`);
-            // Itt nem a dialogSystem-et, hanem a DialogPanel-t hívjuk meg!
-            uiPanel.startDialog('mainCharacter', 0); 
+            // Itt a panelen keresztül indítjuk a dialógust
+            panel.startDialog('mainCharacter', 0); 
+        } else {
+            console.warn("DialogPanel not found! Make sure window.dialogPanel is set.");
         }
+    }
+
+    modifyTraits(modifier) {
+        this.traitSystem.modifyTraits(modifier);
     }
 }
