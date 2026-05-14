@@ -7,12 +7,25 @@
     <script type="module" src="/test.js"></script>
     <link rel="stylesheet" href="public/style.css">
     <title>Dialog System - Test</title>
-    
+    <style>
+        /* Hogy a karakter ne a gombok alatt legyen */
+        #character-area {
+            margin-top: 250px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .character-img {
+            max-width: 300px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+    </style>
 </head>
 <body>
     <audio id="bg-music" src="assets/music/mrambient.mp3" loop></audio>
     
-    <!-- Test Controls -->
     <div id="test-controls" style="position: fixed; top: 20px; left: 20px; z-index: 100;">
         <div style="margin-bottom: 10px; padding: 10px; background: rgba(0,255,153,0.1); border: 1px solid #00ff99; border-radius: 4px;">
             <div style="font-size: 11px; color: #00ff99; margin-bottom: 8px; font-weight: bold;">DIALOG TESTS</div>
@@ -31,5 +44,8 @@
     
     <div id="dialog-container"></div>
     <div id="minigame-container"></div>
+
+    <div id="character-area"></div>
+
 </body>
 </html>
