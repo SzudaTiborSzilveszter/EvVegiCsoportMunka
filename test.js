@@ -34,7 +34,7 @@ msBrown.render("#character-area");
 // Initialize minigame system
 const minigameContainer = document.getElementById('minigame-container');
 const minigameUI = new MinigameUI(minigameContainer);
-const minigameManager = new MinigameManager(dialogSystem, dialogPanel, minigameUI, minigames, );
+const minigameManager = new MinigameManager(dialogSystem, dialogPanel, minigameUI, minigames, audioManager);
 
 // Test button event listeners - Dialog
 const startMainBtn = document.getElementById('start-main-dialog');

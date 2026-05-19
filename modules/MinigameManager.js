@@ -1,6 +1,10 @@
 import Minigame from './Minigame.js';
 import HackingGame from './HackingGame.js';
+import LockpickingGame from './LockpickingGame.js';
+import PuzzleGame from './PuzzleGame.js';
 import HackingUI from '../ui/HackingUI.js';
+import LockpickingUI from '../ui/LockpickingUI.js';
+import PuzzleUI from '../ui/PuzzleUI.js';
 
 /**
  * MinigameManager - Central orchestrator for all minigames
@@ -63,11 +67,9 @@ export default class MinigameManager {
         if (config.type === 'hacking') {
             this.#initializeHackingGame(config.difficulty, onSuccess, onFailure);
         } else if (config.type === 'lockpicking') {
-            // Később majd a lockpicking játék...
-            console.log('[MinigameManager] Lockpicking játék még nincs implementálva');
+            this.#initializeLockpickingGame(config.difficulty, onSuccess, onFailure);
         } else if (config.type === 'puzzle') {
-            // Később majd a puzzle játék...
-            console.log('[MinigameManager] Puzzle játék még nincs implementálva');
+            this.#initializePuzzleGame(config.difficulty, onSuccess, onFailure);
         }
 
         return true;
@@ -82,11 +84,9 @@ export default class MinigameManager {
             difficulty,
             () => {
                 this.#currentGame.succeed();
-                onSuccess();
             },
             () => {
                 this.#currentGame.fail();
-                onFailure();
             }
         );
 
@@ -99,6 +99,50 @@ export default class MinigameManager {
     }
 
     /**
+     * Lockpicking játék inicializálása
+     * @private
+     */
+    #initializeLockpickingGame(difficulty, onSuccess, onFailure) {
+        const lockpickingGame = new LockpickingGame(
+            difficulty,
+            () => {
+                this.#currentGame.succeed();
+            },
+            () => {
+                this.#currentGame.fail();
+            }
+        );
+
+        this.#currentSpecificGame = lockpickingGame;
+
+        const gameBoard = this.#minigameUI.getGameBoard();
+        const lockpickingUI = new LockpickingUI(gameBoard);
+        lockpickingUI.render(lockpickingGame);
+    }
+
+    /**
+     * Puzzle játék inicializálása
+     * @private
+     */
+    #initializePuzzleGame(difficulty, onSuccess, onFailure) {
+        const puzzleGame = new PuzzleGame(
+            difficulty,
+            () => {
+                this.#currentGame.succeed();
+            },
+            () => {
+                this.#currentGame.fail();
+            }
+        );
+
+        this.#currentSpecificGame = puzzleGame;
+
+        const gameBoard = this.#minigameUI.getGameBoard();
+        const puzzleUI = new PuzzleUI(gameBoard);
+        puzzleUI.render(puzzleGame);
+    }
+
+    /**
      * Handle successful game completion
      * @private
      */
@@ -107,7 +151,7 @@ export default class MinigameManager {
         
         // UI tisztítás - visszatérés a respawn ponthoz 🎮
         this.#minigameUI.clear();
-        this.#audioManager.switchTrack('dialogue');
+        this.#audioManager?.switchTrack('dialogue');
         if (config.onSuccess) {
             // DialogPanel közvetlenül rendereli az új dialógust
             this.#dialogPanel.startDialog(
@@ -128,7 +172,7 @@ export default class MinigameManager {
         
         // UI tisztítás - visszatérés a respawn ponthoz 🎮
         this.#minigameUI.clear();
-        this.#audioManager.switchTrack('dialogue'); 
+        this.#audioManager?.switchTrack('dialogue'); 
         if (config.onFailure) {
             // DialogPanel közvetlenül rendereli az új dialógust
             this.#dialogPanel.startDialog(

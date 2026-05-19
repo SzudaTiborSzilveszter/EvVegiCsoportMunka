@@ -70,7 +70,7 @@ export default class DialogPanel {
         const nextButton = this.#container.querySelector('.next-btn');
         if (nextButton) {
             nextButton.addEventListener('click', () => {
-                this.render();
+                this.endDialog();
             });
         }
     }
