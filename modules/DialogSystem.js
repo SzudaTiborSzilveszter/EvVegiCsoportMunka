@@ -75,4 +75,19 @@ export default class DialogSystem {
         this.#currentCharacter = null;
         this.#currentDialogIndex = null;
     }
+
+    /**
+     * Advance to the next dialog of the current character
+     * @returns {boolean} true if next dialog exists and was loaded, false otherwise
+     */
+    nextDialogOfCurrentCharacter() {
+        const characterDialogs = this.#dialogs[this.#currentCharacter];
+        const nextDialog = characterDialogs.find((d) => d.id === this.#currentDialogIndex + 1);
+        
+        if (nextDialog) {
+            this.#currentDialogIndex = nextDialog.id;
+            return true;
+        }
+        return false;
+    }
 }

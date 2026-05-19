@@ -51,6 +51,7 @@ export default class DialogPanel {
         const dialogText = this.#dialogSystem.getDialogText();
         const choices = this.#dialogSystem.getChoices();
         const hasChoices = this.#dialogSystem.hasChoices();
+        const currentDialog = this.#dialogSystem.getCurrentDialog();
 
         let choicesHTML = '';
         
@@ -58,6 +59,7 @@ export default class DialogPanel {
             choicesHTML += `<button class="choice-btn" data-choice="${index}">${choice.text}</button>`;
         });
 
+        // Show "Tovabb" button if there are no choices (progression/autoNext handled by button click)
         let nextButtonDisplay = hasChoices ? 'none' : 'block';
 
         let code = `<div class="dialog-panel">
@@ -83,6 +85,19 @@ export default class DialogPanel {
         const choiceButtons = this.#container.querySelectorAll('.choice-btn');
         choiceButtons.forEach((button, index) => {
             button.addEventListener('click', () => {
+                console.log('[DialogPanel] Choice button clicked, index:', index);
+                
+                // Check if current dialog has progression BEFORE switching characters
+                const currentDialog = this.#dialogSystem.getCurrentDialog();
+                console.log('[DialogPanel] Current dialog before choice:', currentDialog);
+                
+                if (currentDialog && currentDialog.progression) {
+                    console.log('[DialogPanel] Dialog has progression, ending instead of advancing');
+                    this.endDialog();
+                    return;
+                }
+                
+                // No progression, proceed normally
                 this.#dialogSystem.selectChoice(index);
                 this.render();
             });
@@ -91,7 +106,38 @@ export default class DialogPanel {
         const nextButton = this.#container.querySelector('.next-btn');
         if (nextButton) {
             nextButton.addEventListener('click', () => {
-                this.endDialog();
+                console.log('[DialogPanel] Tovabb button clicked');
+                const currentDialog = this.#dialogSystem.getCurrentDialog();
+                console.log('[DialogPanel] Current dialog:', currentDialog);
+                
+                // 1. Check if dialog has progression (scene transition)
+                if (currentDialog?.progression) {
+                    console.log('[DialogPanel] Has progression, calling endDialog()');
+                    this.endDialog();
+                    return;
+                }
+                
+                // 2. Check if dialog has autoNext (auto-advance to next character)
+                if (currentDialog?.autoNext) {
+                    console.log('[DialogPanel] Has autoNext, switching to:', currentDialog.autoNext);
+                    this.#dialogSystem.startDialog(
+                        currentDialog.autoNext.nextCharacter,
+                        currentDialog.autoNext.nextDialogIndex
+                    );
+                    this.render();
+                    return;
+                }
+
+                // 3. Try to advance to next dialog of same character
+                console.log('[DialogPanel] Trying to advance to next dialog');
+                const hasNextDialog = this.#dialogSystem.nextDialogOfCurrentCharacter();
+                if (hasNextDialog) {
+                    this.render();
+                } else {
+                    // No next dialog - end conversation
+                    console.log('[DialogPanel] No next dialog, calling endDialog()');
+                    this.endDialog();
+                }
             });
         }
     }

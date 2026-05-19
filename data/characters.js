@@ -7,8 +7,8 @@ export const characters = {
         name: 'Sibling',
         sprite: '/assets/sprites/neutral_ferfi-removebg-preview.png'
     },
-    msBrown: {
+    robot: {
         name: 'Ms. Brown',
-        sprite: '/assets/sprites/neutral_ferfi-removebg-preview.png'
+        sprite: '/assets/sprites/robotsecurity.png'
     }
 };
