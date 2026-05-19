@@ -27,6 +27,7 @@ body {
     backdrop-filter: blur(10px);
     max-height: 35vh;
     overflow-y: auto;
+    z-index: 1001;
 }
 
 .dialog-header {
@@ -146,6 +147,59 @@ body {
 .dialog-panel::-webkit-scrollbar-thumb {
     background: #b300ff;
     border-radius: 4px;
+}
+
+/* Dialog Overlay - Background fade when dialog active */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    transition: all 0.5s ease;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.dialog-overlay.visible {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+}
+
+/* Dialog Sprites - Characters */
+.dialog-sprite {
+    position: fixed;
+    bottom: 0;
+    height: 90vh;
+    object-fit: contain;
+    object-position: bottom;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Left sprite (NPC/speaker) */
+.dialog-sprite.left {
+    left: -200px;
+    transform: translateX(-100px);
+}
+
+.dialog-sprite.left.entered {
+    opacity: 1;
+    transform: translateX(200px);
+}
+
+/* Right sprite (main character/player) */
+.dialog-sprite.right {
+    right: -200px;
+    transform: translateX(100px);
+}
+
+.dialog-sprite.right.entered {
+    opacity: 1;
+    transform: translateX(-200px);
 }
 
 .dialog-panel::-webkit-scrollbar-thumb:hover {

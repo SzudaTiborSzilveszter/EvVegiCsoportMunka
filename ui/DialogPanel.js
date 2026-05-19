@@ -1,11 +1,31 @@
+import { characters } from '../data/characters.js';
+
 export default class DialogPanel {
 
     #dialogSystem;
     #container;
+    #overlayEl;
+    #leftSprite;
+    #rightSprite;
 
     constructor(dialogSystem, containerElement) {
         this.#dialogSystem = dialogSystem;
         this.#container = containerElement;
+
+        // Create overlay and sprites once at startup
+        this.#overlayEl = document.createElement('div');
+        this.#overlayEl.className = 'dialog-overlay';
+        document.body.appendChild(this.#overlayEl);
+
+        this.#leftSprite = document.createElement('img');
+        this.#leftSprite.className = 'dialog-sprite left';
+        this.#leftSprite.alt = 'Speaker';
+        document.body.appendChild(this.#leftSprite);
+
+        this.#rightSprite = document.createElement('img');
+        this.#rightSprite.className = 'dialog-sprite right';
+        this.#rightSprite.alt = 'Player Character';
+        document.body.appendChild(this.#rightSprite);
     }
 
     /**
@@ -15,6 +35,7 @@ export default class DialogPanel {
      */
     startDialog(character, dialogIndex) {
         this.#dialogSystem.startDialog(character, dialogIndex);
+        this.#showVisuals(character);
         this.render();
     }
 
@@ -79,7 +100,45 @@ export default class DialogPanel {
      * End the current conversation and clear the dialog panel
      */
     endDialog() {
+        this.#hideVisuals();
         this.#dialogSystem.endConversation();
         this.render();
+    }
+
+    /**
+     * Show overlay and character sprites with animations
+     */
+    #showVisuals(characterKey) {
+        const speakerChar = characters[characterKey] || characters.sibling;
+        const playerChar = characters.mainCharacter;
+
+        // Set sprite images
+        this.#leftSprite.src = speakerChar.sprite;
+        this.#rightSprite.src = playerChar.sprite;
+
+        // Fade in background
+        this.#overlayEl.classList.add('visible');
+
+        // Trigger slide-in animations on next frame
+        requestAnimationFrame(() => {
+            this.#leftSprite.classList.add('entered');
+            this.#rightSprite.classList.add('entered');
+        });
+    }
+
+    /**
+     * Hide overlay and character sprites with animations
+     */
+    #hideVisuals() {
+        // Start exit animations
+        this.#leftSprite.classList.remove('entered');
+        this.#rightSprite.classList.remove('entered');
+        this.#overlayEl.classList.remove('visible');
+
+        // Clean up after animation completes
+        setTimeout(() => {
+            this.#leftSprite.src = '';
+            this.#rightSprite.src = '';
+        }, 500);
     }
 }
