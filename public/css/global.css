@@ -1,0 +1,15 @@
+/* ====== GLOBAL & BASE STYLES ====== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: #0a0e27;
+    color: #00ff99;
+    overflow: hidden;
+    height: 100vh;
+}

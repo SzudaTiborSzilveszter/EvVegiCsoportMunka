@@ -1,0 +1,164 @@
+/* ==================== HACKING GAME STYLES ==================== */
+
+.hacking-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.hacking-grid-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    max-width: 60%;
+    max-height: 100%;
+}
+
+.hacking-label {
+    font-size: 11px;
+    color: #00ff99;
+    margin-bottom: 10px;
+    text-shadow: 0 0 12px #00ff99;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.hacking-grid {
+    display: grid;
+    gap: 6px;
+    background: rgba(0, 20, 40, 0.6);
+    padding: 8px;
+    border: 2.5px solid #00ff99;
+    border-radius: 6px;
+    box-shadow: 0 0 30px rgba(0, 255, 153, 0.4),
+                inset 0 0 15px rgba(0, 255, 153, 0.15);
+    width: min(64vw, 440px);
+    max-width: 100%;
+    flex-shrink: 1;
+    height: 100%;
+    align-content: center;
+    grid-auto-rows: 1fr;
+}
+
+.hacking-cell {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(5, 10, 35, 0.9);
+    border: 2px solid #0088ff;
+    border-radius: 4px;
+    color: #0088ff;
+    font-weight: bold;
+    font-size: clamp(10px, 1.6vw, 14px);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-shadow: 0 0 8px #0088ff;
+    box-shadow: 0 0 15px rgba(0, 136, 255, 0.4);
+}
+
+@media (max-width: 480px) {
+    .hacking-cell {
+        font-size: 10px;
+    }
+}
+
+.hacking-cell:hover {
+    background: rgba(0, 136, 255, 0.25);
+    border-color: #00ff99;
+    color: #00ff99;
+    text-shadow: 0 0 12px #00ff99;
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.6);
+    transform: scale(1.08);
+}
+
+.hacking-cell.selected {
+    background: rgba(0, 255, 153, 0.35);
+    border-color: #00ff99;
+    color: #00ff99;
+    text-shadow: 0 0 18px #00ff99;
+    box-shadow: 0 0 25px rgba(0, 255, 153, 0.7), inset 0 0 12px rgba(0, 255, 153, 0.25);
+}
+
+.hacking-cell.target {
+    border-color: #ffaa00;
+    color: #ffaa00;
+}
+
+.hacking-targets-section {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: rgba(20, 0, 40, 0.7);
+    padding: 12px;
+    border: 2.5px solid #b300ff;
+    border-radius: 6px;
+    box-shadow: 0 0 30px rgba(179, 0, 255, 0.35),
+                inset 0 0 15px rgba(179, 0, 255, 0.12);
+    min-width: 130px;
+    max-width: 150px;
+    height: fit-content;
+    max-height: 100%;
+    overflow: hidden;
+    flex-shrink: 1;
+}
+
+.hacking-targets {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.hacking-target-code {
+    padding: 8px 10px;
+    background: rgba(179, 0, 255, 0.2);
+    border: 2px solid #b300ff;
+    border-radius: 4px;
+    color: #b300ff;
+    font-weight: bold;
+    font-size: 11px;
+    text-align: center;
+    text-shadow: 0 0 12px #b300ff;
+    box-shadow: 0 0 15px rgba(179, 0, 255, 0.35);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.hacking-target-code.completed {
+    background: rgba(0, 255, 153, 0.3);
+    border-color: #00ff99;
+    color: #00ff99;
+    text-shadow: 0 0 18px #00ff99;
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.6);
+    transform: scale(1.12);
+}
+
+.hacking-progress {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(179, 0, 255, 0.5);
+    color: #00ff99;
+    font-size: 11px;
+    text-shadow: 0 0 5px #00ff99;
+    white-space: nowrap;
+}
+
+#progress-text {
+    font-weight: bold;
+    color: #ffaa00;
+    text-shadow: 0 0 10px #ffaa00;
+}
