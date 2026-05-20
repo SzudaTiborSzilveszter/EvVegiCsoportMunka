@@ -3,6 +3,7 @@ import SceneManager from './modules/SceneManager.js';
 import DialogSystem from './modules/DialogSystem.js';
 import DialogPanel from './ui/DialogPanel.js';
 import AudioManager from './modules/AudioManager.js';
+import MainMenu from './ui/MainMenu.js';
 import { scenes } from './data/scenes.js';
 import { characters } from './data/characters.js';
 
