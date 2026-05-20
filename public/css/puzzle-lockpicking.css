@@ -1,0 +1,242 @@
+/* ==================== LOCKPICKING GAME STYLES ==================== */
+
+.lockpicking-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+}
+
+.lockpicking-svg {
+    width: min(72vw, 420px);
+    height: auto;
+    max-height: calc(88vh - 220px);
+    filter: drop-shadow(0 0 12px rgba(0, 255, 153, 0.35));
+}
+
+.lock-ring {
+    fill: none;
+    stroke: rgba(80, 140, 255, 0.78);
+    cursor: pointer;
+    transition: stroke 0.2s ease;
+}
+
+.lock-ring:hover {
+    stroke: #00ff99;
+}
+
+.lock-ring.connected {
+    stroke: rgba(80, 140, 255, 0.78);
+}
+
+.lock-route {
+    fill: none;
+    stroke: rgba(179, 0, 255, 0.85);
+    stroke-width: 6;
+    stroke-linecap: round;
+}
+
+.lock-route.connected {
+    stroke: #00ff99;
+    filter: drop-shadow(0 0 5px rgba(0, 255, 153, 0.65));
+}
+
+.lock-gate {
+    fill: #b300ff;
+}
+
+.lock-gate.connected {
+    fill: #b300ff;
+}
+
+.lock-entry-dot {
+    fill: #ffaa00;
+    filter: drop-shadow(0 0 6px rgba(255, 170, 0, 0.7));
+}
+
+.lock-center-dot {
+    fill: rgba(180, 180, 220, 0.5);
+}
+
+.lock-center-target {
+    fill: #00ff99;
+    filter: drop-shadow(0 0 7px rgba(0, 255, 153, 0.8));
+}
+
+.lockpicking-meta {
+    text-align: center;
+    color: #d8fff0;
+    text-shadow: 0 0 6px rgba(0, 255, 153, 0.2);
+    font-size: 12px;
+    letter-spacing: 0.6px;
+}
+
+.lockpicking-title {
+    color: #00ff99;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.lockpicking-hint {
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.lockpicking-progress {
+    color: #ffaa00;
+    font-weight: bold;
+}
+
+/* ==================== PUZZLE GAME STYLES ==================== */
+
+.puzzle-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.puzzle-meta {
+    text-align: center;
+    color: #d8fff0;
+    text-shadow: 0 0 6px rgba(0, 255, 153, 0.2);
+    font-size: 12px;
+    letter-spacing: 0.6px;
+}
+
+.puzzle-title {
+    color: #00ff99;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.puzzle-hint {
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.puzzle-stats {
+    color: #ffaa00;
+    font-weight: bold;
+}
+
+.puzzle-grid {
+    display: grid;
+    gap: 8px;
+    width: min(72vw, 380px);
+    max-width: 100%;
+    height: 100%;
+    grid-auto-rows: 1fr;
+}
+
+.puzzle-tile {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    border: 2px solid rgba(80, 140, 255, 0.75);
+    border-radius: 6px;
+    background: rgba(5, 12, 30, 0.9);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.45);
+}
+
+.puzzle-tile:hover {
+    border-color: #00ff99;
+    transform: translateY(-1px);
+}
+
+.puzzle-tile.connected {
+    border-color: rgba(0, 255, 153, 0.8);
+}
+
+.puzzle-tile.start {
+    border-color: #ffaa00;
+}
+
+.puzzle-tile.core {
+    border-color: #ff7bff;
+}
+
+.puzzle-tile.locked {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+.tile-center {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(130, 170, 255, 0.9);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px rgba(130, 170, 255, 0.5);
+}
+
+.puzzle-tile.connected .tile-center {
+    background: #00ff99;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.8);
+}
+
+.tile-conn {
+    position: absolute;
+    background: rgba(110, 160, 255, 0.85);
+}
+
+.puzzle-tile.connected .tile-conn {
+    background: #00ff99;
+    box-shadow: 0 0 8px rgba(0, 255, 153, 0.6);
+}
+
+.tile-conn.top,
+.tile-conn.bottom {
+    width: 6px;
+    height: 38%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tile-conn.top {
+    top: 0;
+}
+
+.tile-conn.bottom {
+    bottom: 0;
+}
+
+.tile-conn.left,
+.tile-conn.right {
+    height: 6px;
+    width: 38%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.tile-conn.left {
+    left: 0;
+}
+
+.tile-conn.right {
+    right: 0;
+}
+
+.tile-label {
+    position: absolute;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    top: 6px;
+    right: 6px;
+    color: #f3f7ff;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
+}
