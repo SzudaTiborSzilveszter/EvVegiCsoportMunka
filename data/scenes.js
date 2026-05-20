@@ -43,7 +43,12 @@ export const scenes = {
                 y: 60,
                 scale: 0.8,
                 zIndex: 5,
-                opacity: 1
+                opacity: 1,
+                minigame: {
+                    gameId: 'example_silent',
+                    nextScene: 'street',
+                    setFlag: 'completedHacking'
+                }
             }
         ],
         music: 'mrambient.mp3'

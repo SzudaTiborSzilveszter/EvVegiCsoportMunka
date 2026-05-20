@@ -12,6 +12,15 @@ export default class AudioManager{
             exploration: 'assets/music/cyberpunk.mp3'
         };
         
+        // Sound effects mapping
+        this.soundEffects = {
+            neutral: 'assets/sounds/dialogue_neutral.mp3',
+            happy: 'assets/sounds/dialogue_happy.mp3',
+            angry: 'assets/sounds/dialogue_angry.mp3',
+            sad: 'assets/sounds/dialogue_sad.mp3',
+            surprised: 'assets/sounds/dialogue_surprised.mp3',
+            confident: 'assets/sounds/dialogue_confident.mp3'
+        };
     }
     switchTrack(type) {
         if (this.tracks[type]) {
@@ -66,5 +75,19 @@ export default class AudioManager{
     setVolume(volume) {
         this.volume = Math.max(0, Math.min(1, volume));
         this.music.volume = this.volume;
+    }
+
+    /**
+     * Play a sound effect based on emotion
+     * @param {string} emotion - Emotion type (e.g., 'happy', 'angry', 'sad')
+     */
+    playSoundEffect(emotion) {
+        const soundPath = this.soundEffects[emotion] || this.soundEffects.neutral;
+        
+        const sfx = new Audio(soundPath);
+        sfx.volume = this.volume * 0.8; // Slightly lower than music
+        sfx.play().catch(error => {
+            console.log('Sound effect blocked or error:', error);
+        });
     }
 }

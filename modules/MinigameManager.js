@@ -18,6 +18,7 @@ export default class MinigameManager {
     #minigameUI;
     #gameConfig;
     #audioManager;
+    #onCompletionCallback;  // Callback for minigame completion with rewards
 
     /**
      * @param {DialogSystem} dialogSystem - Reference to the dialog system
@@ -38,18 +39,25 @@ export default class MinigameManager {
     /**
      * Start a minigame
      * @param {string} gameId - The minigame ID from config
+     * @param {Object} rewards - Optional rewards on completion {nextScene, rewardItem}
+     * @param {Function} onCompletion - Optional callback for completion handling
      * @returns {boolean} - Whether the game started successfully
      */
-    startGame(gameId) {
+    startGame(gameId, rewards = null, onCompletion = null) {
         const config = this.#gameConfig[gameId];
         if (!config) {
             console.error(`[MinigameManager] Game not found: ${gameId}`);
             return false;
         }
 
+        // Only set callback if explicitly passed, don't overwrite setOnCompletion()
+        if (onCompletion !== null) {
+            this.#onCompletionCallback = onCompletion;
+        }
+
         console.log(`[MinigameManager] Starting game: ${gameId}`);
 
-        const onSuccess = () => this.#handleSuccess(config);
+        const onSuccess = () => this.#handleSuccess(config, rewards);
         const onFailure = () => this.#handleFailure(config);
 
         this.#currentGame = new Minigame(
@@ -146,18 +154,28 @@ export default class MinigameManager {
      * Handle successful game completion
      * @private
      */
-    #handleSuccess(config) {
-        console.log(`[MinigameManager] Game succeeded! Next dialog: ${config.onSuccess.character} / ${config.onSuccess.dialogIndex}`);
+    #handleSuccess(config, rewards) {
+        console.log(`[MinigameManager] Game succeeded!`, rewards);
         
         // UI tisztítás - visszatérés a respawn ponthoz 🎮
         this.#minigameUI.clear();
         this.#audioManager?.switchTrack('dialogue');
-        if (config.onSuccess) {
-            // DialogPanel közvetlenül rendereli az új dialógust
+        
+        // If custom rewards callback provided, use that
+        if (this.#onCompletionCallback) {
+            this.#onCompletionCallback({
+                success: true,
+                rewards: rewards
+            });
+        } else if (config.onSuccess) {
+            // Fallback to default config behavior (dialog)
             this.#dialogPanel.startDialog(
                 config.onSuccess.character,
                 config.onSuccess.dialogIndex
             );
+        } else {
+            // No callback and no dialog configured - just end silently
+            console.log('[MinigameManager] Game completed with no dialog configured');
         }
 
         this.#currentGame = null;
@@ -179,6 +197,9 @@ export default class MinigameManager {
                 config.onFailure.character,
                 config.onFailure.dialogIndex
             );
+        } else {
+            // No dialog configured on failure - just end silently
+            console.log('[MinigameManager] Game failed with no dialog configured');
         }
 
         this.#currentGame = null;
@@ -206,5 +227,13 @@ export default class MinigameManager {
             console.log(`[MinigameManager] Game cancelled`);
             this.#currentGame.fail();
         }
+    }
+
+    /**
+     * Set completion callback for minigame rewards
+     * @param {Function} callback - Called on success with {success, rewards}
+     */
+    setOnCompletion(callback) {
+        this.#onCompletionCallback = callback;
     }
 }

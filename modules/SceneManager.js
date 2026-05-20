@@ -108,53 +108,44 @@ export default class SceneManager {
         // Sort by zIndex for proper layering
         const sorted = [...characters].sort((a, b) => (a.zIndex || 1) - (b.zIndex || 1));
 
-        sorted.forEach((charPos) => {
-            const charEl = this.#createCharacterElement(charPos);
-            this.#characterLayer.appendChild(charEl);
+        let html = '';
+
+        sorted.forEach((charPos, index) => {
+            // Get sprite from characters dataset
+            const characterData = this.#charactersData[charPos.character];
+            const spritePath = charPos.sprite || (characterData ? characterData.sprite : '');
+
+            const scale = charPos.scale || 1;
+            const flip = charPos.flip ? 'scaleX(-1)' : 'scaleX(1)';
+            const cursor = charPos.onClickDialog ? 'pointer' : 'default';
+            const zIndex = charPos.zIndex || 1;
+            const opacity = charPos.opacity ?? 1;
+
+            const animationClass = charPos.animation ? charPos.animation : '';
+            const dataId = `char-${index}`;
+
+            html += `
+                <div class="scene-character" id="${dataId}" style="left: ${charPos.x}%; top: ${charPos.y}%; z-index: ${zIndex}; opacity: ${opacity}; cursor: ${cursor};">
+                    <img src="${spritePath}" alt="${charPos.character}" class="character-sprite ${animationClass}" style="transform: ${flip} scale(${scale});">
+                </div>
+            `;
         });
-    }
 
-    /**
-     * Create a character element
-     * @private
-     */
-    #createCharacterElement(charPos) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'scene-character';
-        wrapper.style.left = `${charPos.x}%`;
-        wrapper.style.top = `${charPos.y}%`;
-        wrapper.style.zIndex = charPos.zIndex || 1;
-        wrapper.style.opacity = charPos.opacity ?? 1;
+        this.#characterLayer.insertAdjacentHTML('beforeend', html);
 
-        // Get sprite from characters dataset
-        const characterData = this.#charactersData[charPos.character];
-        const spritePath = charPos.sprite || (characterData ? characterData.sprite : '');
-
-        const img = document.createElement('img');
-        img.src = spritePath;
-        img.alt = charPos.character;
-        img.className = 'character-sprite';
-
-        const scale = charPos.scale || 1;
-        const flip = charPos.flip ? 'scaleX(-1)' : 'scaleX(1)';
-        img.style.transform = `${flip} scale(${scale})`;
-
-        if (charPos.animation) {
-            img.classList.add(charPos.animation);
-        }
-
-        // Make clickable if dialog is specified
-        if (charPos.onClickDialog) {
-            wrapper.style.cursor = 'pointer';
-            wrapper.addEventListener('click', () => {
-                if (this.#onCharacterClickCallback) {
-                    this.#onCharacterClickCallback(charPos.onClickDialog);
+        // Attach event listeners to clickable characters
+        sorted.forEach((charPos, index) => {
+            if (charPos.onClickDialog) {
+                const element = this.#characterLayer.querySelector(`#char-${index}`);
+                if (element) {
+                    element.addEventListener('click', () => {
+                        if (this.#onCharacterClickCallback) {
+                            this.#onCharacterClickCallback(charPos.onClickDialog);
+                        }
+                    });
                 }
-            });
-        }
-
-        wrapper.appendChild(img);
-        return wrapper;
+            }
+        });
     }
 
     /**
@@ -169,47 +160,36 @@ export default class SceneManager {
         // Sort by zIndex for proper layering
         const sorted = [...items].sort((a, b) => (a.zIndex || 1) - (b.zIndex || 1));
 
-        sorted.forEach((itemData) => {
-            const itemEl = this.#createItemElement(itemData);
-            this.#itemLayer.appendChild(itemEl);
+        let html = '';
+
+        sorted.forEach((itemData, index) => {
+            const scale = itemData.scale || 1;
+            const zIndex = itemData.zIndex || 5;
+            const opacity = itemData.opacity ?? 1;
+            const animationClass = itemData.animation ? itemData.animation : '';
+            const dataId = `item-${index}`;
+
+            html += `
+                <div class="scene-item" id="${dataId}" style="left: ${itemData.x}%; top: ${itemData.y}%; z-index: ${zIndex}; opacity: ${opacity}; cursor: pointer;">
+                    <img src="${itemData.sprite}" alt="${itemData.itemId}" class="item-sprite ${animationClass}" style="transform: scale(${scale});">
+                </div>
+            `;
         });
-    }
 
-    /**
-     * Create an interactive item element
-     * @private
-     */
-    #createItemElement(itemData) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'scene-item';
-        wrapper.style.left = `${itemData.x}%`;
-        wrapper.style.top = `${itemData.y}%`;
-        wrapper.style.zIndex = itemData.zIndex || 5;
-        wrapper.style.opacity = itemData.opacity ?? 1;
-        wrapper.style.cursor = 'pointer';
+        this.#itemLayer.insertAdjacentHTML('beforeend', html);
 
-        const img = document.createElement('img');
-        img.src = itemData.sprite;
-        img.alt = itemData.itemId;
-        img.className = 'item-sprite';
-
-        const scale = itemData.scale || 1;
-        img.style.transform = `scale(${scale})`;
-
-        if (itemData.animation) {
-            img.classList.add(itemData.animation);
-        }
-
-        // Make clickable
-        wrapper.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (this.#onItemClickCallback) {
-                this.#onItemClickCallback(itemData);
+        // Attach event listeners to items
+        sorted.forEach((itemData, index) => {
+            const element = this.#itemLayer.querySelector(`#item-${index}`);
+            if (element) {
+                element.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (this.#onItemClickCallback) {
+                        this.#onItemClickCallback(itemData);
+                    }
+                });
             }
         });
-
-        wrapper.appendChild(img);
-        return wrapper;
     }
 
     /**

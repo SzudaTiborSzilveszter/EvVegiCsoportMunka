@@ -1,6 +1,6 @@
 /**
  * GameManager orchestrates the entire story progression
- * Handles: Scene transitions, Dialog flow, Story state, Character interactions
+ * Handles: Scene transitions, Dialog flow, Story state, Character interactions, Minigames
  */
 export default class GameManager {
     #sceneManager;
@@ -9,6 +9,7 @@ export default class GameManager {
     #audioManager;
     #scenes;
     #inventorySystem;
+    #minigameManager;
     
     // Story state
     #currentScene = null;
@@ -17,13 +18,14 @@ export default class GameManager {
     #playerChoices = [];  // History of player decisions
     #currentChapter = 1;
 
-    constructor(sceneManager, dialogSystem, dialogPanel, audioManager, scenes, inventorySystem) {
+    constructor(sceneManager, dialogSystem, dialogPanel, audioManager, scenes, inventorySystem, minigameManager) {
         this.#sceneManager = sceneManager;
         this.#dialogSystem = dialogSystem;
         this.#dialogPanel = dialogPanel;
         this.#audioManager = audioManager;
         this.#scenes = scenes;
         this.#inventorySystem = inventorySystem;
+        this.#minigameManager = minigameManager;
 
         console.log('[GameManager] Constructor started');
         this.#setupEventListeners();
@@ -184,6 +186,37 @@ export default class GameManager {
      * @private
      */
     #onItemPickup(itemData) {
+        console.log(`📦 Item clicked: ${itemData.itemId}`, itemData);
+
+        // Check if item triggers a minigame
+        if (itemData.minigame) {
+            console.log(`[GameManager] Item triggers minigame:`, itemData.minigame);
+            
+            if (!this.#minigameManager) {
+                console.error('[GameManager] Minigame system not available');
+                return;
+            }
+
+            // Prepare rewards for minigame completion
+            const rewards = {
+                nextScene: itemData.minigame.nextScene,
+                rewardItem: itemData.minigame.rewardItem,
+                setFlag: itemData.minigame.setFlag
+            };
+
+            // Set up completion callback
+            this.#minigameManager.setOnCompletion((result) => {
+                if (result.success) {
+                    this.#onMinigameComplete(itemData, rewards);
+                }
+            });
+
+            // Start the minigame
+            this.#minigameManager.startGame(itemData.minigame.gameId, rewards);
+            return;
+        }
+
+        // Normal item pickup (no minigame)
         if (!this.#inventorySystem) {
             console.error('[GameManager] Inventory system not available');
             return;
@@ -196,18 +229,71 @@ export default class GameManager {
             console.log(`📦 Item picked up: ${itemId}`);
             
             // Remove item from scene
-            const scene = this.#currentScene;
-            if (scene && scene.items) {
-                scene.items = scene.items.filter(item => item.itemId !== itemId);
-                // Re-render the scene to remove the item
-                const sceneData = this.#scenes[scene.id];
-                if (sceneData) {
-                    sceneData.items = scene.items;
-                    this.#sceneManager.loadScene(sceneData);
+            const currentSceneData = this.#scenes[this.#currentScene];
+            if (currentSceneData && currentSceneData.items) {
+                currentSceneData.items = currentSceneData.items.filter(item => item.itemId !== itemId);
+                this.#sceneManager.loadScene(currentSceneData);
+            }
+
+            // Check if item has progression rules
+            if (itemData.progression) {
+                console.log('[GameManager] Item has progression:', itemData.progression);
+                const progression = itemData.progression;
+
+                // Mark flag/event as complete
+                if (progression.setFlag) {
+                    this.#storyFlags[progression.setFlag] = true;
+                    console.log(`🚩 Flag set: ${progression.setFlag}`);
+                }
+
+                // Transition to next scene
+                if (progression.nextScene) {
+                    console.log(`→ Transitioning to: ${progression.nextScene}`);
+                    // Small delay for UX
+                    setTimeout(() => {
+                        this.loadScene(progression.nextScene);
+                    }, 500);
                 }
             }
         } else {
             console.warn(`❌ Could not pick up item: ${itemId}`);
+        }
+    }
+
+    /**
+     * Handle minigame completion
+     * @private
+     */
+    #onMinigameComplete(itemData, rewards) {
+        console.log(`[GameManager] Minigame complete! Rewards:`, rewards);
+
+        // Remove item from scene after minigame
+        const currentSceneData = this.#scenes[this.#currentScene];
+        if (currentSceneData && currentSceneData.items) {
+            currentSceneData.items = currentSceneData.items.filter(item => item.itemId !== itemData.itemId);
+            this.#sceneManager.loadScene(currentSceneData);
+        }
+
+        // Set story flag if specified
+        if (rewards.setFlag) {
+            this.#storyFlags[rewards.setFlag] = true;
+            console.log(`🚩 Flag set: ${rewards.setFlag}`);
+        }
+
+        // Give item reward if specified
+        if (rewards.rewardItem && this.#inventorySystem) {
+            const rewardSuccess = this.#inventorySystem.addItem(rewards.rewardItem);
+            if (rewardSuccess) {
+                console.log(`🎁 Item reward given: ${rewards.rewardItem}`);
+            }
+        }
+
+        // Transition to next scene if specified
+        if (rewards.nextScene) {
+            console.log(`→ Transitioning to: ${rewards.nextScene}`);
+            setTimeout(() => {
+                this.loadScene(rewards.nextScene);
+            }, 500);
         }
     }
 

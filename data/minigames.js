@@ -7,12 +7,12 @@
  * @typedef {Object} MinigameConfig
  * @property {string} type - Game type ("lockpicking", "hacking", "puzzle")
  * @property {number} difficulty - Difficulty level (1-5)
- * @property {Object} onSuccess - What happens on success
- * @property {string} onSuccess.character - Character to talk to after success
- * @property {number} onSuccess.dialogIndex - Dialog ID to show after success
- * @property {Object} onFailure - What happens on failure
- * @property {string} onFailure.character - Character to talk to after failure
- * @property {number} onFailure.dialogIndex - Dialog ID to show after failure
+ * @property {Object} [onSuccess] - What happens on success (optional)
+ * @property {string} [onSuccess.character] - Character to talk to after success
+ * @property {number} [onSuccess.dialogIndex] - Dialog ID to show after success
+ * @property {Object} [onFailure] - What happens on failure (optional)
+ * @property {string} [onFailure.character] - Character to talk to after failure
+ * @property {number} [onFailure.dialogIndex] - Dialog ID to show after failure
  */
 
 export const minigames = {
@@ -107,5 +107,17 @@ export const minigames = {
             character: 'sibling',
             dialogIndex: 1
         }
+    },
+
+    /**
+     * EXAMPLE: Minigame with no dialog on success/failure
+     * Good for item-triggered minigames where rewards handle progression
+     */
+    example_silent: {
+        type: 'hacking',
+        difficulty: 2,
+        description: 'Silent minigame - no dialogs',
+        // onSuccess and onFailure are optional - omit them if you don't want dialogs
+        // The item's rewards will handle scene transitions instead
     }
 };

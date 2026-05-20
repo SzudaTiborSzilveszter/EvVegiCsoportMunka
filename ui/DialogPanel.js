@@ -9,10 +9,12 @@ export default class DialogPanel {
     #rightSprite;
     #currentCharacter;
     #sceneManager;
+    #audioManager;
 
-    constructor(dialogSystem, containerElement) {
+    constructor(dialogSystem, containerElement, audioManager) {
         this.#dialogSystem = dialogSystem;
         this.#container = containerElement;
+        this.#audioManager = audioManager;
         this.#currentCharacter = null;
 
         // Create overlay and sprites once at startup
@@ -112,6 +114,9 @@ export default class DialogPanel {
                 
                 // No progression, proceed normally
                 this.#dialogSystem.selectChoice(index);
+                // Update current character and show visuals for new dialog
+                this.#currentCharacter = this.#dialogSystem.getCurrentCharacter();
+                this.#showVisuals(this.#currentCharacter);
                 this.render();
             });
         });
@@ -133,10 +138,13 @@ export default class DialogPanel {
                 // 2. Check if dialog has autoNext (auto-advance to next character)
                 if (currentDialog?.autoNext) {
                     console.log('[DialogPanel] Has autoNext, switching to:', currentDialog.autoNext);
+                    const newCharacter = currentDialog.autoNext.nextCharacter;
                     this.#dialogSystem.startDialog(
-                        currentDialog.autoNext.nextCharacter,
+                        newCharacter,
                         currentDialog.autoNext.nextDialogIndex
                     );
+                    this.#currentCharacter = newCharacter;
+                    this.#showVisuals(newCharacter);
                     this.render();
                     return;
                 }
@@ -145,6 +153,7 @@ export default class DialogPanel {
                 console.log('[DialogPanel] Trying to advance to next dialog');
                 const hasNextDialog = this.#dialogSystem.nextDialogOfCurrentCharacter();
                 if (hasNextDialog) {
+                    this.#showVisuals(this.#currentCharacter);
                     this.render();
                 } else {
                     // No next dialog - end conversation
@@ -206,10 +215,23 @@ export default class DialogPanel {
     #showVisuals(characterKey) {
         const speakerChar = characters[characterKey] || characters.sibling;
         const playerChar = characters.mainCharacter;
+        
+        // Get current dialog to extract emotion
+        const currentDialog = this.#dialogSystem.getCurrentDialog();
+        const emotion = currentDialog?.emotion || 'neutral';
+
+        // Build emotion-specific sprite path
+        const leftSpritePath = this.#getEmotionSprite(speakerChar.sprite, emotion);
+        const rightSpritePath = playerChar.sprite; // Player stays neutral for now
 
         // Set sprite images
-        this.#leftSprite.src = speakerChar.sprite;
-        this.#rightSprite.src = playerChar.sprite;
+        this.#leftSprite.src = leftSpritePath;
+        this.#rightSprite.src = rightSpritePath;
+
+        // Play emotion sound effect
+        if (this.#audioManager) {
+            this.#audioManager.playSoundEffect(emotion);
+        }
 
         // Fade in background
         this.#overlayEl.classList.add('visible');
@@ -219,6 +241,39 @@ export default class DialogPanel {
             this.#leftSprite.classList.add('entered');
             this.#rightSprite.classList.add('entered');
         });
+    }
+
+    /**
+     * Get emotion-specific sprite path
+     * @private
+     */
+    #getEmotionSprite(basePath, emotion) {
+        if (!basePath || emotion === 'neutral') {
+            return basePath;
+        }
+
+        // Map emotions to sprite prefixes (handles naming inconsistencies)
+        const emotionMap = {
+            happy: 'happy',
+            angry: 'angry',
+            sad: 'sad',
+            surprised: 'surp',
+            confident: 'happy'  // confident uses happy sprite
+        };
+
+        const prefix = emotionMap[emotion] || emotion;
+        
+        // Determine if this is male or female based on base path
+        const isMale = basePath.includes('mal_player');
+        const isFemale = basePath.includes('fem_player') || basePath.includes('female_player');
+
+        // Build emotion sprite path based on character and emotion
+        const baseName = isMale ? 'mal_player_close' : (isFemale ? 'fem_player_close' : '');
+        
+        if (!baseName) return basePath; // Can't determine, return original
+
+        // Standard pattern: {emotion}_{gender}_player{_close}.png
+        return `assets/sprites/${prefix}_${baseName}.png`;
     }
 
     /**

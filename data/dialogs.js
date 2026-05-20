@@ -31,6 +31,7 @@ export const mainCharacterDialogs = [
     {
         id: 0,
         text: "Már sikerült megfűznöm Angstrom-ot. Találni fog egy dokit. Eddig bármikor szükségem volt rá, mindig segített, most se fog cserben hagyni.",
+        emotion: "confident",
         choices: [],
         autoNext: {
             nextCharacter: "sibling",
@@ -40,6 +41,7 @@ export const mainCharacterDialogs = [
     {
         id: 1,
         text: "Addigis, van egy elintézetlen ügyem. Menjünk.",
+        emotion: "neutral",
         choices: [],
         progression: {
             setFlag: "visitedAlleyway",
@@ -52,6 +54,7 @@ export const siblingDialogs = [
     {
         id: 0,
         text: "Már megint?",
+        emotion: "sad",
         choices: [
             {
                 text: "Igen, szétszakad a fejem.",
@@ -85,6 +88,7 @@ export const siblingDialogs = [
     {
         id: 1,
         text: "Muszáj mihamarabb találnunk egy dokit. Nem halaszthatjuk tovább. Ki tudja meddig fogod még bírni.",
+        emotion: "sad",
         choices: [
             {
                 text: "Ha még jobban nő a gyakorisága a fájdalmaknak, én sem fogom tudni.",
@@ -118,6 +122,7 @@ export const siblingDialogs = [
     {
         id: 2,
         text: "Remélem igazad van. Akármikor találkoztam vele, úgy éreztem valami nincs rendben vele. Szerintem akar tőled valamit.",
+        emotion: "surprised",
         choices: [
             {
                 text: "Mit gondolsz, tetszem neki?",
@@ -154,6 +159,7 @@ export const robotDialogs = [
     {
         id: 0,
         text: "Illetékteleneknek belépni tilos!",
+        emotion: "angry",
         choices: [
             {
                 text: "Nagyon fontos dolgom van bent, muszáj bejutnom!",
@@ -187,6 +193,7 @@ export const robotDialogs = [
     {
         id: 1,
         text: "Persze, ha lenne egy Eddie-m minden nyomorultra aki egy ilyen béna szöveggel próbált bejutni, már nyugodtan vissza vonulhatnék.",
+        emotion: "angry",
         choices: [
             {
                 text: "Élet, halál kérdése. Nem könyörögnék így, ha lenne más választásom.",
@@ -220,6 +227,7 @@ export const robotDialogs = [
     {
         id: 2,
         text: "Azt hiszed ilyen kicsi az önbecsülésem? Hát el kell, hogy áruljam, nagyon is komolyan veszem a munkámat. 500 eddie és bemehetsz.",
+        emotion: "confident",
         choices: [
             {
                 text: "*A pénz kifizetése*",
@@ -262,6 +270,7 @@ export const robotDialogs = [
     {
         id: 3,
         text: "Elnézést kérek, nem akartalak megsérteni! Tessék, menj csak be!",
+        emotion: "neutral",
         choices: [],
         progression: {
             setFlag: "robotAggression",
@@ -271,6 +280,7 @@ export const robotDialogs = [
     {
         id: 4,
         text: "A nem az nem! Na tünés innen!",
+        emotion: "angry",
         choices: [
             {
                 text: "*Beszélgetés befejezése*",
@@ -304,6 +314,7 @@ export const robotDialogs = [
     {
         id: 5,
         text: "Köszönöm! Ezzel akkor tisztában vagyunk. Menj csak be, de viselkedj nyugodtan.",
+        emotion: "confident",
         choices: [],
         progression: {
             setFlag: "robotBribed500",
@@ -313,6 +324,7 @@ export const robotDialogs = [
     {
         id: 6,
         text: "Valahogy nem lepödök meg, hogy csak 200-ad van. De látom, hogy többet nem tudnék kiszedni belőled. Egye fene, menj be, de meg egy mukkot se halljak felőled.",
+        emotion: "happy",
         choices: [],
         progression: {
             setFlag: "robotBribed200",
