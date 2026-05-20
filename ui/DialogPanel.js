@@ -7,10 +7,13 @@ export default class DialogPanel {
     #overlayEl;
     #leftSprite;
     #rightSprite;
+    #currentCharacter;
+    #sceneManager;
 
     constructor(dialogSystem, containerElement) {
         this.#dialogSystem = dialogSystem;
         this.#container = containerElement;
+        this.#currentCharacter = null;
 
         // Create overlay and sprites once at startup
         this.#overlayEl = document.createElement('div');
@@ -29,11 +32,21 @@ export default class DialogPanel {
     }
 
     /**
+     * Set reference to SceneManager for hiding/showing characters
+     * @param {SceneManager} sceneManager
+     */
+    setSceneManager(sceneManager) {
+        this.#sceneManager = sceneManager;
+    }
+
+    /**
      * Start displaying a dialog conversation
      * @param {string} character - Character key to start conversation with
      * @param {number} dialogIndex - Dialog ID to display
      */
     startDialog(character, dialogIndex) {
+        this.#currentCharacter = character;
+        this.#hideCharacterInScene(character);
         this.#dialogSystem.startDialog(character, dialogIndex);
         this.#showVisuals(character);
         this.render();
@@ -147,8 +160,44 @@ export default class DialogPanel {
      */
     endDialog() {
         this.#hideVisuals();
+        this.#showCharacterInScene(this.#currentCharacter);
+        this.#currentCharacter = null;
         this.#dialogSystem.endConversation();
         this.render();
+    }
+
+    /**
+     * Hide a character from the scene (during dialog)
+     * @private
+     */
+    #hideCharacterInScene(characterKey) {
+        if (!this.#sceneManager) return;
+        
+        const sceneCharacters = document.querySelectorAll('.scene-character');
+        sceneCharacters.forEach((charEl) => {
+            const img = charEl.querySelector('.character-sprite');
+            if (img && img.alt === characterKey) {
+                charEl.style.opacity = '0';
+                charEl.style.pointerEvents = 'none';
+            }
+        });
+    }
+
+    /**
+     * Show a character back in the scene (after dialog)
+     * @private
+     */
+    #showCharacterInScene(characterKey) {
+        if (!characterKey) return;
+        
+        const sceneCharacters = document.querySelectorAll('.scene-character');
+        sceneCharacters.forEach((charEl) => {
+            const img = charEl.querySelector('.character-sprite');
+            if (img && img.alt === characterKey) {
+                charEl.style.opacity = '1';
+                charEl.style.pointerEvents = 'auto';
+            }
+        });
     }
 
     /**

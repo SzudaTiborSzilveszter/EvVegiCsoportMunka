@@ -8,16 +8,58 @@ export default class InventoryUI {
     }
 
     #init() {
-        // Gomb létrehozása a jobb alsó sarokba
+        // Create backpack button
         this.btn = document.createElement('button');
         this.btn.id = 'inventory-toggle';
-        this.btn.innerText = '🎒 TASKA';
-        this.btn.style.cssText = 'position:fixed; bottom:20px; right:20px; z-index:100; padding:10px; background:#00f2ff; color:#000; border:none; cursor:pointer; font-family:monospace; font-weight:bold;';
+        this.btn.innerHTML = '🎒';
+        this.btn.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.3) 0%, rgba(102, 51, 255, 0.2) 100%);
+            border: 2px solid #0066ff;
+            color: #ffffff;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            clip-path: polygon(0% 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px, 8px 0%);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.4), inset 0 0 10px rgba(0, 102, 255, 0.15);
+        `;
         
-        // Panel létrehozása (alapból rejtett)
+        this.btn.addEventListener('mouseenter', () => {
+            this.btn.style.boxShadow = '0 0 25px rgba(0, 102, 255, 0.7), inset 0 0 15px rgba(0, 102, 255, 0.3)';
+            this.btn.style.transform = 'scale(1.1)';
+        });
+        
+        this.btn.addEventListener('mouseleave', () => {
+            this.btn.style.boxShadow = '0 0 15px rgba(0, 102, 255, 0.4), inset 0 0 10px rgba(0, 102, 255, 0.15)';
+            this.btn.style.transform = 'scale(1)';
+        });
+        
+        // Create inventory panel
         this.panel = document.createElement('div');
         this.panel.id = 'inventory-panel';
-        this.panel.style.cssText = 'position:fixed; bottom:70px; right:20px; width:250px; height:300px; background:rgba(0,0,0,0.9); border:2px solid #00f2ff; color:#00f2ff; display:none; padding:15px; overflow-y:auto; font-family:monospace;';
+        this.panel.style.cssText = `
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            width: 300px;
+            max-height: 400px;
+            background: linear-gradient(135deg, rgba(15, 10, 50, 0.95) 0%, rgba(25, 15, 70, 0.95) 100%);
+            border: 3px solid #0066ff;
+            color: #e0e0ff;
+            display: none;
+            padding: 20px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            z-index: 998;
+            clip-path: polygon(0% 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px, 12px 0%);
+            box-shadow: 0 0 30px rgba(0, 102, 255, 0.5), inset 0 0 20px rgba(0, 102, 255, 0.15);
+        `;
         
         document.body.appendChild(this.btn);
         document.body.appendChild(this.panel);
@@ -33,15 +75,42 @@ export default class InventoryUI {
 
     render() {
         const items = this.inventory.getItems();
-        this.panel.innerHTML = '<h3>--- INVENTORY ---</h3>';
+        this.panel.innerHTML = `
+            <div style="border-bottom: 2px solid #0066ff; padding-bottom: 10px; margin-bottom: 15px;">
+                <h3 style="margin: 0; color: #ffffff; text-shadow: 0 0 10px #0066ff; letter-spacing: 2px;">INVENTORY</h3>
+                <p style="margin: 5px 0 0 0; font-size: 12px; color: #6633ff;">${items.length}/20</p>
+            </div>
+        `;
         
         if (items.length === 0) {
-            this.panel.innerHTML += '<p>Üres...</p>';
+            this.panel.innerHTML += '<p style="color: #6633ff; font-style: italic;">Empty...</p>';
         } else {
             const list = document.createElement('ul');
+            list.style.cssText = 'list-style: none; padding: 0; margin: 0;';
+            
             items.forEach(item => {
                 const li = document.createElement('li');
-                li.innerText = `${item.name} ${item.quantity ? 'x'+item.quantity : ''}`;
+                li.style.cssText = `
+                    padding: 8px;
+                    margin-bottom: 8px;
+                    background: rgba(0, 102, 255, 0.1);
+                    border-left: 3px solid #6633ff;
+                    cursor: help;
+                    transition: all 0.2s ease;
+                `;
+                
+                li.addEventListener('mouseenter', () => {
+                    li.style.background = 'rgba(0, 102, 255, 0.2)';
+                    li.style.boxShadow = '0 0 10px rgba(0, 102, 255, 0.3)';
+                });
+                
+                li.addEventListener('mouseleave', () => {
+                    li.style.background = 'rgba(0, 102, 255, 0.1)';
+                    li.style.boxShadow = 'none';
+                });
+                
+                const quantity = item.quantity ? ` x${item.quantity}` : '';
+                li.innerHTML = `<strong style="color: #ffffff;">${item.name}</strong><span style="color: #6633ff; float: right;">${quantity}</span><br/><small style="color: #0066ff; font-size: 11px;">${item.description}</small>`;
                 li.title = item.description;
                 list.appendChild(li);
             });

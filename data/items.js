@@ -37,5 +37,11 @@ export const ITEMS = {
     name: 'Rozsdás Ripper-szike',
     stackable: false,
     description: 'Nem steril, de a célnak megfelel, ha gyorsan kell kiszedni egy implantot.'
+    },
+    'drone_pickup': {
+    id: 'drone_pickup',
+    name: 'Ellenőrzési Drone',
+    stackable: false,
+    description: 'Egy kis, összetört felderítő drón. Talán még működik.'
     }
 }

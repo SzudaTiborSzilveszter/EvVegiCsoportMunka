@@ -35,6 +35,17 @@ export const scenes = {
                 }
             }
         ],
+        items: [
+            {
+                itemId: 'drone_pickup',
+                sprite: 'assets/sprites/drone_pickup.png',
+                x: 50,
+                y: 60,
+                scale: 0.8,
+                zIndex: 5,
+                opacity: 1
+            }
+        ],
         music: 'mrambient.mp3'
     },
 

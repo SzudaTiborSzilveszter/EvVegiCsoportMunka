@@ -27,8 +27,10 @@ export default class SceneManager {
     #container;
     #backgroundEl;
     #characterLayer;
+    #itemLayer;
     #currentScene;
     #onCharacterClickCallback;
+    #onItemClickCallback;
     #charactersData;
     #audioManager;
 
@@ -38,6 +40,7 @@ export default class SceneManager {
         this.#audioManager = audioManager;
         this.#setupContainer();
         this.#onCharacterClickCallback = null;
+        this.#onItemClickCallback = null;
     }
 
     /**
@@ -55,6 +58,11 @@ export default class SceneManager {
         this.#characterLayer = document.createElement('div');
         this.#characterLayer.className = 'scene-characters';
         this.#container.appendChild(this.#characterLayer);
+
+        // Item layer
+        this.#itemLayer = document.createElement('div');
+        this.#itemLayer.className = 'scene-items';
+        this.#container.appendChild(this.#itemLayer);
     }
 
     /**
@@ -65,6 +73,7 @@ export default class SceneManager {
         this.#currentScene = scene;
         this.#renderBackground(scene.background, scene.ambientOpacity);
         this.#renderCharacters(scene.characters);
+        this.#renderItems(scene.items || []);
         
         // Play scene music if specified
         if (this.#audioManager && scene.music) {
@@ -149,6 +158,61 @@ export default class SceneManager {
     }
 
     /**
+     * Render all items in the scene
+     * @private
+     */
+    #renderItems(items) {
+        this.#itemLayer.innerHTML = '';
+
+        if (!items || items.length === 0) return;
+
+        // Sort by zIndex for proper layering
+        const sorted = [...items].sort((a, b) => (a.zIndex || 1) - (b.zIndex || 1));
+
+        sorted.forEach((itemData) => {
+            const itemEl = this.#createItemElement(itemData);
+            this.#itemLayer.appendChild(itemEl);
+        });
+    }
+
+    /**
+     * Create an interactive item element
+     * @private
+     */
+    #createItemElement(itemData) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'scene-item';
+        wrapper.style.left = `${itemData.x}%`;
+        wrapper.style.top = `${itemData.y}%`;
+        wrapper.style.zIndex = itemData.zIndex || 5;
+        wrapper.style.opacity = itemData.opacity ?? 1;
+        wrapper.style.cursor = 'pointer';
+
+        const img = document.createElement('img');
+        img.src = itemData.sprite;
+        img.alt = itemData.itemId;
+        img.className = 'item-sprite';
+
+        const scale = itemData.scale || 1;
+        img.style.transform = `scale(${scale})`;
+
+        if (itemData.animation) {
+            img.classList.add(itemData.animation);
+        }
+
+        // Make clickable
+        wrapper.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (this.#onItemClickCallback) {
+                this.#onItemClickCallback(itemData);
+            }
+        });
+
+        wrapper.appendChild(img);
+        return wrapper;
+    }
+
+    /**
      * Update a single character's position
      * @param {string} character - Character key
      * @param {Partial<CharacterPosition>} updates - Properties to update
@@ -207,5 +271,13 @@ export default class SceneManager {
      */
     setOnCharacterClick(callback) {
         this.#onCharacterClickCallback = callback;
+    }
+
+    /**
+     * Set the callback for item clicks
+     * @param {Function} callback - Function to call when item is clicked, receives item data
+     */
+    setOnItemClick(callback) {
+        this.#onItemClickCallback = callback;
     }
 }

@@ -8,6 +8,7 @@ export default class GameManager {
     #dialogPanel;
     #audioManager;
     #scenes;
+    #inventorySystem;
     
     // Story state
     #currentScene = null;
@@ -16,12 +17,13 @@ export default class GameManager {
     #playerChoices = [];  // History of player decisions
     #currentChapter = 1;
 
-    constructor(sceneManager, dialogSystem, dialogPanel, audioManager, scenes) {
+    constructor(sceneManager, dialogSystem, dialogPanel, audioManager, scenes, inventorySystem) {
         this.#sceneManager = sceneManager;
         this.#dialogSystem = dialogSystem;
         this.#dialogPanel = dialogPanel;
         this.#audioManager = audioManager;
         this.#scenes = scenes;
+        this.#inventorySystem = inventorySystem;
 
         console.log('[GameManager] Constructor started');
         this.#setupEventListeners();
@@ -38,6 +40,12 @@ export default class GameManager {
         this.#sceneManager.setOnCharacterClick((dialogInfo) => {
             console.log('[GameManager] Character clicked:', dialogInfo);
             this.startDialog(dialogInfo.character, dialogInfo.dialogIndex);
+        });
+
+        // Item click -> add to inventory
+        this.#sceneManager.setOnItemClick((itemData) => {
+            console.log('[GameManager] Item clicked:', itemData);
+            this.#onItemPickup(itemData);
         });
 
         // Intercept dialog end to handle progression
@@ -169,6 +177,38 @@ export default class GameManager {
      */
     getFlag(flag) {
         return this.#storyFlags[flag] ?? null;
+    }
+
+    /**
+     * Handle item pickup
+     * @private
+     */
+    #onItemPickup(itemData) {
+        if (!this.#inventorySystem) {
+            console.error('[GameManager] Inventory system not available');
+            return;
+        }
+
+        const itemId = itemData.itemId;
+        const success = this.#inventorySystem.addItem(itemId);
+
+        if (success) {
+            console.log(`📦 Item picked up: ${itemId}`);
+            
+            // Remove item from scene
+            const scene = this.#currentScene;
+            if (scene && scene.items) {
+                scene.items = scene.items.filter(item => item.itemId !== itemId);
+                // Re-render the scene to remove the item
+                const sceneData = this.#scenes[scene.id];
+                if (sceneData) {
+                    sceneData.items = scene.items;
+                    this.#sceneManager.loadScene(sceneData);
+                }
+            }
+        } else {
+            console.warn(`❌ Could not pick up item: ${itemId}`);
+        }
     }
 
     /**
