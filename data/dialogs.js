@@ -47,6 +47,15 @@ export const mainCharacterDialogs = [
             setFlag: "visitedAlleyway",
             nextScene: "street"
         }
+    },
+    {
+        id: 2,
+        text: "Hmm... Érdekesnek tűnik. megnézem mi van itt bent!",
+        emotion: "neutral",
+        choices: [],
+        progression: {
+            nextScene: "alley_storage"
+        }
     }
 ]
 

@@ -90,7 +90,7 @@ export const scenes = {
                 zIndex: 3,
                 onClickDialog: {
                     character: 'mainCharacter',
-                    dialogIndex: 1
+                    dialogIndex: 2
                 }
             }
         ],
@@ -98,7 +98,7 @@ export const scenes = {
     },
 
     alley_storage: {
-        id: 'alley_Storage',
+        id: 'alley_storage',
         background: 'assets/backgrounds/alley_storage.png',
         ambientOpacity: 0.9,
         characters: [
