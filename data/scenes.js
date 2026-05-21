@@ -7,7 +7,7 @@
 export const scenes = {
     apartmentDay: {
         id: 'apartmentDay',
-        background: 'assets/backgrounds/apartment_day.png',
+        background: '/assets/backgrounds/apartment_day.png',
         ambientOpacity: 0.8,
         characters: [
             {
@@ -26,7 +26,7 @@ export const scenes = {
         items: [
             {
                 itemId: 'drone_pickup',
-                sprite: 'assets/sprites/drone_pickup.png',
+                sprite: '/assets/sprites/drone_pickup.png',
                 x: 33.3,      
                 y: 75,      
                 scale: 1.1, 
@@ -44,7 +44,7 @@ export const scenes = {
 
     apartmentNight: {
         id: 'apartmentNight',
-        background: 'assets/backgrounds/apartment_night.png',
+        background: '/assets/backgrounds/apartment_night.png',
         ambientOpacity: 0.5,
         characters: [
             {
@@ -64,7 +64,7 @@ export const scenes = {
 
     street: {
         id: 'street',
-        background: 'assets/backgrounds/street.png',
+        background: '/assets/backgrounds/street.png',
         ambientOpacity: 0.9,
         characters: [
             {
@@ -99,7 +99,7 @@ export const scenes = {
 
     alley_storage: {
         id: 'alley_storage',
-        background: 'assets/backgrounds/alley_storage.png',
+        background: '/assets/backgrounds/alley_storage.png',
         ambientOpacity: 0.9,
         characters: [
             
