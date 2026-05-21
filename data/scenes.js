@@ -12,7 +12,7 @@ export const scenes = {
         characters: [
             {
                 character: 'sibling',
-                x: 25,
+                x: 85,
                 y: 30,
                 scale: 1.2,
                 zIndex: 2,
@@ -21,28 +21,16 @@ export const scenes = {
                     character: 'sibling',
                     dialogIndex: 0
                 }
-            },
-            {
-                character: 'mainCharacter',
-                x: 65,
-                y: 35,
-                scale: 1,
-                zIndex: 1,
-                flip: true,
-                onClickDialog: {
-                    character: 'mainCharacter',
-                    dialogIndex: 0
-                }
             }
         ],
         items: [
             {
                 itemId: 'drone_pickup',
                 sprite: 'assets/sprites/drone_pickup.png',
-                x: 50,
-                y: 60,
-                scale: 0.8,
-                zIndex: 5,
+                x: 33.3,      
+                y: 75,      
+                scale: 1.8, 
+                zIndex: 5,  
                 opacity: 1,
                 minigame: {
                     gameId: 'example_silent',
