@@ -249,6 +249,54 @@ export const ITEMS = {
 
 ---
 
+```mermaid
+classDiagram
+    direction TB
+    class GameManager {
+        -storyFlags: Map
+        -choicesHistory: Array
+        +init()
+        +changeScene(sceneId)
+        +startDialogue(dialogId)
+    }
+    class DialogSystem {
+        -currentDialogId: String
+        +getCurrentDialog()
+        +processChoice(choiceId)
+    }
+    class TraitSystem {
+        -traits: Map
+        +modifyTrait(name, value)
+    }
+    class InventorySystem {
+        -items: Array
+        -maxSlots: int
+        +addItem(id, qty)
+        +removeItem(id, qty)
+    }
+    class SceneManager {
+        -currentBackground: String
+        +loadScene(sceneId)
+        +renderCanvas()
+    }
+    class AudioManager {
+        +playMusic(type)
+        +playSFX(emotion)
+    }
+    class MinigameManager {
+        -activeMinigame: Minigame
+        +startMinigame(type, diff)
+    }
+
+    GameManager --> DialogSystem
+    GameManager --> TraitSystem
+    GameManager --> InventorySystem
+    GameManager --> SceneManager
+    GameManager --> AudioManager
+    GameManager --> MinigameManager
+```
+---
+
 ## 🎨 Esztétika
 
 - **Visual Novel UI**: Félátlátszó panelek, cyberpunk neon színek (rózsaszín, kék, lila)
