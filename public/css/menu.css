@@ -103,10 +103,11 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin: 40px 0;
+    margin: 40px auto;
     max-width: 280px;
     width: 100%;
     align-items: center;
+    justify-content: center;
 }
 
 .menu-button {

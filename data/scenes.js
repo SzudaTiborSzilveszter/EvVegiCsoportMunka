@@ -102,13 +102,3 @@ export const scenes = {
         characters: []
     }
 };
-
-/**
- * EXAMPLE: How to create an invisible interactive item (e.g., a door entrance)
- * 
- * Add this to any scene's items array:
- * 
- * 
- * When users hover over this area, they'll see a cyan "⏎" (Enter) icon appear
- * The rectangle will have a subtle glow effect to indicate interactivity
- */
