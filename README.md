@@ -1,412 +1,280 @@
-# 🌌 Liam/Jia Cyler - Cyberpunk Visual Novel
+# 🌌 Cyberpunk Visual Novel - Story Progression Game
 
-**Egy nyomasztó atmoszférájú webes játék**, amit a *Serial Experiments Lain* és *Cyberpunk 2077* esztétikája ihlet. Vizuális novella, ahol a te választásaid formálják a főszereplő személyiségét és sorsát.
+**Egy nyomasztó atmoszférájú webes játék**, amit a *Serial Experiments Lain* és *Cyberpunk 2077* esztétikája ihlet. Vizuális novella, ahol a te választásaid formálják a történet menetét.
 
 ---
 
 ## 📖 Sztorivázlat
 
-Egy fekete piacon szerzett kibernetikus implant miatt hallucinációkat élsz meg. Az implant állandó fájdalmat okoz, ami negatívan hat személyiségedre – alapvetően jószívű vagy, de a helyzet miatt gyakran durván bánsz az emberekkel.
+A játék egy darkwave, cyberpunk hangulatú történetben játszódik, ahol különféle jellegzetességű karakterek közötti dialógusokkal haladsz előre a sztorin. A te választásaid azonban **trait módosítást** okoznak, amely befolyásolja a karaktered személyiségét és a megnyitható dialógus ágakat.
 
-**Célod:** Találj egy **ripperdocot** és egy működő implantot, hogy végre megszabadulj az "átoktól".
-
-**Twist:** A hallucinációkban megjelenik a testvéred, aki próbál téged a jó úton tartani – de nem mindig működik.
+**Cél:** Végigjárni a sztorit, kezelni az inventoryt, és interaktív minigameken keresztül megoldani az akadályokat.
 
 ---
 
 ## 🎮 Játékmechanikák
 
-### 1. 📢 **Dialógus Rendszer** (Multiple Choice)
+### 1. 📢 **Dialógus Rendszer**
 
-A dialógusok **nested objektumlisták**, ahol minden válasz egy `nextDialog` indexet tartalmaz, amely a következő dialógust mutatja.
+A dialógusok karakterekhez vannak rendelve (`mainCharacter`, `sibling`, `robot` stb.). Minden dialógusnak:
+- Egy egyedi **ID** van
+- Egy szöveg tartalom
+- Opcionális választások lehetnek (választások nélküli dialógusok auto-advance-olnak)
+- Trait módosítások (`traitMod`) a választások alapján
+- Opcionális progresszió meghatározások (jelző beállítás, jelenet váltás)
 
-**Koncepció (Inventory slot analógia):**
-- Minden dialógus egy "inventory slotban" van (`dialogs` array)
-- Amikor választasz, az index alapján a rendszer az új slotba ugrik
-- Könnyen bővíthető: csak adj hozzá új objektumot a listába
-- 
+A dialógusok az alábbi struktúrában vannak szervezve:
+- `dialogs.js` – Karakterenként elválasztott dialógus sorozatok
+- `DialogSystem.js` – Kezeli az adott dialógus lekéréseit és választásokat
+- `DialogPanel.js` – Megjeleníti a dialógust és a lehetséges válaszokat
 
-**Implementáció (pszeudokód):**
-```javascript
-/**
- * @typedef {Object} DialogChoice
- * @property {string} text - A válasz szövege
- * @property {number} nextDialog - Az indexe a következő dialógusnak
- * @property {Object} traitModifier - Trait módosítások (pl. {empathy: +5, aggression: -3})
- * 
- * @typedef {Object} Dialog
- * @property {number} id - Dialógus ID
- * @property {string} speaker - Ki beszél (pl. "testvér", "Ripperdoc")
- * @property {string} text - A dialógus szövege
- * @property {DialogChoice[]} choices - Lehetséges válaszok
- */
-
-const dialogs = [
-  {
-    id: 0,
-    speaker: "testvér",
-    text: "Mi van? Megint az implant?",
-    choices: [
-      {
-        text: "Igen, szörnyű. Azonnal ki kell venni.",
-        nextDialog: 1,
-        traitModifier: { empathy: -5, desperation: +3 }
-      },
-      {
-        text: "Nincs semmi. Hagyj békén.",
-        nextDialog: 2,
-        traitModifier: { empathy: -2, coldness: +2 }
-      }
-    ]
-  },
-  // dialógus 1, 2, stb...
-];
-
-/**
- * Dialógus megjelenítése
- * @param {number} dialogId - Az aktuális dialógus ID
- * @returns {void}
- */
-function showDialog(dialogId) {
-  const current = dialogs[dialogId];
-  // Karakterkép, szöveg és választások megjelenítése...
-  // Válasz kiválasztása után: updateTraits() + showDialog(nextDialog)
-}
-```
+**Dialógus Áramlás:**
+Egy dialógusból választás után az új karakter és az új dialógus ID alapján továbbmegyünk. Ha nincs választás, az `autoNext` objektum automatikusan továbblép a következő dialógusra.
 
 ---
 
 ### 2. 🧬 **Trait (Tulajdonság) Rendszer**
 
-A főszereplő **5-8 trait-je** van, amely a játékos választásai alapján változik. Bizonyos karakterek, események vagy végkifejletek csak meghatározott trait-szintekkel érhető el.
-
-**Trait Meghatározás (Játékoslélektan analógia):**
-- Ez mint egy **szintrendszer karaktered különböző "skill treeiben"**
-- Minden választás minusz vagy plussz egyes trait-ekre
-- Bizonyos "boss karakterek" (pl. jó/rossz ripperdoc) csak jellemfüggően érhetők el
-
-**Trait Kör:**
+A karaktered **5 trait-je** van, melyek 0-100 között változnak. Ezek az alábbiak:
 - **Empathy** (Empátia): Mennyire segítőkész vagy mások iránt
 - **Aggression** (Agresszivitás): Milyen durván bánsz az emberekkel
 - **Desperation** (Kétségbeesettség): Milyen erős a szükséghelyzet
 - **Coldness** (Közömbösség): Mennyire vakmerő vagy szívtelen
 - **Trust** (Bizalom): Mennyire bízol az emberekben
 
-**Implementáció:**
-```javascript
-/**
- * @typedef {Object} CharacterTraits
- * @property {number} empathy - 0-100 (alapértelmezés: 50)
- * @property {number} aggression - 0-100 (alapértelmezés: 40)
- * @property {number} desperation - 0-100 (alapértelmezés: 70)
- * @property {number} coldness - 0-100 (alapértelmezés: 30)
- * @property {number} trust - 0-100 (alapértelmezés: 40)
- */
+Ezek a trait-ek a `TraitSystem.js` osztályban vannak kezelve, és minden dialógus választás módosíthatja őket a `traitMod` objektumon keresztül.
 
-class KarakterAdatok {
-  constructor(nem = "Liam") {
-    this.nev = nem;
-    this.traits = {
-      empathy: 50,
-      aggression: 40,
-      desperation: 70,
-      coldness: 30,
-      trust: 40
-    };
-  }
+---
 
-  /**
-   * Ellenőrizd, hogy elérhető-e egy esemény
-   * @param {string} eventId - Az esemény azonosítója
-   * @returns {boolean} - Elérhető-e
-   */
-  isEventUnlocked(eventId) {
-    const requirements = {
-      "goodRipperdoc": { empathy: 60, trust: 70 },
-      "blackMarketDealer": { aggression: 60, coldness: 50 }
-      // stb.
-    };
-    
+### 3. 🕹️ **Minigame Rendszer**
+
+A minigamek különálló játékmódok, amelyek a sztoriprogresszió közben aktiválódnak. Három típus létezik:
+- **Lockpicking**: Zárak nyitása
+- **Hacking**: Számítógépek feltörése
+- **Puzzle**: Logikai feladvány
+
+Minden minigamhez:
+- Egy nehézségi szint van (1-5)
+- Siker/kudarc utáni dialógus van definiálva
+- Az `onSuccess` / `onFailure` objektumok megadják a következő sztorit
+
+A `MinigameManager.js` kezeli az egész minigame rendszert, és az alábbi UI komponenseket használja:
+- `HackingUI.js`
+- `LockpickingUI.js`
+- `PuzzleUI.js`
+
+---
+
+### 4. 🎒 **Inventory & Tárgyak Rendszer**
+
+Az `InventorySystem.js` a játékos tárgyait kezeli. A tárgyak a `items.js`-ben vannak definiálva és a következő tulajdonságokkal rendelkeznek:
+- **id**: Egyedi azonosító
+- **name**: Tárgy neve
+- **stackable**: Halmozható-e (igaz/hamis)
+- **description**: Leírás
+- **quantity**: Mennyiség (stackable tárgyaknál)
+
+A játékos maximum 20 slottal rendelkezik, és tárgyakat fel/le tud venni a jelenetekben.
+
+---
+
+### 5. 📍 **Scene Management**
+
+A `SceneManager.js` kezeli a jeleneteket (backgrounds, karakterek pozíciói, clickable elemek). Minden jelenetben:
+- Egy háttérkép van
+- Karakterek vannak pozicionálva és kattinthatóak
+- Tárgyak lehetnek elhelyezve
+- Minigamek indíthatók el a tárgyakból
+
+Az `scenes.js` fájl tartalmazza az összes jelenet definícióját.
+
+---
+
+### 6. 🌙 **Audio Management**
+
+Az `AudioManager.js` kezeli a zenelejátszást és hangeffekteket:
+- **Zenék**: `dialogue`, `minigame`, `exploration` típusok
+- **Hangeffektek**: Dialógus emóciók (`neutral`, `happy`, `angry` stb.)
+- A musik és hangeffektek az `assets/music/` és `assets/sounds/` mappákban vannak
+
+---
+
+## 📁 Projekt Szerkezete
+
+```
+EvVegiCsoportMunka/
+├── main.js                           # Főprogram belépési pont
+├── package.json
+├── README.md (ez a fájl)
+├── test.html / test.js              # Teszt fájlok
+│
+├── modules/                         # Játék modulok
+│   ├── GameManager.js               # Központi szálkezelő
+│   ├── DialogSystem.js              # Dialógus logika
+│   ├── SceneManager.js              # Jelenet kezelés
+│   ├── InventorySystem.js           # Inventory kezelés
+│   ├── AudioManager.js              # Zene és hangok
+│   ├── TraitSystem.js               # Trait módosítások
+│   ├── MinigameManager.js           # Minigamek vezérlése
+│   ├── Minigame.js                  # Alap minigame osztály
+│   ├── HackingGame.js               # Hacking minigame
+│   ├── LockpickingGame.js           # Lockpicking minigame
+│   ├── PuzzleGame.js                # Puzzle minigame
+│   ├── Karakter.js                  # Karakter osztály
+│   └── ...
+│
+├── ui/                              # UI komponensek
+│   ├── DialogPanel.js               # Dialógus megjelenítése
+│   ├── InventoryUI.js               # Inventory UI
+│   ├── HackingUI.js                 # Hacking UI
+│   ├── LockpickingUI.js             # Lockpicking UI
+│   ├── PuzzleUI.js                  # Puzzle UI
+│   ├── MinigameUI.js                # Általános minigame UI
+│   ├── TraitDisplay.js              # Trait megjelenítés
+│   ├── MainMenu.js                  # Főmenü
+│   └── ...
+│
+├── data/                            # Adatfájlok
+│   ├── dialogs.js                   # Dialógusok
+│   ├── characters.js                # Karakterek
+│   ├── items.js                     # Tárgyak
+│   ├── scenes.js                    # Jelenetek
+│   ├── minigames.js                 # Minigamek
+│   ├── traits.js                    # Trait alapértékek
+│   ├── storyFlow.js                 # Sztori ágak
+│   └── ...
+│
+├── assets/                          # Média fájlok
+│   ├── sprites/                     # Karakter képek
+│   ├── backgrounds/                 # Háttérképek
+│   ├── music/                       # Zene fájlok
+│   └── sounds/                      # Hangeffektek
+│
+└── public/                          # Web fájlok
+    ├── index.html                   # Főoldal
+    ├── style.css                    # Globális stílusok
+    └── css/                         # CSS modulok
+        ├── global.css
+        ├── dialog.css
+        ├── minigame.css
+        ├── scene.css
+        ├── hacking.css
+        └── puzzle-lockpicking.css
 ```
 
 ---
 
-### 3. 🕹️ **Minigame Rendszer** (Önálló modulok)
+## 🛠️ Fő Modulok Áttekintése
 
-A minigamek **nem a dialógus része**, hanem független játékmód, amely az alábbi helyzetekben aktiválódik:
-- **Lockpicking**: Zárat kell nyitni
-- **Hacking**: Számítógépet kell feltörni
-- **Puzzle**: Logikai feladat
+### **GameManager**
+A játék központi vezérlője. Összeköti az összes modult:
+- Jelenetváltás kezelése
+- Dialógus indítás és progresszió
+- Story flagek (történet megjelölések)
+- Játékos választások története
 
-**Implementáció:**
-```javascript
-/**
- * @typedef {Object} Minigame
- * @property {string} type - Minigame típusa ("lockpicking", "hacking", "puzzle")
- * @property {number} difficulty - Nehézség (1-5)
- * @property {string} onSuccess - Dialógus ID siker esetén
- * @property {string} onFailure - Dialógus ID kudarc esetén
- */
+### **DialogSystem**
+Kezeli a dialógusok közötti navigációt:
+- Jelenlegi dialógus lekérése
+- Választások feldolgozása
+- Trait módosítások alkalmazása
 
-class Minigame {
-  constructor(type, difficulty, onSuccess, onFailure) {
-    this.type = type;
-    this.difficulty = difficulty;
-    this.onSuccess = onSuccess;
-    this.onFailure = onFailure;
-  }
+### **TraitSystem**
+A karaktertulajdonságok módosítása:
+- Trait értékek (0-100)
+- Trait módosítás funkció
+- Határértékek kezelése (nem mehet 0 alatt vagy 100 felett)
 
-  /**
-   * Lockpicking minigame
-   * (pl. időzített kattintások)
-   */
-  async lockpickingGame() {
-    // UI: Zárnak képe, időzítő, kattintási pontosság
-    // Sikerkritérium: X ideális kattintás az Y alatt
-    return Math.random() > (this.difficulty / 10);
-  }
-}
-```
+### **InventorySystem**
+A játékos tárgyainak kezelése:
+- Tárgyak hozzáadása/eltávolítása
+- Stackable tárgyak kezelése
+- Férőhely ellenőrzés
 
----
+### **SceneManager**
+Jelenetkezelés és interakciók:
+- Háttérkép betöltése
+- Karakterek és tárgyak pozícionálása
+- Kattintás eseménye kezelése
 
-### 4. 🎒 **Inventory & Tárgyak Rendszer** (Dinamikus)
+### **AudioManager**
+Zene és hangeffektek:
+- Háttérzene váltása
+- Hangeffektek lejátszása
+- Hangerő kezelés
 
-A játékos tárgyakat vehet fel, dobhat el, és használhat. Egyes tárgyak **stackelhető** (pl. ammo, pénz), mások **egyedi** (pl. kulcsok, quest itemek).
-
-**Implementáció:**
-```javascript
-/**
- * @typedef {Object} Item
- * @property {string} id - Egyedi azonosító
- * @property {string} name - Tárgy neve
- * @property {boolean} stackable - Stackelhető-e
- * @property {number} quantity - Mennyiség (ha stackable)
- * @property {string} description - Leírás
- * @property {number} rarity - Ritkaság (1-5)
- */
-
-class Inventory {
-  constructor(maxSlots = 20) {
-    this.items = [];
-    this.maxSlots = maxSlots;
-  }
-
-  /**
-   * Tárgy hozzáadása az inventoryhoz
-   * @param {Item} item - Hozzáadandó tárgy
-   * @returns {boolean} - Sikerült-e
-   */
-  addItem(item) {
-    // Ha stackable és már van ilyen: add quantity-t
-    if (item.stackable) {
-      const existing = this.items.find(i => i.id === item.id);
-      if (existing) {
-        existing.quantity += item.quantity || 1;
-        return true;
-      }
-    }
-
-    // Új slot szükséges
-    if (this.items.length >= this.maxSlots) {
-      console.log("Inventory tele van!");
-      return false;
-    }
-
-    this.items.push(item);
-    return true;
-  }
-
-  /**
-   * Tárgy eltávolítása
-   * @param {string} itemId - Tárgy ID
-   * @param {number} quantity - Mennyi eltávolítandó (stackable-nek)
-   */
-  removeItem(itemId, quantity = 1) {
-    const item = this.items.find(i => i.id === itemId);
-    if (!item) return false;
-
-    if (item.stackable) {
-      item.quantity -= quantity;
-      if (item.quantity <= 0) {
-        this.items = this.items.filter(i => i.id !== itemId);
-      }
-    } else {
-      this.items = this.items.filter(i => i.id !== itemId);
-    }
-    return true;
-  }
-
-  /**
-   * Tárgy használata
-   * @param {string} itemId - Tárgy ID
-   */
-  useItem(itemId) {
-    const item = this.items.find(i => i.id === itemId);
-    if (!item) return false;
-
-    // Item specifikus logika (pl. health potion -> +HP)
-    // Ez az "Item" osztályban végzendő el
-    return true;
-  }
-}
-```
-
----
-
-### 5. 🌙 **Ambient Music Hangulatfüggő**
-
-Hangulat alapján különböző zenék:
-- **Dialógus**: Szomorú, introspektív elektronika
-- **Minigame**: Feszültségnövelő, ritmusba lépő track
-- **Szabad felfedezés**: Nyomasztó cyberpunk ambience
-
----
-
-## 📁 Mappastruktúra
-
-```
-/src
-  ├── /modules
-  │   ├── DialogSystem.js
-  │   ├── TraitSystem.js
-  │   ├── InventorySystem.js
-  │   ├── Minigame.js
-  │   ├── AudioManager.js
-  │   └── Karakter.js
-  ├── /data
-  │   ├── dialogs.json (vagy .js)
-  │   ├── items.json
-  │   ├── traits.json
-  │   ├── characters.json
-  │   └── minigames.json
-  ├── /ui
-  │   ├── DialogPanel.js
-  │   ├── InventoryUI.js
-  │   ├── TraitDisplay.js
-  │   └── MinigameUI.js
-  ├── /assets
-  │   ├── /sprites
-  │   ├── /backgrounds
-  │   ├── /sounds
-  │   ├── /music
-  │   └── /fonts
-  └── main.js
-
-/public
-  ├── index.html
-  └── styles.css
-```
-
----
-
-## 🛠️ Osztályok Áttekintése
-
-### **DialogPanel**
-Kezeli a dialógus megjelenítést, választások kiválasztását, trait módosításokat.
-
-### **KarakterAdatok**
-Tároja a karakterek trait értékeit, egyéb adatait (név, nem, stb.).
-
-### **Karakter** (NPC osztály)
-NPC karakterek adatai: dialógusok, feloldási feltételek.
-
-### **Minigame**
-Minigame logika, típustól függő játékmenet.
-
-### **Tárgyak** (Item)
-Egy tárgy definíciója: stackable, rarity, effect, stb.
-
-### **Inventory**
-Játékos inventoryja, tárgy Management.
-
-### **Játék** (GameManager)
-Szálkezelés: dialógusok, minigamek, inventory, trait módosítások összekapcsolása.
+### **MinigameManager**
+Minigamek vezérlése:
+- Minigame indítása
+- Siker/kudarc kezelése
+- Dialógus utáni progresszió
 
 ---
 
 ## 🚀 Fejlesztői Útmutató
 
-### Szükséges technológiák
-- **Egyszerű DOM manipuláció**
+### Technológiák
 - **Vanilla JavaScript** (ES6+)
-- **JSON** adattároláshoz
-- **Web Audio API** vagy **Howler.js** zenelejátszáshoz
+- **HTML5 Canvas** (Scene rendering)
+- **Web Audio API** (Zene és hangok)
+- **CSS3** (Styling és animációk)
 
----
+### Új Dialógus Hozzáadása
 
-## 📝 Dialógus Szerkesztés
+Az új dialógusokat a `data/dialogs.js`-be kell hozzáadni. Nézz meg meglévő dialógus struktúrákat a mintához.
 
-Új dialógus hozzáadásához:
+### Új Tárgy Hozzáadása
+
+Új tárgyok a `data/items.js` **ITEMS** objektumához adódnak:
 
 ```javascript
-// data/dialogs.js
-const dialogs = [
-  // ... meglévő dialógusok
-  {
-    id: 10,
-    speaker: "új NPC",
-    text: "Ez egy új dialógus!",
-    choices: [
-      {
-        text: "Első válasz",
-        nextDialog: 11,
-        traitModifier: { empathy: +2 }
-      },
-      {
-        text: "Második válasz",
-        nextDialog: 12,
-        traitModifier: { aggression: +3, empathy: -2 }
-      }
-    ]
-  }
-  // ... stb.
-];
+export const ITEMS = {
+    'new_item_id': {
+        id: 'new_item_id',
+        name: 'Tárgy neve',
+        stackable: true/false,
+        description: 'Leírás'
+    },
+    // ...
+};
 ```
+
+### Új Jelenet Létrehozása
+
+Új jelenetek a `data/scenes.js`-ben:
+- Háttérkép útvonal
+- Karakterek pozíciói
+- Kattintható tárgyak
+- Minigame indítások
 
 ---
 
 ## 🎨 Esztétika
 
 - **Visual Novel UI**: Félátlátszó panelek, cyberpunk neon színek (rózsaszín, kék, lila)
-- **Font**: Monospace (pl. *Courier New*, *IBM Plex Mono*) a hacker érzéshez
-- **Háttérkép**: Pixelart, glitch effektek, "mátrix" szerű animációk
+- **Font**: Monospace (pl. *Courier New*, *IBM Plex Mono*)
+- **Háttérkép**: Pixelart és glitch effektek
 
 ---
 
-## 📋 Jövőbeli Kiterjesztések
+## 📋 Aktuális Fejlesztés
 
+Jelenleg a követkzekőkön dolgozunk:
+- [ ] Dialógus ágak bővítése
+- [ ] Minigame UI-k finomítása
+- [ ] Audio optimalizáció
 - [ ] Mentés/Betöltés rendszer
-- [ ] Több ág sztori (branching narrative)
 - [ ] NPC kapcsolat rendszer
-- [ ] Végkifejlet variáció (5+ lehetséges vég)
-- [ ] Cheater mód (trait hack)
 
 ---
 
 ## 👥 Projekt Csapata
 
-| Csapattag | Szerep | Feladatok |
-|-----------|--------|----------|
-| **Szuda Tibor Szilveszter** | Kreatív vezető | Dialógus írás, kódolás, kreatív irányítás |
-| **Vén Dávid Zsolt** | Hangmérnök | Zene, hangeffektek, hangmérnökség, kódolás, Jókedv |
-| **Szontagh Ágoston Botond** | Rendszer tervezó | Rendszer architektúra, kódolás, technikai tervezés |
-
----
-
-## 📊 Rendszer UML Diagramm
-
-Az alábbi ábra mutatja a **GameManager** rendszer fő komponenseit és azok kapcsolatait:
-
-![GameManager UML Diagram](./GameManager%20Inventory-2026-05-12-100913.png)
-
-**Ábra magyarázata:**
-- A **GameManager** a központi rendszer, amely összeköti az összes almodult
-- **DialogSystem**: Dialógusok kezelése és megjelenítése
-- **TraitSystem**: Karaktertulajdonságok (empátia, agresszivitás, stb.)
-- **InventorySystem**: Tárgyak tárolása és kezelése
-- **Minigame**: Logikai játékok és minigamek
-- Minden modul szigetelten működik, de a GameManager összeköti őket
+| Csapattag | Szerep |
+|-----------|--------|
+| **Szuda Tibor Szilveszter** | Kreatív vezető |
+| **Vén Dávid Zsolt** | Hangmérnök |
+| **Szontagh Ágoston Botond** | Rendszer tervezó |
 
 
 
