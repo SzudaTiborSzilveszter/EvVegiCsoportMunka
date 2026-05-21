@@ -29,7 +29,7 @@ export const scenes = {
                 sprite: 'assets/sprites/drone_pickup.png',
                 x: 33.3,      
                 y: 75,      
-                scale: 1.8, 
+                scale: 1.1, 
                 zIndex: 5,  
                 opacity: 1,
                 minigame: {
