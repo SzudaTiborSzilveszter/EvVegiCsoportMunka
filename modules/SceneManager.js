@@ -168,12 +168,28 @@ export default class SceneManager {
             const opacity = itemData.opacity ?? 1;
             const animationClass = itemData.animation ? itemData.animation : '';
             const dataId = `item-${index}`;
+            const isInvisible = itemData.isInvisible || false;
+            const width = itemData.width || 100; // width in pixels
+            const height = itemData.height || 100; // height in pixels
+            const invisibleClass = isInvisible ? 'invisible-item' : '';
 
-            html += `
-                <div class="scene-item" id="${dataId}" style="left: ${itemData.x}%; top: ${itemData.y}%; z-index: ${zIndex}; opacity: ${opacity}; cursor: pointer;">
-                    <img src="${itemData.sprite}" alt="${itemData.itemId}" class="item-sprite ${animationClass}" style="transform: scale(${scale});">
-                </div>
-            `;
+            // For invisible items, don't render an image
+            if (isInvisible) {
+                html += `
+                    <div class="scene-item ${invisibleClass}" id="${dataId}" 
+                        style="left: ${itemData.x}%; top: ${itemData.y}%; z-index: ${zIndex}; cursor: pointer; width: ${width}px; height: ${height}px;">
+                        <div class="invisible-item-content">
+                            <span class="enter-icon">⏎</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="scene-item" id="${dataId}" style="left: ${itemData.x}%; top: ${itemData.y}%; z-index: ${zIndex}; opacity: ${opacity}; cursor: pointer;">
+                        <img src="${itemData.sprite}" alt="${itemData.itemId}" class="item-sprite ${animationClass}" style="transform: scale(${scale});">
+                    </div>
+                `;
+            }
         });
 
         this.#itemLayer.insertAdjacentHTML('beforeend', html);
