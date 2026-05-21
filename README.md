@@ -295,6 +295,7 @@ classDiagram
     GameManager --> AudioManager
     GameManager --> MinigameManager
 ```
+
 ---
 
 ## 🎨 Esztétika
