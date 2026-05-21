@@ -88,9 +88,34 @@ export const scenes = {
                 width: 120,
                 height: 150,
                 zIndex: 3,
+                onClickDialog: {
+                    character: 'mainCharacter',
+                    dialogIndex: 1
+                }
+            }
+        ],
+        music: 'alleyAmbiance.mp3'
+    },
+
+    alley_storage: {
+        id: 'alley_Storage',
+        background: 'assets/backgrounds/alley_storage.png',
+        ambientOpacity: 0.9,
+        characters: [
+            
+        ],
+        items: [
+            {
+                itemId: 'storage_safe',
+                isInvisible: false,           
+                x: 30,
+                y: 60,
+                width: 120,
+                height: 150,
+                zIndex: 3,
                 minigame: {
-                    gameId: 'door_entrance',
-                    nextScene: 'inside_building'
+                    gameId: 'lockpicking_2',
+                    nextScene: 'street'
                 }
             }
         ],

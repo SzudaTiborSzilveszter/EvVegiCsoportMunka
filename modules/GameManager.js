@@ -44,10 +44,18 @@ export default class GameManager {
             this.startDialog(dialogInfo.character, dialogInfo.dialogIndex);
         });
 
-        // Item click -> add to inventory
+        // Item click -> add to inventory or trigger dialog
         this.#sceneManager.setOnItemClick((itemData) => {
             console.log('[GameManager] Item clicked:', itemData);
-            this.#onItemPickup(itemData);
+            
+            // If item has a dialog, trigger that instead of picking it up
+            if (itemData.onClickDialog) {
+                console.log('[GameManager] Item has dialog, starting dialog instead of pickup');
+                this.startDialog(itemData.onClickDialog.character, itemData.onClickDialog.dialogIndex);
+            } else {
+                // Otherwise, try to pick it up as an inventory item
+                this.#onItemPickup(itemData);
+            }
         });
 
         // Intercept dialog end to handle progression
