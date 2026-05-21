@@ -107,6 +107,7 @@ export const scenes = {
         items: [
             {
                 itemId: 'storage_safe',
+                sprite: '/assets/sprites/storage_safe.png',
                 isInvisible: false,           
                 x: 30,
                 y: 60,
