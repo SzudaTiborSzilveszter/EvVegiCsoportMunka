@@ -59,3 +59,81 @@
     filter: drop-shadow(0 10px 30px rgba(0, 255, 153, 0.5)) drop-shadow(0 0 40px rgba(0, 255, 153, 0.3));
     transform: scale(1.05);
 }
+
+/* ====== SCENE ITEMS ====== */
+
+.scene-items {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.scene-item {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+}
+
+/* Visible items (with sprite) */
+.scene-item:not(.invisible-item) {
+    transform: translate(-50%, -50%);
+}
+
+.item-sprite {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+    transition: all 0.3s ease;
+}
+
+.scene-item:not(.invisible-item):hover .item-sprite {
+    filter: drop-shadow(0 5px 25px rgba(255, 0, 255, 0.6)) drop-shadow(0 0 15px rgba(255, 0, 255, 0.3));
+    transform: scale(1.1);
+}
+
+/* Invisible items (interactive rectangles) */
+.invisible-item {
+    background-color: transparent;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.invisible-item-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.enter-icon {
+    font-size: 36px;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #0088ff;
+    font-weight: bold;
+}
+
+/* Hover state for invisible items */
+.invisible-item:hover {
+    background-color: rgba(0, 255, 255, 0.05);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.2), 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.invisible-item:hover .invisible-item-content {
+    opacity: 1;
+}
+
+.invisible-item:active {
+    transform: scale(0.95);
+}
