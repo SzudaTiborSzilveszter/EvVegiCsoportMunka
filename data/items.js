@@ -26,22 +26,28 @@ export const ITEMS = {
         description: '36 óra ébrenlét.'
     },
     'dohany':{
-    id: 'dohany',
-    name: 'Dohány (Sly-moka)',
-    stackable: true,
-    quantity: 1,
-    description: 'Ritka kincs a szintetikus világban. Egy doboz árából egy egész lakást bérelhetnél a Peremvidéken.'
+        id: 'dohany',
+        name: 'Dohány (Sly-moka)',
+        stackable: true,
+        quantity: 1,
+        description: 'Ritka kincs a szintetikus világban. Egy doboz árából egy egész lakást bérelhetnél a Peremvidéken.'
     },
     'ripper_scalpel':{
-    id: 'ripper_scalpel',
-    name: 'Rozsdás Ripper-szike',
-    stackable: false,
-    description: 'Nem steril, de a célnak megfelel, ha gyorsan kell kiszedni egy implantot.'
+        id: 'ripper_scalpel',
+        name: 'Rozsdás Ripper-szike',
+        stackable: false,
+        description: 'Nem steril, de a célnak megfelel, ha gyorsan kell kiszedni egy implantot.'
     },
     'drone_pickup': {
-    id: 'drone_pickup',
-    name: 'Ellenőrzési Drone',
-    stackable: false,
-    description: 'Egy kis, összetört felderítő drón. Talán még működik.'
+        id: 'drone_pickup',
+        name: 'Ellenőrzési Drone',
+        stackable: false,
+        description: 'Egy kis, összetört felderítő drón. Talán még működik.'
+    },
+    'storage_safe': {
+        id: 'storage_safe',
+        name: 'Furcsa széf',
+        stackable: 'false',
+        description: 'Egy kis zugban eldugott széf'
     }
 }
