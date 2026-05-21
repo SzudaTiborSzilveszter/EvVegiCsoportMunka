@@ -186,12 +186,14 @@ export default class MinigameManager {
      * @private
      */
     #handleFailure(config) {
-        console.log(`[MinigameManager] Game failed! Next dialog: ${config.onFailure.character} / ${config.onFailure.dialogIndex}`);
+        console.log(`[MinigameManager] Game failed!`);
         
         // UI tisztítás - visszatérés a respawn ponthoz 🎮
         this.#minigameUI.clear();
-        this.#audioManager?.switchTrack('dialogue'); 
-        if (config.onFailure) {
+        this.#audioManager?.switchTrack('dialogue');
+        
+        if (config && config.onFailure) {
+            console.log(`[MinigameManager] Showing failure dialog: ${config.onFailure.character} / ${config.onFailure.dialogIndex}`);
             // DialogPanel közvetlenül rendereli az új dialógust
             this.#dialogPanel.startDialog(
                 config.onFailure.character,

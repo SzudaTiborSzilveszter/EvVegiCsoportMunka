@@ -43,10 +43,16 @@ export default class MinigameUI {
         this.#startTimer(game);
 
         const cancelBtn = this.#container.querySelector('#cancel-btn');
-        cancelBtn.addEventListener('click', () => {
-            console.log('[MinigameUI] Cancel button clicked');
-            game.fail();
-        });
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('[MinigameUI] Cancel button clicked, failing game...');
+                game.fail();
+            });
+        } else {
+            console.error('[MinigameUI] Cancel button not found in DOM');
+        }
     }
 
     /**
