@@ -109,10 +109,9 @@ export const scenes = {
                 itemId: 'storage_safe',
                 sprite: '/assets/sprites/storage_safe.png',
                 isInvisible: false,           
-                x: 30,
-                y: 60,
-                width: 120,
-                height: 150,
+                x: 60,
+                y: 40,
+                scale: 3,
                 zIndex: 3,
                 minigame: {
                     gameId: 'lockpicking_2',

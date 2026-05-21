@@ -20,8 +20,16 @@ export default class LockpickingUI {
         const size = 560;
         const center = size / 2;
         const outerRadius = 220;
-        const ringThickness = 32;
-        const gap = 12;
+        const ringThickness = 28;
+        const gap = 8;
+        
+        // Calculate available space for all rings
+        const totalRingCount = ringData.length;
+        const totalThickness = totalRingCount * ringThickness + (totalRingCount - 1) * gap;
+        // Scale factor to fit all rings within available space
+        const scaleFactor = totalThickness > 200 ? 200 / totalThickness : 1;
+        const adjustedRingThickness = ringThickness * scaleFactor;
+        const adjustedGap = gap * scaleFactor;
 
         const svgParts = [];
 
@@ -35,14 +43,14 @@ export default class LockpickingUI {
 
         for (let i = 0; i < ringData.length; i++) {
             const ring = ringData[i];
-            const radiusOuter = outerRadius - i * (ringThickness + gap);
-            const radiusInner = radiusOuter - ringThickness;
+            const radiusOuter = outerRadius - i * (adjustedRingThickness + adjustedGap);
+            const radiusInner = radiusOuter - adjustedRingThickness;
             const radiusMid = (radiusOuter + radiusInner) / 2;
             const isConnected = i < progress.connectedRings;
 
             svgParts.push(
                 `<circle class="lock-ring" cx="${center}" cy="${center}" r="${radiusMid}" ` +
-                `stroke-width="${ringThickness}" data-ring-index="${i}" />`
+                `stroke-width="${adjustedRingThickness}" data-ring-index="${i}" />`
             );
 
             const outerAngle = this.#sectorToAngle(ring.outerGate, sectorCount);

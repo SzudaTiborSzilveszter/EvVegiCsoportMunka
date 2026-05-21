@@ -4,6 +4,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Disable text selection on double-click and mouse drag */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    /* Disable text selection while holding mouse */
+    -webkit-touch-callout: none;
 }
 
 body {
