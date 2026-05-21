@@ -79,19 +79,21 @@ export const scenes = {
                 }
             }
         ],
-        items: {
-            itemId: 'door_entrance',
-            isInvisible: true,           
-            x: 80,
-            y: 40,
-            width: 120,
-            height: 150,
-            zIndex: 3,
-            minigame: {
-            gameId: 'door_entrance',
-            nextScene: 'inside_building'
-        }
-},
+        items: [
+            {
+                itemId: 'door_entrance',
+                isInvisible: true,           
+                x: 30,
+                y: 60,
+                width: 120,
+                height: 150,
+                zIndex: 3,
+                minigame: {
+                    gameId: 'door_entrance',
+                    nextScene: 'inside_building'
+                }
+            }
+        ],
         music: 'alleyAmbiance.mp3'
     },
 
