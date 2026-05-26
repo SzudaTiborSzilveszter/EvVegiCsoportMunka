@@ -45,7 +45,7 @@ export default class MainMenu {
         this.#menuContainer.innerHTML = `
             <div class="main-menu-content">
                 <div class="menu-title">
-                    <h1>TERMINAL OS v1.0</h1>
+                    <h1>Neon Shadow</h1>
                     <p class="subtitle">A story-driven adventure</p>
                 </div>
                 
