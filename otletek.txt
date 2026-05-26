@@ -1,6 +1,2 @@
-alley_storage-be kell egy kilépés gomb, ami vissza visz az utcára
-Az utcára kell egy vissza gomb, ami vissza visz a hálószobába
 Beszélgetésnél, amikor az egyetlen opció a "Tovább" akkor csak 1-szer kéne megjeleníteni a karaktert a képernyő közepén
-Amikor beszélgetésnél a sibling surprised képét adja, túlságosan nagy és túlságosan a képernyő közepén van
 A beszélgetési dobozok tetején a karakterek neveit kéne írnia, nem a szerepüket, pl.: ha maincharacter, akkor: Liam vagy Te. Ha sibling akkor meg Jia
-a hackelésnél nem igazodik a felbontáshoz megfelelően a minigame
