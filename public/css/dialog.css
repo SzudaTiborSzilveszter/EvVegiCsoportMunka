@@ -163,6 +163,8 @@
     position: fixed;
     bottom: 0;
     height: 90vh;
+    max-height: 800px;
+    max-width: 50vw;
     object-fit: contain;
     object-position: bottom;
     z-index: 1000;
@@ -190,4 +192,24 @@
 .dialog-sprite.right.entered {
     opacity: 1;
     transform: translateX(-200px);
+}
+
+/* Centered solo sprite (when no choices, only "Tovabb" button) */
+.dialog-sprite.centered-solo {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+}
+
+.dialog-sprite.centered-solo.entered {
+    opacity: 1 !important;
+    transform: translateX(-50%) !important;
+}
+
+/* Special sizing for surp_fem_player_close.png */
+.dialog-sprite.surprised-female {
+    max-height: 500px;
+    max-width: 35vw;
+    object-position: bottom center;
+    top: 50px;
 }

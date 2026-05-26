@@ -37,6 +37,19 @@ export const scenes = {
                     nextScene: 'street',
                     setFlag: 'completedHacking'
                 }
+            },
+            {
+                itemId: 'exit_to_street',
+                isInvisible: true,
+                x: 5,
+                y: 10,
+                width: 80,
+                height: 40,
+                zIndex: 1,
+                onClickDialog: {
+                    character: 'mainCharacter',
+                    dialogIndex: 1
+                }
             }
         ],
         music: 'mrambient.mp3'
@@ -92,6 +105,19 @@ export const scenes = {
                     character: 'mainCharacter',
                     dialogIndex: 2
                 }
+            },
+            {
+                itemId: 'door_entrance',
+                isInvisible: true,
+                x: 5,
+                y: 10,
+                width: 80,
+                height: 40,
+                zIndex: 1,
+                onClickDialog: {
+                    character: 'mainCharacter',
+                    dialogIndex: 4
+                }
             }
         ],
         music: 'alleyAmbiance.mp3'
@@ -116,6 +142,19 @@ export const scenes = {
                 minigame: {
                     gameId: 'lockpicking_2',
                     nextScene: 'street'
+                }
+            },
+            {
+                itemId: 'exit_button',
+                isInvisible: true,
+                x: 5,
+                y: 10,
+                width: 80,
+                height: 40,
+                zIndex: 1,
+                onClickDialog: {
+                    character: 'mainCharacter',
+                    dialogIndex: 3
                 }
             }
         ],

@@ -56,6 +56,24 @@ export const mainCharacterDialogs = [
         progression: {
             nextScene: "alley_storage"
         }
+    },
+    {
+        id: 3,
+        text: "Azt hittem van még hátra, de úgy néz ki, ezzel készen vagyok. Vissza az utcára.",
+        emotion: "neutral",
+        choices: [],
+        progression: {
+            nextScene: "street"
+        }
+    },
+    {
+        id: 4,
+        text: "Vissza az apartmanba. Beszélnem kell a testvéremmel.",
+        emotion: "neutral",
+        choices: [],
+        progression: {
+            nextScene: "apartmentDay"
+        }
     }
 ]
 

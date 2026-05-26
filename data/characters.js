@@ -1,10 +1,10 @@
 export const characters = {
     mainCharacter: {
-        name: 'You',
+        name: 'Liam',
         sprite: '/assets/sprites/neutral_mal_player_close.png'
     },
     sibling: {
-        name: 'Sibling',
+        name: 'Jia',
         sprite: '/assets/sprites/neutral_fem_player_close.png'
     },
     robot: {

@@ -68,6 +68,10 @@ export default class DialogPanel {
         const hasChoices = this.#dialogSystem.hasChoices();
         const currentDialog = this.#dialogSystem.getCurrentDialog();
 
+        // Get character's actual name from characters data
+        const characterData = characters[speakerName];
+        const displayName = characterData ? characterData.name : speakerName;
+
         let choicesHTML = '';
         
         choices.forEach((choice, index) => {
@@ -79,7 +83,7 @@ export default class DialogPanel {
 
         let code = `<div class="dialog-panel">
                     <div class="dialog-header">
-                        <span class="character-name">${speakerName}</span>
+                        <span class="character-name">${displayName}</span>
                     </div>
                     
                     <div class="dialog-content">
@@ -219,6 +223,7 @@ export default class DialogPanel {
         // Get current dialog to extract emotion
         const currentDialog = this.#dialogSystem.getCurrentDialog();
         const emotion = currentDialog?.emotion || 'neutral';
+        const hasChoices = this.#dialogSystem.hasChoices();
 
         // Build emotion-specific sprite path
         const leftSpritePath = this.#getEmotionSprite(speakerChar.sprite, emotion);
@@ -228,6 +233,13 @@ export default class DialogPanel {
         this.#leftSprite.src = leftSpritePath;
         this.#rightSprite.src = rightSpritePath;
 
+        // Add special class for surprised female sprite
+        if (leftSpritePath.includes('surp_fem_player')) {
+            this.#leftSprite.classList.add('surprised-female');
+        } else {
+            this.#leftSprite.classList.remove('surprised-female');
+        }
+
         // Play emotion sound effect
         if (this.#audioManager) {
             this.#audioManager.playSoundEffect(emotion);
@@ -235,6 +247,15 @@ export default class DialogPanel {
 
         // Fade in background
         this.#overlayEl.classList.add('visible');
+
+        // If no choices (only "Tovabb" button), show only speaker, centered
+        if (!hasChoices) {
+            this.#leftSprite.classList.add('centered-solo');
+            this.#rightSprite.style.display = 'none';
+        } else {
+            this.#leftSprite.classList.remove('centered-solo');
+            this.#rightSprite.style.display = '';
+        }
 
         // Trigger slide-in animations on next frame
         requestAnimationFrame(() => {
