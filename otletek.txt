@@ -1,2 +1,0 @@
-Beszélgetésnél, amikor az egyetlen opció a "Tovább" akkor csak 1-szer kéne megjeleníteni a karaktert a képernyő közepén
-A beszélgetési dobozok tetején a karakterek neveit kéne írnia, nem a szerepüket, pl.: ha maincharacter, akkor: Liam vagy Te. Ha sibling akkor meg Jia
