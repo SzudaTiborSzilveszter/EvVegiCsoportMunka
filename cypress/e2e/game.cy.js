@@ -3,7 +3,7 @@ describe('Game Basic Functionality Tests', () => {
     cy.visit('http://127.0.0.1:5500/public/index.html');
     cy.wait(1000); 
   });
-
+  /*Tibi része*/
   it('Játék betöltése és főmenü megjelenítése', () => {
     cy.get('#main-menu').should('exist');
     cy.get('#main-menu').should('be.visible');
@@ -37,7 +37,8 @@ describe('Game Basic Functionality Tests', () => {
     
     cy.get('.dialog-sprite').should('be.visible');
   });
-
+  /**/
+  /*Dávid része*/
   it('Dialog léptetése választás gombokkal', () => {
     cy.contains('PLAY').click();
     cy.wait(500);
@@ -86,7 +87,8 @@ describe('Game Basic Functionality Tests', () => {
     
     cy.get('.scene-background').should('exist');
   });
-
+  /**/
+  /*Ágoston*/
   it('Helyes karakterneveket megjeleníteni a dialógus fejlécben', () => {
     cy.contains('PLAY').click();
     cy.wait(500);
@@ -131,4 +133,5 @@ describe('Game Basic Functionality Tests', () => {
     cy.get('#volume-slider').invoke('val', 50).trigger('input');
     cy.get('#volume-slider').should('have.value', '50');
   });
+  /**/
 });
