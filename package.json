@@ -3,6 +3,22 @@
     "cy:open": "cypress open"
   },
   "devDependencies": {
-    "cypress": "^15.16.0"
-  }
+    "cypress": "^15.16.0",
+    "docdash": "^2.0.2",
+    "jsdoc": "^4.0.5"
+  },
+  "source": {
+        "include": ["src"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "opts": {
+        "readme": "README.md",
+        "destination": "./out/",
+        "recurse": true,
+        "template": "node_modules/docdash"
+    },
+    "plugins": [
+        "plugins/markdown"
+    ]
 }
