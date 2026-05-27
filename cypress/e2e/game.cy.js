@@ -1,8 +1,7 @@
 describe('Game Basic Functionality Tests', () => {
   beforeEach(() => {
-    // Játék betöltése test.html-ből
     cy.visit('/test.html');
-    cy.wait(1000); // Várakozunk, hogy a játék betöltödjön
+    cy.wait(1000); 
   });
 
   it('should load the game and display main menu', () => {
@@ -22,11 +21,9 @@ describe('Game Basic Functionality Tests', () => {
     cy.contains('START').click();
     cy.wait(500);
     
-    // Keressük meg a sibling karaktert (y: 30 körül)
     cy.get('.scene-character').first().click();
     cy.wait(500);
     
-    // Dialog panel megjelenik
     cy.get('.dialog-panel').should('be.visible');
     cy.get('.character-name').should('contain', 'Jia');
     cy.get('.dialog-text').should('exist');

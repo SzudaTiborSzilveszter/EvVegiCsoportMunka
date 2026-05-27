@@ -1,10 +1,8 @@
 {
   "scripts": {
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "cypress:headless": "cypress run --headless"
+    "cy:open": "cypress open"
   },
   "devDependencies": {
-    "cypress": "^15.15.0"
+    "cypress": "^15.16.0"
   }
 }
