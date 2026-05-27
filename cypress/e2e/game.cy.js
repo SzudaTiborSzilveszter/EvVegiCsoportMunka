@@ -88,7 +88,7 @@ describe('Game Basic Functionality Tests', () => {
     cy.get('.scene-background').should('exist');
   });
   /**/
-  /*Ágoston*/
+  /*Ágoston része*/
   it('Helyes karakterneveket megjeleníteni a dialógus fejlécben', () => {
     cy.contains('PLAY').click();
     cy.wait(500);
