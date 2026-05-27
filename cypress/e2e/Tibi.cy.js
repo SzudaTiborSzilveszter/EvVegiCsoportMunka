@@ -3,7 +3,7 @@ describe('Tibi Tesztjei', () => {
     cy.visit('http://127.0.0.1:5500/public/index.html');
     cy.wait(1000); 
   });
-  /*Tibi része*/
+  
   it('Játék betöltése és főmenü megjelenítése', () => {
     cy.get('#main-menu').should('exist');
     cy.get('#main-menu').should('be.visible');
