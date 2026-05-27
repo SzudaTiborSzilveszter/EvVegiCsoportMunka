@@ -1,24 +1,24 @@
 describe('Game Basic Functionality Tests', () => {
   beforeEach(() => {
-    cy.visit('/test.html');
+    cy.visit('http://127.0.0.1:5500/public/index.html');
     cy.wait(1000); 
   });
 
   it('should load the game and display main menu', () => {
     cy.get('#main-menu').should('exist');
     cy.get('#main-menu').should('be.visible');
-    cy.contains('START').should('exist');
+    cy.contains('PLAY').should('exist');
   });
 
   it('should display scene after starting game', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     cy.get('#scene-container').should('be.visible');
     cy.get('.scene-background').should('exist');
   });
 
   it('should start dialog when clicking on sibling character', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     
     cy.get('.scene-character').first().click();
@@ -30,7 +30,7 @@ describe('Game Basic Functionality Tests', () => {
   });
 
   it('should show character sprite during dialog', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     cy.get('.scene-character').first().click();
     cy.wait(500);
@@ -40,7 +40,7 @@ describe('Game Basic Functionality Tests', () => {
   });
 
   it('should advance dialog with choice buttons', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     cy.get('.scene-character').first().click();
     cy.wait(500);
@@ -54,7 +54,7 @@ describe('Game Basic Functionality Tests', () => {
   });
 
   it('should show Tovabb button when no choices available', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     cy.get('.scene-character').first().click();
     cy.wait(500);
@@ -67,7 +67,7 @@ describe('Game Basic Functionality Tests', () => {
   });
 
   it('should advance to next dialog with Tovabb button', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     cy.get('.scene-character').first().click();
     cy.wait(500);
@@ -84,7 +84,7 @@ describe('Game Basic Functionality Tests', () => {
   });
 
   it('should close dialog and show single character when only Tovabb available', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     cy.get('.scene-character').first().click();
     cy.wait(500);
@@ -96,7 +96,7 @@ describe('Game Basic Functionality Tests', () => {
   });
 
   it('should transition to street scene via exit button', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     
     // Kattints az exit gombra (bal felső sarok)
@@ -115,7 +115,7 @@ describe('Game Basic Functionality Tests', () => {
   });
 
   it('should display correct character names in dialog header', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     cy.get('.scene-character').first().click();
     cy.wait(500);
@@ -125,7 +125,7 @@ describe('Game Basic Functionality Tests', () => {
   });
 
   it('should have audio manager playing ambient music', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     
     // Az audio elem létezik
@@ -133,7 +133,7 @@ describe('Game Basic Functionality Tests', () => {
   });
 
   it('should handle multiple choice selections', () => {
-    cy.contains('START').click();
+    cy.contains('PLAY').click();
     cy.wait(500);
     cy.get('.scene-character').first().click();
     cy.wait(500);
