@@ -1,12 +1,46 @@
+/**
+ * LockpickingUI - Lockpicking minigame UI
+ * 
+ * Kezeli:
+ * - Zárkör megjelenítése és rajzolása
+ * - Szektorszámok és csatlakozások
+ * - Minigame interaktív UI-ja
+ * 
+ * @class LockpickingUI
+ * @example
+ * const lockpickingUI = new LockpickingUI(container);
+ * lockpickingUI.render(game);
+ */
 export default class LockpickingUI {
+    /**
+     * Konténer elem
+     * @private
+     * @type {HTMLElement}
+     */
     #container;
+
+    /**
+     * Lockpicking játék referencia
+     * @private
+     * @type {LockpickingGame}
+     */
     #game;
 
+    /**
+     * Új LockpickingUI-t hoz létre
+     * 
+     * @param {HTMLElement} container - Konténer elem
+     */
     constructor(container) {
         this.#container = container;
         this.#game = null;
     }
 
+    /**
+     * UI renderelése
+     * 
+     * @param {LockpickingGame} game - Lockpicking játék
+     */
     render(game) {
         this.#game = game;
         this.#container.innerHTML = "";
@@ -23,10 +57,10 @@ export default class LockpickingUI {
         const ringThickness = 28;
         const gap = 8;
         
-        // Calculate available space for all rings
+        // Összes körgyűrűhöz szükséges hely kiszámítása
         const totalRingCount = ringData.length;
         const totalThickness = totalRingCount * ringThickness + (totalRingCount - 1) * gap;
-        // Scale factor to fit all rings within available space
+        // Méretezési faktor az összes körgyűrűhöz az elérhető teret betölteni
         const scaleFactor = totalThickness > 200 ? 200 / totalThickness : 1;
         const adjustedRingThickness = ringThickness * scaleFactor;
         const adjustedGap = gap * scaleFactor;

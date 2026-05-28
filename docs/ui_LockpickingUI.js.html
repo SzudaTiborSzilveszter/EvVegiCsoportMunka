@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> ui/LockpickingUI.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="AudioManager.html">AudioManager</a></li><li><a href="DialogPanel.html">DialogPanel</a></li><li><a href="DialogSystem.html">DialogSystem</a></li><li><a href="GameManager.html">GameManager</a></li><li><a href="InventorySystem.html">InventorySystem</a></li><li><a href="InventorySystem_InventorySystem.html">InventorySystem</a></li><li><a href="InventoryUI.html">InventoryUI</a></li><li><a href="LockpickingUI.html">LockpickingUI</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="MinigameUI.html">MinigameUI</a></li><li><a href="PuzzleUI.html">PuzzleUI</a></li><li><a href="SceneManager.html">SceneManager</a></li><li><a href="TraitSystem.html">TraitSystem</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ITEMS">ITEMS</a></li><li><a href="global.html#addCharacter">addCharacter</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#clearScene">clearScene</a></li><li><a href="global.html#endConversation">endConversation</a></li><li><a href="global.html#endDialog">endDialog</a></li><li><a href="global.html#fail">fail</a></li><li><a href="global.html#getAllTraits">getAllTraits</a></li><li><a href="global.html#getChoices">getChoices</a></li><li><a href="global.html#getCurrentCharacter">getCurrentCharacter</a></li><li><a href="global.html#getCurrentDialog">getCurrentDialog</a></li><li><a href="global.html#getCurrentDialogIndex">getCurrentDialogIndex</a></li><li><a href="global.html#getCurrentGame">getCurrentGame</a></li><li><a href="global.html#getCurrentScene">getCurrentScene</a></li><li><a href="global.html#getDialogText">getDialogText</a></li><li><a href="global.html#getDifficulty">getDifficulty</a></li><li><a href="global.html#getDifficultyMultiplier">getDifficultyMultiplier</a></li><li><a href="global.html#getElapsedTime">getElapsedTime</a></li><li><a href="global.html#getFlag">getFlag</a></li><li><a href="global.html#getGameBoard">getGameBoard</a></li><li><a href="global.html#getGridData">getGridData</a></li><li><a href="global.html#getSelectedPath">getSelectedPath</a></li><li><a href="global.html#getStoryState">getStoryState</a></li><li><a href="global.html#getTargetCodes">getTargetCodes</a></li><li><a href="global.html#getTrait">getTrait</a></li><li><a href="global.html#getType">getType</a></li><li><a href="global.html#hasChoices">hasChoices</a></li><li><a href="global.html#hideMenu">hideMenu</a></li><li><a href="global.html#isActive">isActive</a></li><li><a href="global.html#isCellSelectable">isCellSelectable</a></li><li><a href="global.html#isConversationActive">isConversationActive</a></li><li><a href="global.html#isGameActive">isGameActive</a></li><li><a href="global.html#loadScene">loadScene</a></li><li><a href="global.html#modifyTraits">modifyTraits</a></li><li><a href="global.html#nextDialogOfCurrentCharacter">nextDialogOfCurrentCharacter</a></li><li><a href="global.html#playMusic">playMusic</a></li><li><a href="global.html#playSoundEffect">playSoundEffect</a></li><li><a href="global.html#playTrack">playTrack</a></li><li><a href="global.html#recordChoice">recordChoice</a></li><li><a href="global.html#removeCharacter">removeCharacter</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#scenes">scenes</a></li><li><a href="global.html#selectCell">selectCell</a></li><li><a href="global.html#selectChoice">selectChoice</a></li><li><a href="global.html#setFlag">setFlag</a></li><li><a href="global.html#setGameManager">setGameManager</a></li><li><a href="global.html#setOnCharacterClick">setOnCharacterClick</a></li><li><a href="global.html#setOnCompletion">setOnCompletion</a></li><li><a href="global.html#setOnItemClick">setOnItemClick</a></li><li><a href="global.html#setSceneManager">setSceneManager</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showFailure">showFailure</a></li><li><a href="global.html#showMenu">showMenu</a></li><li><a href="global.html#showSuccess">showSuccess</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startDialog">startDialog</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopMusic">stopMusic</a></li><li><a href="global.html#storyFlow">storyFlow</a></li><li><a href="global.html#succeed">succeed</a></li><li><a href="global.html#switchTrack">switchTrack</a></li><li><a href="global.html#updateCharacter">updateCharacter</a></li><li><a href="global.html#volume">volume</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>ui/LockpickingUI.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * LockpickingUI - Lockpicking minigame UI
+ * 
+ * Kezeli:
+ * - Zárkör megjelenítése és rajzolása
+ * - Szektorszámok és csatlakozások
+ * - Minigame interaktív UI-ja
+ * 
+ * @class LockpickingUI
+ * @example
+ * const lockpickingUI = new LockpickingUI(container);
+ * lockpickingUI.render(game);
+ */
+export default class LockpickingUI {
+    /**
+     * Konténer elem
+     * @private
+     * @type {HTMLElement}
+     */
+    #container;
+
+    /**
+     * Lockpicking játék referencia
+     * @private
+     * @type {LockpickingGame}
+     */
+    #game;
+
+    /**
+     * Új LockpickingUI-t hoz létre
+     * 
+     * @param {HTMLElement} container - Konténer elem
+     */
+    constructor(container) {
+        this.#container = container;
+        this.#game = null;
+    }
+
+    /**
+     * UI renderelése
+     * 
+     * @param {LockpickingGame} game - Lockpicking játék
+     */
+    render(game) {
+        this.#game = game;
+        this.#container.innerHTML = "";
+
+        const ringData = game.getRingData();
+        const sectorCount = game.getSectorCount();
+        const entrySector = game.getEntrySector();
+        const centerSector = game.getCenterSector();
+        const progress = game.getConnectionProgress();
+
+        const size = 560;
+        const center = size / 2;
+        const outerRadius = 220;
+        const ringThickness = 28;
+        const gap = 8;
+        
+        // Összes körgyűrűhöz szükséges hely kiszámítása
+        const totalRingCount = ringData.length;
+        const totalThickness = totalRingCount * ringThickness + (totalRingCount - 1) * gap;
+        // Méretezési faktor az összes körgyűrűhöz az elérhető teret betölteni
+        const scaleFactor = totalThickness > 200 ? 200 / totalThickness : 1;
+        const adjustedRingThickness = ringThickness * scaleFactor;
+        const adjustedGap = gap * scaleFactor;
+
+        const svgParts = [];
+
+        svgParts.push(`&lt;svg class="lockpicking-svg" viewBox="0 0 ${size} ${size}" role="img" aria-label="Lockpicking circles">`);
+
+        svgParts.push(`&lt;circle cx="${center}" cy="${center}" r="8" class="lock-center-dot" />`);
+
+        // Entry marker (outside)
+        const entryPoint = this.#pointOnCircle(center, center, outerRadius + 20, this.#sectorToAngle(entrySector, sectorCount));
+        svgParts.push(`&lt;circle cx="${entryPoint.x}" cy="${entryPoint.y}" r="7" class="lock-entry-dot" />`);
+
+        for (let i = 0; i &lt; ringData.length; i++) {
+            const ring = ringData[i];
+            const radiusOuter = outerRadius - i * (adjustedRingThickness + adjustedGap);
+            const radiusInner = radiusOuter - adjustedRingThickness;
+            const radiusMid = (radiusOuter + radiusInner) / 2;
+            const isConnected = i &lt; progress.connectedRings;
+
+            svgParts.push(
+                `&lt;circle class="lock-ring" cx="${center}" cy="${center}" r="${radiusMid}" ` +
+                `stroke-width="${adjustedRingThickness}" data-ring-index="${i}" />`
+            );
+
+            const outerAngle = this.#sectorToAngle(ring.outerGate, sectorCount);
+            const innerAngle = this.#sectorToAngle(ring.innerGate, sectorCount);
+
+            const outerGatePoint = this.#pointOnCircle(center, center, radiusOuter, outerAngle);
+            const innerGatePoint = this.#pointOnCircle(center, center, radiusInner, innerAngle);
+
+            svgParts.push(`&lt;circle cx="${outerGatePoint.x}" cy="${outerGatePoint.y}" r="4" class="lock-gate" />`);
+            svgParts.push(`&lt;circle cx="${innerGatePoint.x}" cy="${innerGatePoint.y}" r="4" class="lock-gate" />`);
+
+            svgParts.push(this.#buildGatePath(center, center, radiusOuter, radiusInner, radiusMid, outerAngle, innerAngle, isConnected));
+        }
+
+        // Center target indicator
+        const centerPoint = this.#pointOnCircle(center, center, 18, this.#sectorToAngle(centerSector, sectorCount));
+        svgParts.push(`&lt;circle cx="${centerPoint.x}" cy="${centerPoint.y}" r="5" class="lock-center-target" />`);
+
+        svgParts.push(`&lt;/svg>`);
+
+        const instructions = `
+            &lt;div class="lockpicking-meta">
+                &lt;div class="lockpicking-title">ROTATE THE RINGS&lt;/div>
+                &lt;div class="lockpicking-hint">Click a ring to rotate it until the route connects from entry to center.&lt;/div>
+                &lt;div class="lockpicking-progress">Connected: ${progress.connectedRings}/${progress.totalRings}&lt;/div>
+            &lt;/div>
+        `;
+
+        this.#container.insertAdjacentHTML("beforeend", `
+            &lt;div class="lockpicking-container">
+                ${svgParts.join("")}
+                ${instructions}
+            &lt;/div>
+        `);
+
+        const ringElements = this.#container.querySelectorAll(".lock-ring");
+        ringElements.forEach((ringElement) => {
+            ringElement.addEventListener("click", (event) => {
+                const ringIndex = Number(event.currentTarget.getAttribute("data-ring-index"));
+                const rotated = this.#game.rotateRing(ringIndex, 1);
+                if (rotated &amp;&amp; this.#game.isActive()) {
+                    this.render(this.#game);
+                }
+            });
+        });
+    }
+
+    #sectorToAngle(sector, sectorCount) {
+        // Start from top (-90deg)
+        return ((sector / sectorCount) * Math.PI * 2) - Math.PI / 2;
+    }
+
+    #pointOnCircle(cx, cy, radius, angle) {
+        return {
+            x: cx + Math.cos(angle) * radius,
+            y: cy + Math.sin(angle) * radius
+        };
+    }
+
+    #buildGatePath(cx, cy, radiusOuter, radiusInner, radiusMid, outerAngle, innerAngle, connected) {
+        const outerMidPoint = this.#pointOnCircle(cx, cy, radiusMid, outerAngle);
+        const innerMidPoint = this.#pointOnCircle(cx, cy, radiusMid, innerAngle);
+        const outerPoint = this.#pointOnCircle(cx, cy, radiusOuter, outerAngle);
+        const innerPoint = this.#pointOnCircle(cx, cy, radiusInner, innerAngle);
+
+        const angleDiff = this.#normalizeAngleDiff(innerAngle - outerAngle);
+        const largeArcFlag = Math.abs(angleDiff) > Math.PI ? 1 : 0;
+        const sweepFlag = angleDiff >= 0 ? 1 : 0;
+
+        const className = connected ? "lock-route connected" : "lock-route";
+
+        const d = [
+            `M ${outerPoint.x} ${outerPoint.y}`,
+            `L ${outerMidPoint.x} ${outerMidPoint.y}`,
+            `A ${radiusMid} ${radiusMid} 0 ${largeArcFlag} ${sweepFlag} ${innerMidPoint.x} ${innerMidPoint.y}`,
+            `L ${innerPoint.x} ${innerPoint.y}`
+        ].join(" ");
+
+        return `&lt;path d="${d}" class="${className}" />`;
+    }
+
+    #normalizeAngleDiff(angle) {
+        while (angle > Math.PI) angle -= Math.PI * 2;
+        while (angle &lt; -Math.PI) angle += Math.PI * 2;
+        return angle;
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

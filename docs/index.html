@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Home</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="AudioManager.html">AudioManager</a></li><li><a href="DialogPanel.html">DialogPanel</a></li><li><a href="DialogSystem.html">DialogSystem</a></li><li><a href="GameManager.html">GameManager</a></li><li><a href="InventorySystem.html">InventorySystem</a></li><li><a href="InventorySystem_InventorySystem.html">InventorySystem</a></li><li><a href="InventoryUI.html">InventoryUI</a></li><li><a href="LockpickingUI.html">LockpickingUI</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="MinigameUI.html">MinigameUI</a></li><li><a href="PuzzleUI.html">PuzzleUI</a></li><li><a href="SceneManager.html">SceneManager</a></li><li><a href="TraitSystem.html">TraitSystem</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ITEMS">ITEMS</a></li><li><a href="global.html#addCharacter">addCharacter</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#clearScene">clearScene</a></li><li><a href="global.html#endConversation">endConversation</a></li><li><a href="global.html#endDialog">endDialog</a></li><li><a href="global.html#fail">fail</a></li><li><a href="global.html#getAllTraits">getAllTraits</a></li><li><a href="global.html#getChoices">getChoices</a></li><li><a href="global.html#getCurrentCharacter">getCurrentCharacter</a></li><li><a href="global.html#getCurrentDialog">getCurrentDialog</a></li><li><a href="global.html#getCurrentDialogIndex">getCurrentDialogIndex</a></li><li><a href="global.html#getCurrentGame">getCurrentGame</a></li><li><a href="global.html#getCurrentScene">getCurrentScene</a></li><li><a href="global.html#getDialogText">getDialogText</a></li><li><a href="global.html#getDifficulty">getDifficulty</a></li><li><a href="global.html#getDifficultyMultiplier">getDifficultyMultiplier</a></li><li><a href="global.html#getElapsedTime">getElapsedTime</a></li><li><a href="global.html#getFlag">getFlag</a></li><li><a href="global.html#getGameBoard">getGameBoard</a></li><li><a href="global.html#getGridData">getGridData</a></li><li><a href="global.html#getSelectedPath">getSelectedPath</a></li><li><a href="global.html#getStoryState">getStoryState</a></li><li><a href="global.html#getTargetCodes">getTargetCodes</a></li><li><a href="global.html#getTrait">getTrait</a></li><li><a href="global.html#getType">getType</a></li><li><a href="global.html#hasChoices">hasChoices</a></li><li><a href="global.html#hideMenu">hideMenu</a></li><li><a href="global.html#isActive">isActive</a></li><li><a href="global.html#isCellSelectable">isCellSelectable</a></li><li><a href="global.html#isConversationActive">isConversationActive</a></li><li><a href="global.html#isGameActive">isGameActive</a></li><li><a href="global.html#loadScene">loadScene</a></li><li><a href="global.html#modifyTraits">modifyTraits</a></li><li><a href="global.html#nextDialogOfCurrentCharacter">nextDialogOfCurrentCharacter</a></li><li><a href="global.html#playMusic">playMusic</a></li><li><a href="global.html#playSoundEffect">playSoundEffect</a></li><li><a href="global.html#playTrack">playTrack</a></li><li><a href="global.html#recordChoice">recordChoice</a></li><li><a href="global.html#removeCharacter">removeCharacter</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#scenes">scenes</a></li><li><a href="global.html#selectCell">selectCell</a></li><li><a href="global.html#selectChoice">selectChoice</a></li><li><a href="global.html#setFlag">setFlag</a></li><li><a href="global.html#setGameManager">setGameManager</a></li><li><a href="global.html#setOnCharacterClick">setOnCharacterClick</a></li><li><a href="global.html#setOnCompletion">setOnCompletion</a></li><li><a href="global.html#setOnItemClick">setOnItemClick</a></li><li><a href="global.html#setSceneManager">setSceneManager</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showFailure">showFailure</a></li><li><a href="global.html#showMenu">showMenu</a></li><li><a href="global.html#showSuccess">showSuccess</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startDialog">startDialog</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopMusic">stopMusic</a></li><li><a href="global.html#storyFlow">storyFlow</a></li><li><a href="global.html#succeed">succeed</a></li><li><a href="global.html#switchTrack">switchTrack</a></li><li><a href="global.html#updateCharacter">updateCharacter</a></li><li><a href="global.html#volume">volume</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p></p>
+                    <h1>Home</h1>
+                </header>
+                
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>🌌 Cyberpunk Visual Novel - Story Progression Game</h1>
+<p><strong>Egy nyomasztó atmoszférájú webes játék</strong>, amit a <em>Serial Experiments Lain</em> és <em>Cyberpunk 2077</em> esztétikája ihlet. Vizuális novella, ahol a te választásaid formálják a történet menetét.</p>
+<hr>
+<h2>📖 Sztorivázlat</h2>
+<p>A játék egy darkwave, cyberpunk hangulatú történetben játszódik, ahol különféle jellegzetességű karakterek közötti dialógusokkal haladsz előre a sztorin. A te választásaid azonban <strong>trait módosítást</strong> okoznak, amely befolyásolja a karaktered személyiségét és a megnyitható dialógus ágakat.</p>
+<p><strong>Cél:</strong> Végigjárni a sztorit, kezelni az inventoryt, és interaktív minigameken keresztül megoldani az akadályokat.</p>
+<hr>
+<h2>🎮 Játékmechanikák</h2>
+<h3>1. 📢 <strong>Dialógus Rendszer</strong></h3>
+<p>A dialógusok karakterekhez vannak rendelve (<code>mainCharacter</code>, <code>sibling</code>, <code>robot</code> stb.). Minden dialógusnak:</p>
+<ul>
+<li>Egy egyedi <strong>ID</strong> van</li>
+<li>Egy szöveg tartalom</li>
+<li>Opcionális választások lehetnek (választások nélküli dialógusok auto-advance-olnak)</li>
+<li>Trait módosítások (<code>traitMod</code>) a választások alapján</li>
+<li>Opcionális progresszió meghatározások (jelző beállítás, jelenet váltás)</li>
+</ul>
+<p>A dialógusok az alábbi struktúrában vannak szervezve:</p>
+<ul>
+<li><code>dialogs.js</code> – Karakterenként elválasztott dialógus sorozatok</li>
+<li><code>DialogSystem.js</code> – Kezeli az adott dialógus lekéréseit és választásokat</li>
+<li><code>DialogPanel.js</code> – Megjeleníti a dialógust és a lehetséges válaszokat</li>
+</ul>
+<p><strong>Dialógus Áramlás:</strong>
+Egy dialógusból választás után az új karakter és az új dialógus ID alapján továbbmegyünk. Ha nincs választás, az <code>autoNext</code> objektum automatikusan továbblép a következő dialógusra.</p>
+<hr>
+<h3>2. 🧬 <strong>Trait (Tulajdonság) Rendszer</strong></h3>
+<p>A karaktered <strong>5 trait-je</strong> van, melyek 0-100 között változnak. Ezek az alábbiak:</p>
+<ul>
+<li><strong>Empathy</strong> (Empátia): Mennyire segítőkész vagy mások iránt</li>
+<li><strong>Aggression</strong> (Agresszivitás): Milyen durván bánsz az emberekkel</li>
+<li><strong>Desperation</strong> (Kétségbeesettség): Milyen erős a szükséghelyzet</li>
+<li><strong>Coldness</strong> (Közömbösség): Mennyire vakmerő vagy szívtelen</li>
+<li><strong>Trust</strong> (Bizalom): Mennyire bízol az emberekben</li>
+</ul>
+<p>Ezek a trait-ek a <code>TraitSystem.js</code> osztályban vannak kezelve, és minden dialógus választás módosíthatja őket a <code>traitMod</code> objektumon keresztül.</p>
+<hr>
+<h3>3. 🕹️ <strong>Minigame Rendszer</strong></h3>
+<p>A minigamek különálló játékmódok, amelyek a sztoriprogresszió közben aktiválódnak. Három típus létezik:</p>
+<ul>
+<li><strong>Lockpicking</strong>: Zárak nyitása</li>
+<li><strong>Hacking</strong>: Számítógépek feltörése</li>
+<li><strong>Puzzle</strong>: Logikai feladvány</li>
+</ul>
+<p>Minden minigamhez:</p>
+<ul>
+<li>Egy nehézségi szint van (1-5)</li>
+<li>Siker/kudarc utáni dialógus van definiálva</li>
+<li>Az <code>onSuccess</code> / <code>onFailure</code> objektumok megadják a következő sztorit</li>
+</ul>
+<p>A <code>MinigameManager.js</code> kezeli az egész minigame rendszert, és az alábbi UI komponenseket használja:</p>
+<ul>
+<li><code>HackingUI.js</code></li>
+<li><code>LockpickingUI.js</code></li>
+<li><code>PuzzleUI.js</code></li>
+</ul>
+<hr>
+<h3>4. 🎒 <strong>Inventory &amp; Tárgyak Rendszer</strong></h3>
+<p>Az <code>InventorySystem.js</code> a játékos tárgyait kezeli. A tárgyak a <code>items.js</code>-ben vannak definiálva és a következő tulajdonságokkal rendelkeznek:</p>
+<ul>
+<li><strong>id</strong>: Egyedi azonosító</li>
+<li><strong>name</strong>: Tárgy neve</li>
+<li><strong>stackable</strong>: Halmozható-e (igaz/hamis)</li>
+<li><strong>description</strong>: Leírás</li>
+<li><strong>quantity</strong>: Mennyiség (stackable tárgyaknál)</li>
+</ul>
+<p>A játékos maximum 20 slottal rendelkezik, és tárgyakat fel/le tud venni a jelenetekben.</p>
+<hr>
+<h3>5. 📍 <strong>Scene Management</strong></h3>
+<p>A <code>SceneManager.js</code> kezeli a jeleneteket (backgrounds, karakterek pozíciói, clickable elemek). Minden jelenetben:</p>
+<ul>
+<li>Egy háttérkép van</li>
+<li>Karakterek vannak pozicionálva és kattinthatóak</li>
+<li>Tárgyak lehetnek elhelyezve</li>
+<li>Minigamek indíthatók el a tárgyakból</li>
+</ul>
+<p>Az <code>scenes.js</code> fájl tartalmazza az összes jelenet definícióját.</p>
+<hr>
+<h3>6. 🌙 <strong>Audio Management</strong></h3>
+<p>Az <code>AudioManager.js</code> kezeli a zenelejátszást és hangeffekteket:</p>
+<ul>
+<li><strong>Zenék</strong>: <code>dialogue</code>, <code>minigame</code>, <code>exploration</code> típusok</li>
+<li><strong>Hangeffektek</strong>: Dialógus emóciók (<code>neutral</code>, <code>happy</code>, <code>angry</code> stb.)</li>
+<li>A musik és hangeffektek az <code>assets/music/</code> és <code>assets/sounds/</code> mappákban vannak</li>
+</ul>
+<hr>
+<h2>📁 Projekt Szerkezete</h2>
+<pre class="prettyprint source"><code>EvVegiCsoportMunka/
+├── main.js                           # Főprogram belépési pont
+├── package.json
+├── README.md (ez a fájl)
+├── test.html / test.js              # Teszt fájlok
+│
+├── modules/                         # Játék modulok
+│   ├── GameManager.js               # Központi szálkezelő
+│   ├── DialogSystem.js              # Dialógus logika
+│   ├── SceneManager.js              # Jelenet kezelés
+│   ├── InventorySystem.js           # Inventory kezelés
+│   ├── AudioManager.js              # Zene és hangok
+│   ├── TraitSystem.js               # Trait módosítások
+│   ├── MinigameManager.js           # Minigamek vezérlése
+│   ├── Minigame.js                  # Alap minigame osztály
+│   ├── HackingGame.js               # Hacking minigame
+│   ├── LockpickingGame.js           # Lockpicking minigame
+│   ├── PuzzleGame.js                # Puzzle minigame
+│   ├── Karakter.js                  # Karakter osztály
+│   └── ...
+│
+├── ui/                              # UI komponensek
+│   ├── DialogPanel.js               # Dialógus megjelenítése
+│   ├── InventoryUI.js               # Inventory UI
+│   ├── HackingUI.js                 # Hacking UI
+│   ├── LockpickingUI.js             # Lockpicking UI
+│   ├── PuzzleUI.js                  # Puzzle UI
+│   ├── MinigameUI.js                # Általános minigame UI
+│   ├── TraitDisplay.js              # Trait megjelenítés
+│   ├── MainMenu.js                  # Főmenü
+│   └── ...
+│
+├── data/                            # Adatfájlok
+│   ├── dialogs.js                   # Dialógusok
+│   ├── characters.js                # Karakterek
+│   ├── items.js                     # Tárgyak
+│   ├── scenes.js                    # Jelenetek
+│   ├── minigames.js                 # Minigamek
+│   ├── traits.js                    # Trait alapértékek
+│   ├── storyFlow.js                 # Sztori ágak
+│   └── ...
+│
+├── assets/                          # Média fájlok
+│   ├── sprites/                     # Karakter képek
+│   ├── backgrounds/                 # Háttérképek
+│   ├── music/                       # Zene fájlok
+│   └── sounds/                      # Hangeffektek
+│
+└── public/                          # Web fájlok
+    ├── index.html                   # Főoldal
+    ├── style.css                    # Globális stílusok
+    └── css/                         # CSS modulok
+        ├── global.css
+        ├── dialog.css
+        ├── minigame.css
+        ├── scene.css
+        ├── hacking.css
+        └── puzzle-lockpicking.css
+</code></pre>
+<hr>
+<h2>🛠️ Fő Modulok Áttekintése</h2>
+<h3><strong>GameManager</strong></h3>
+<p>A játék központi vezérlője. Összeköti az összes modult:</p>
+<ul>
+<li>Jelenetváltás kezelése</li>
+<li>Dialógus indítás és progresszió</li>
+<li>Story flagek (történet megjelölések)</li>
+<li>Játékos választások története</li>
+</ul>
+<h3><strong>DialogSystem</strong></h3>
+<p>Kezeli a dialógusok közötti navigációt:</p>
+<ul>
+<li>Jelenlegi dialógus lekérése</li>
+<li>Választások feldolgozása</li>
+<li>Trait módosítások alkalmazása</li>
+</ul>
+<h3><strong>TraitSystem</strong></h3>
+<p>A karaktertulajdonságok módosítása:</p>
+<ul>
+<li>Trait értékek (0-100)</li>
+<li>Trait módosítás funkció</li>
+<li>Határértékek kezelése (nem mehet 0 alatt vagy 100 felett)</li>
+</ul>
+<h3><strong>InventorySystem</strong></h3>
+<p>A játékos tárgyainak kezelése:</p>
+<ul>
+<li>Tárgyak hozzáadása/eltávolítása</li>
+<li>Stackable tárgyak kezelése</li>
+<li>Férőhely ellenőrzés</li>
+</ul>
+<h3><strong>SceneManager</strong></h3>
+<p>Jelenetkezelés és interakciók:</p>
+<ul>
+<li>Háttérkép betöltése</li>
+<li>Karakterek és tárgyak pozícionálása</li>
+<li>Kattintás eseménye kezelése</li>
+</ul>
+<h3><strong>AudioManager</strong></h3>
+<p>Zene és hangeffektek:</p>
+<ul>
+<li>Háttérzene váltása</li>
+<li>Hangeffektek lejátszása</li>
+<li>Hangerő kezelés</li>
+</ul>
+<h3><strong>MinigameManager</strong></h3>
+<p>Minigamek vezérlése:</p>
+<ul>
+<li>Minigame indítása</li>
+<li>Siker/kudarc kezelése</li>
+<li>Dialógus utáni progresszió</li>
+</ul>
+<hr>
+<h2>🚀 Fejlesztői Útmutató</h2>
+<h3>Technológiák</h3>
+<ul>
+<li><strong>Vanilla JavaScript</strong> (ES6+)</li>
+<li><strong>HTML5 Canvas</strong> (Scene rendering)</li>
+<li><strong>Web Audio API</strong> (Zene és hangok)</li>
+<li><strong>CSS3</strong> (Styling és animációk)</li>
+</ul>
+<h3>Új Dialógus Hozzáadása</h3>
+<p>Az új dialógusokat a <code>data/dialogs.js</code>-be kell hozzáadni. Nézz meg meglévő dialógus struktúrákat a mintához.</p>
+<h3>Új Tárgy Hozzáadása</h3>
+<p>Új tárgyok a <code>data/items.js</code> <strong>ITEMS</strong> objektumához adódnak:</p>
+<pre class="prettyprint source lang-javascript"><code>export const ITEMS = {
+    'new_item_id': {
+        id: 'new_item_id',
+        name: 'Tárgy neve',
+        stackable: true/false,
+        description: 'Leírás'
+    },
+    // ...
+};
+</code></pre>
+<h3>Új Jelenet Létrehozása</h3>
+<p>Új jelenetek a <code>data/scenes.js</code>-ben:</p>
+<ul>
+<li>Háttérkép útvonal</li>
+<li>Karakterek pozíciói</li>
+<li>Kattintható tárgyak</li>
+<li>Minigame indítások</li>
+</ul>
+<hr>
+<pre class="prettyprint source lang-mermaid"><code>classDiagram
+    direction TB
+    class GameManager {
+        -storyFlags: Map
+        -choicesHistory: Array
+        +init()
+        +changeScene(sceneId)
+        +startDialogue(dialogId)
+    }
+    class DialogSystem {
+        -currentDialogId: String
+        +getCurrentDialog()
+        +processChoice(choiceId)
+    }
+    class TraitSystem {
+        -traits: Map
+        +modifyTrait(name, value)
+    }
+    class InventorySystem {
+        -items: Array
+        -maxSlots: int
+        +addItem(id, qty)
+        +removeItem(id, qty)
+    }
+    class SceneManager {
+        -currentBackground: String
+        +loadScene(sceneId)
+        +renderCanvas()
+    }
+    class AudioManager {
+        +playMusic(type)
+        +playSFX(emotion)
+    }
+    class MinigameManager {
+        -activeMinigame: Minigame
+        +startMinigame(type, diff)
+    }
+
+    GameManager --> DialogSystem
+    GameManager --> TraitSystem
+    GameManager --> InventorySystem
+    GameManager --> SceneManager
+    GameManager --> AudioManager
+    GameManager --> MinigameManager
+</code></pre>
+<hr>
+<h2>🎨 Esztétika</h2>
+<ul>
+<li><strong>Visual Novel UI</strong>: Félátlátszó panelek, cyberpunk neon színek (rózsaszín, kék, lila)</li>
+<li><strong>Font</strong>: Monospace (pl. <em>Courier New</em>, <em>IBM Plex Mono</em>)</li>
+<li><strong>Háttérkép</strong>: Pixelart és glitch effektek</li>
+</ul>
+<hr>
+<h2>📋 Aktuális Fejlesztés</h2>
+<p>Jelenleg a követkzekőkön dolgozunk:</p>
+<ul>
+<li>[ ] Dialógus ágak bővítése</li>
+<li>[ ] Minigame UI-k finomítása</li>
+<li>[ ] Audio optimalizáció</li>
+<li>[ ] Mentés/Betöltés rendszer</li>
+<li>[ ] NPC kapcsolat rendszer</li>
+</ul>
+<hr>
+<h2>👥 Projekt Csapata</h2>
+<table>
+<thead>
+<tr>
+<th>Csapattag</th>
+<th>Szerep</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Szuda Tibor Szilveszter</strong></td>
+<td>Kreatív vezető</td>
+</tr>
+<tr>
+<td><strong>Vén Dávid Zsolt</strong></td>
+<td>Hangmérnök</td>
+</tr>
+<tr>
+<td><strong>Szontagh Ágoston Botond</strong></td>
+<td>Rendszer tervezó</td>
+</tr>
+</tbody>
+</table></article>
+    </section>
+
+
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

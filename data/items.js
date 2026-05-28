@@ -1,4 +1,20 @@
+/**
+ * @typedef {Object} ItemDefinition
+ * @property {string} id - Egyedi tárgy azonosító
+ * @property {string} name - A tárgy megjelenítési neve
+ * @property {boolean} stackable - Hogy a tárgy halmozható-e a leltárban
+ * @property {string} description - Tárgy leírása/lore
+ * @property {number} [quantity] - Kezdeti mennyiség (halmozható tárgyakhoz)
+ */
 
+/**
+ * Tárgy definíciók adatbázisa
+ * 
+ * Tartalmazza az összes játékban elérhető tárgyat azok tulajdonságaival.
+ * A halmozható tárgyak kombinálhatók a leltárban, a nem halmozható tárgyak egyenként foglalnak egy helyet.
+ * 
+ * @type {Object<string, ItemDefinition>}
+ */
 export const ITEMS = {
     'adat_chip': {
         id: 'adat_chip',

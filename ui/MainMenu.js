@@ -1,28 +1,66 @@
 /**
- * MainMenu UI Component
- * Handles main menu display, settings, and game start
+ * MainMenu - Főmenü UI komponens
+ * 
+ * Kezeli:
+ * - Főmenü megjelenítése
+ * - Beállítások kezelése
+ * - Játék indítása
+ * 
+ * @class MainMenu
+ * @example
+ * const menu = new MainMenu(audioManager);
+ * menu.setGameManager(gameManager);
+ * menu.showMenu();
  */
 export default class MainMenu {
+    /**
+     * Audio kezelő referencia
+     * @private
+     * @type {AudioManager}
+     */
     #audioManager;
+
+    /**
+     * Játék kezelő referencia
+     * @private
+     * @type {GameManager}
+     */
     #gameManager;
+
+    /**
+     * Főmenü konténer elem
+     * @private
+     * @type {HTMLElement}
+     */
     #menuContainer;
+
+    /**
+     * Beállítások megnyitva-e
+     * @private
+     * @type {boolean}
+     */
     #isSettingsOpen = false;
 
+    /**
+     * Új MainMenu-t hoz létre
+     * 
+     * @param {AudioManager} audioManager - Audio kezelő rendszer
+     */
     constructor(audioManager) {
         this.#audioManager = audioManager;
         this.#createMenuContainer();
     }
 
     /**
-     * Set reference to GameManager
-     * @param {GameManager} gameManager
+     * GameManager referencia beállítása
+     * @param {GameManager} gameManager - Játék kezelő
      */
     setGameManager(gameManager) {
         this.#gameManager = gameManager;
     }
 
     /**
-     * Create the menu container
+     * Menü konténer létrehozása
      * @private
      */
     #createMenuContainer() {
@@ -38,7 +76,7 @@ export default class MainMenu {
     }
 
     /**
-     * Show the main menu
+     * Főmenü megjelenítése
      */
     showMenu() {
         this.#isSettingsOpen = false;
@@ -46,17 +84,17 @@ export default class MainMenu {
             <div class="main-menu-content">
                 <div class="menu-title">
                     <h1>Neon Shadow</h1>
-                    <p class="subtitle">A story-driven adventure</p>
+                    <p class="subtitle">Egy történet-vezérelt kaland</p>
                 </div>
                 
                 <div class="menu-buttons">
                     <button id="play-btn" class="menu-button play-btn">
                         <span class="button-icon">▶</span>
-                        PLAY
+                        JÁTÉK
                     </button>
                     <button id="settings-btn" class="menu-button settings-btn">
                         <span class="button-icon">⚙</span>
-                        SETTINGS
+                        BEÁLLÍTÁSOK
                     </button>
                     <button id="exit-btn" class="menu-button exit-btn">
                         <span class="button-icon">⊗</span>

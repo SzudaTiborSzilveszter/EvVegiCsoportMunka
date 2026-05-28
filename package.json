@@ -1,24 +1,14 @@
 {
   "scripts": {
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "jsdoc": "jsdoc -c jsdoc.json",
+    "jsdoc:watch": "jsdoc -c jsdoc.json --watch"
   },
   "devDependencies": {
+    "better-docs": "^2.7.3",
     "cypress": "^15.16.0",
     "docdash": "^2.0.2",
-    "jsdoc": "^4.0.5"
-  },
-  "source": {
-        "include": ["src"],
-        "includePattern": ".+\\.js(doc|x)?$",
-        "excludePattern": "(^|\\/|\\\\)_"
-    },
-    "opts": {
-        "readme": "README.md",
-        "destination": "./out/",
-        "recurse": true,
-        "template": "node_modules/docdash"
-    },
-    "plugins": [
-        "plugins/markdown"
-    ]
+    "jsdoc": "^4.0.5",
+    "jsdoc-template": "^1.2.0"
+  }
 }
