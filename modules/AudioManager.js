@@ -7,7 +7,7 @@ export default class AudioManager{
         // Allow muted autoplay in browsers with autoplay policy
         this.music.muted = false;
         this.tracks = {
-            dialogue: 'assets/music/mrambient.mp3',
+            dialogue: 'assets/music/mrambiant.mp3',
             minigame: 'assets/music/minigame.mp3',
             exploration: 'assets/music/cyberpunk.mp3'
         };
