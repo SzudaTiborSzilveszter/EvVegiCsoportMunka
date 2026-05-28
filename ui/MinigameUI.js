@@ -1,12 +1,35 @@
 /**
- * MinigameUI - Renders the minigame container and UI elements
+ * MinigameUI - Minigame konténer és UI elemek renderelése
+ * 
+ * Kezeli:
+ * - Minigame panel megjelenítése
+ * - Játék típusa és nehézsége
+ * - UI elemek renderelése
+ * 
+ * @class MinigameUI
+ * @example
+ * const minigameUI = new MinigameUI(container);
+ * minigameUI.render(game, config);
  */
 export default class MinigameUI {
+    /**
+     * Konténer elem
+     * @private
+     * @type {HTMLElement}
+     */
     #container;
+
+    /**
+     * Jelenlegi játék elem
+     * @private
+     * @type {HTMLElement}
+     */
     #currentGameElement;
 
     /**
-     * @param {HTMLElement} containerElement - Where to render the minigame
+     * Új MinigameUI-t hoz létre
+     * 
+     * @param {HTMLElement} containerElement - Hova rendeljük a minigame-et
      */
     constructor(containerElement) {
         this.#container = containerElement;
@@ -14,9 +37,10 @@ export default class MinigameUI {
     }
 
     /**
-     * Render a minigame
-     * @param {Minigame} game - The minigame instance
-     * @param {Object} config - The game configuration
+     * Minigame renderelése
+     * 
+     * @param {Minigame} game - Minigame példány
+     * @param {Object} config - Játék konfigurációja
      */
     render(game, config) {
         this.#container.innerHTML = '';
@@ -24,7 +48,7 @@ export default class MinigameUI {
         const html = `<div class="minigame-panel">
                         <div class="minigame-header">
                             <span class="minigame-title">[${config.type.toUpperCase()}]</span>
-                            <span class="minigame-difficulty">Difficulty: ${game.getDifficulty()}/5</span>
+                            <span class="minigame-difficulty">Nehézség: ${game.getDifficulty()}/5</span>
                         </div>
                         
                         <div class="minigame-content">

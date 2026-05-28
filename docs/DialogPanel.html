@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> DialogPanel</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="AudioManager.html">AudioManager</a></li><li><a href="DialogPanel.html">DialogPanel</a></li><li><a href="DialogSystem.html">DialogSystem</a></li><li><a href="GameManager.html">GameManager</a></li><li><a href="InventorySystem.html">InventorySystem</a></li><li><a href="InventorySystem_InventorySystem.html">InventorySystem</a></li><li><a href="InventoryUI.html">InventoryUI</a></li><li><a href="LockpickingUI.html">LockpickingUI</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="MinigameUI.html">MinigameUI</a></li><li><a href="PuzzleUI.html">PuzzleUI</a></li><li><a href="SceneManager.html">SceneManager</a></li><li><a href="TraitSystem.html">TraitSystem</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ITEMS">ITEMS</a></li><li><a href="global.html#addCharacter">addCharacter</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#clearScene">clearScene</a></li><li><a href="global.html#endConversation">endConversation</a></li><li><a href="global.html#endDialog">endDialog</a></li><li><a href="global.html#fail">fail</a></li><li><a href="global.html#getAllTraits">getAllTraits</a></li><li><a href="global.html#getChoices">getChoices</a></li><li><a href="global.html#getCurrentCharacter">getCurrentCharacter</a></li><li><a href="global.html#getCurrentDialog">getCurrentDialog</a></li><li><a href="global.html#getCurrentDialogIndex">getCurrentDialogIndex</a></li><li><a href="global.html#getCurrentGame">getCurrentGame</a></li><li><a href="global.html#getCurrentScene">getCurrentScene</a></li><li><a href="global.html#getDialogText">getDialogText</a></li><li><a href="global.html#getDifficulty">getDifficulty</a></li><li><a href="global.html#getDifficultyMultiplier">getDifficultyMultiplier</a></li><li><a href="global.html#getElapsedTime">getElapsedTime</a></li><li><a href="global.html#getFlag">getFlag</a></li><li><a href="global.html#getGameBoard">getGameBoard</a></li><li><a href="global.html#getGridData">getGridData</a></li><li><a href="global.html#getSelectedPath">getSelectedPath</a></li><li><a href="global.html#getStoryState">getStoryState</a></li><li><a href="global.html#getTargetCodes">getTargetCodes</a></li><li><a href="global.html#getTrait">getTrait</a></li><li><a href="global.html#getType">getType</a></li><li><a href="global.html#hasChoices">hasChoices</a></li><li><a href="global.html#hideMenu">hideMenu</a></li><li><a href="global.html#isActive">isActive</a></li><li><a href="global.html#isCellSelectable">isCellSelectable</a></li><li><a href="global.html#isConversationActive">isConversationActive</a></li><li><a href="global.html#isGameActive">isGameActive</a></li><li><a href="global.html#loadScene">loadScene</a></li><li><a href="global.html#modifyTraits">modifyTraits</a></li><li><a href="global.html#nextDialogOfCurrentCharacter">nextDialogOfCurrentCharacter</a></li><li><a href="global.html#playMusic">playMusic</a></li><li><a href="global.html#playSoundEffect">playSoundEffect</a></li><li><a href="global.html#playTrack">playTrack</a></li><li><a href="global.html#recordChoice">recordChoice</a></li><li><a href="global.html#removeCharacter">removeCharacter</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#scenes">scenes</a></li><li><a href="global.html#selectCell">selectCell</a></li><li><a href="global.html#selectChoice">selectChoice</a></li><li><a href="global.html#setFlag">setFlag</a></li><li><a href="global.html#setGameManager">setGameManager</a></li><li><a href="global.html#setOnCharacterClick">setOnCharacterClick</a></li><li><a href="global.html#setOnCompletion">setOnCompletion</a></li><li><a href="global.html#setOnItemClick">setOnItemClick</a></li><li><a href="global.html#setSceneManager">setSceneManager</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showFailure">showFailure</a></li><li><a href="global.html#showMenu">showMenu</a></li><li><a href="global.html#showSuccess">showSuccess</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startDialog">startDialog</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopMusic">stopMusic</a></li><li><a href="global.html#storyFlow">storyFlow</a></li><li><a href="global.html#succeed">succeed</a></li><li><a href="global.html#switchTrack">switchTrack</a></li><li><a href="global.html#updateCharacter">updateCharacter</a></li><li><a href="global.html#volume">volume</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Class</p>
+                    <h1>DialogPanel</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>DialogPanel<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="DialogPanel">
+        <a class="href-link" href="#DialogPanel">#</a>
+        
+        <span class="code-name">
+            
+                new DialogPanel<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>DialogPanel - Dialógus UI panel</p>
+<p>Kezeli:</p>
+<ul>
+<li>Dialógus szöveg és választások megjelenítése</li>
+<li>Karakterfigurák megjelenítése</li>
+<li>Választás kezelés</li>
+<li>Dialógus animációk</li>
+</ul>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="ui_DialogPanel.js.html" class="button">View Source</a>
+            <span>
+                <a href="ui_DialogPanel.js.html">ui/DialogPanel.js</a>, <a href="ui_DialogPanel.js.html#line3">line 3</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const dialog = new DialogPanel(dialogSystem, container, audioManager);dialog.setSceneManager(sceneManager);dialog.showDialog();</code></pre>
+    
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

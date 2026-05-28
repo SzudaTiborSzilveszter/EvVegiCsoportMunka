@@ -1,12 +1,46 @@
+/**
+ * PuzzleUI - Puzzle minigame UI
+ * 
+ * Kezeli:
+ * - Puzzle grid megjelenítése
+ * - Csempék és csatlakozások
+ * - Játék előrehaladása
+ * 
+ * @class PuzzleUI
+ * @example
+ * const puzzleUI = new PuzzleUI(container);
+ * puzzleUI.render(game);
+ */
 export default class PuzzleUI {
+    /**
+     * Konténer elem
+     * @private
+     * @type {HTMLElement}
+     */
     #container;
+
+    /**
+     * Puzzle játék referencia
+     * @private
+     * @type {PuzzleGame}
+     */
     #game;
 
+    /**
+     * Új PuzzleUI-t hoz létre
+     * 
+     * @param {HTMLElement} container - Konténer elem
+     */
     constructor(container) {
         this.#container = container;
         this.#game = null;
     }
 
+    /**
+     * UI renderelése
+     * 
+     * @param {PuzzleGame} game - Puzzle játék
+     */
     render(game) {
         this.#game = game;
         this.#container.innerHTML = '';
@@ -19,9 +53,9 @@ export default class PuzzleUI {
         const html = `
             <div class="puzzle-container">
                 <div class="puzzle-meta">
-                    <div class="puzzle-title">ALIGN THE CIRCUIT</div>
-                    <div class="puzzle-hint">Rotate tiles to connect START to CORE.</div>
-                    <div class="puzzle-stats">Moves: ${game.getMoveCount()} | Connected: ${progress.connected}/${progress.total}</div>
+                    <div class="puzzle-title">ÁRAMKÖR IGAZÍTÁSA</div>
+                    <div class="puzzle-hint">Forgasd el a csempéket a START és CORE összekapcsolásához.</div>
+                    <div class="puzzle-stats">Lépések: ${game.getMoveCount()} | Csatlakozva: ${progress.connected}/${progress.total}</div>
                 </div>
                 <div class="puzzle-grid" style="grid-template-columns: repeat(${size}, 1fr);">
                     ${board.map((tile) => this.#renderTile(tile, connectedSet.has(tile.index))).join('')}

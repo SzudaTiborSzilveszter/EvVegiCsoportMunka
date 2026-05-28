@@ -1,5 +1,45 @@
-// ui/InventoryUI.js
+/**
+ * InventoryUI - Leltár UI komponens
+ * 
+ * Kezeli:
+ * - Leltár megjelenítése
+ * - Tárgyak listázása
+ * - Tárgy információk
+ * - Leltár ablak nyitása/zárása
+ * 
+ * @class InventoryUI
+ * @example
+ * const inventoryUI = new InventoryUI(inventory, container);
+ * inventoryUI.update();
+ */
 export default class InventoryUI {
+    /**
+     * Leltár rendszer referencia
+     * @private
+     * @type {InventorySystem}
+     */
+    inventory;
+
+    /**
+     * UI konténer elem
+     * @private
+     * @type {HTMLElement}
+     */
+    container;
+
+    /**
+     * Leltár ablak nyitva-e
+     * @private
+     * @type {boolean}
+     */
+    isOpen = false;
+
+    /**
+     * Új InventoryUI-t hoz létre
+     * 
+     * @param {InventorySystem} inventory - Leltár kezelő
+     * @param {HTMLElement} container - Konténer elem
+     */
     constructor(inventory, container) {
         this.inventory = inventory;
         this.container = container;
@@ -7,8 +47,12 @@ export default class InventoryUI {
         this.#init();
     }
 
+    /**
+     * UI inicializálása
+     * @private
+     */
     #init() {
-        // Create backpack button
+        // Hátizsák gomb létrehozása
         this.btn = document.createElement('button');
         this.btn.id = 'inventory-toggle';
         this.btn.innerHTML = '🎒';

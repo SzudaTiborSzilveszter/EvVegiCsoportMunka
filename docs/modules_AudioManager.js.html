@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> modules/AudioManager.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="AudioManager.html">AudioManager</a></li><li><a href="DialogPanel.html">DialogPanel</a></li><li><a href="DialogSystem.html">DialogSystem</a></li><li><a href="GameManager.html">GameManager</a></li><li><a href="InventorySystem.html">InventorySystem</a></li><li><a href="InventorySystem_InventorySystem.html">InventorySystem</a></li><li><a href="InventoryUI.html">InventoryUI</a></li><li><a href="LockpickingUI.html">LockpickingUI</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="MinigameUI.html">MinigameUI</a></li><li><a href="PuzzleUI.html">PuzzleUI</a></li><li><a href="SceneManager.html">SceneManager</a></li><li><a href="TraitSystem.html">TraitSystem</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ITEMS">ITEMS</a></li><li><a href="global.html#addCharacter">addCharacter</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#clearScene">clearScene</a></li><li><a href="global.html#endConversation">endConversation</a></li><li><a href="global.html#endDialog">endDialog</a></li><li><a href="global.html#fail">fail</a></li><li><a href="global.html#getAllTraits">getAllTraits</a></li><li><a href="global.html#getChoices">getChoices</a></li><li><a href="global.html#getCurrentCharacter">getCurrentCharacter</a></li><li><a href="global.html#getCurrentDialog">getCurrentDialog</a></li><li><a href="global.html#getCurrentDialogIndex">getCurrentDialogIndex</a></li><li><a href="global.html#getCurrentGame">getCurrentGame</a></li><li><a href="global.html#getCurrentScene">getCurrentScene</a></li><li><a href="global.html#getDialogText">getDialogText</a></li><li><a href="global.html#getDifficulty">getDifficulty</a></li><li><a href="global.html#getDifficultyMultiplier">getDifficultyMultiplier</a></li><li><a href="global.html#getElapsedTime">getElapsedTime</a></li><li><a href="global.html#getFlag">getFlag</a></li><li><a href="global.html#getGameBoard">getGameBoard</a></li><li><a href="global.html#getGridData">getGridData</a></li><li><a href="global.html#getSelectedPath">getSelectedPath</a></li><li><a href="global.html#getStoryState">getStoryState</a></li><li><a href="global.html#getTargetCodes">getTargetCodes</a></li><li><a href="global.html#getTrait">getTrait</a></li><li><a href="global.html#getType">getType</a></li><li><a href="global.html#hasChoices">hasChoices</a></li><li><a href="global.html#hideMenu">hideMenu</a></li><li><a href="global.html#isActive">isActive</a></li><li><a href="global.html#isCellSelectable">isCellSelectable</a></li><li><a href="global.html#isConversationActive">isConversationActive</a></li><li><a href="global.html#isGameActive">isGameActive</a></li><li><a href="global.html#loadScene">loadScene</a></li><li><a href="global.html#modifyTraits">modifyTraits</a></li><li><a href="global.html#nextDialogOfCurrentCharacter">nextDialogOfCurrentCharacter</a></li><li><a href="global.html#playMusic">playMusic</a></li><li><a href="global.html#playSoundEffect">playSoundEffect</a></li><li><a href="global.html#playTrack">playTrack</a></li><li><a href="global.html#recordChoice">recordChoice</a></li><li><a href="global.html#removeCharacter">removeCharacter</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#scenes">scenes</a></li><li><a href="global.html#selectCell">selectCell</a></li><li><a href="global.html#selectChoice">selectChoice</a></li><li><a href="global.html#setFlag">setFlag</a></li><li><a href="global.html#setGameManager">setGameManager</a></li><li><a href="global.html#setOnCharacterClick">setOnCharacterClick</a></li><li><a href="global.html#setOnCompletion">setOnCompletion</a></li><li><a href="global.html#setOnItemClick">setOnItemClick</a></li><li><a href="global.html#setSceneManager">setSceneManager</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showFailure">showFailure</a></li><li><a href="global.html#showMenu">showMenu</a></li><li><a href="global.html#showSuccess">showSuccess</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#startDialog">startDialog</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopMusic">stopMusic</a></li><li><a href="global.html#storyFlow">storyFlow</a></li><li><a href="global.html#succeed">succeed</a></li><li><a href="global.html#switchTrack">switchTrack</a></li><li><a href="global.html#updateCharacter">updateCharacter</a></li><li><a href="global.html#volume">volume</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>modules/AudioManager.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * AudioManager - Összes hanglejátszás kezelése (zene és hangeffektek)
+ * 
+ * Funkciók:
+ * - Háttérzene lejátszás pályaváltással
+ * - Hangeffekt lejátszás (dialógus hangok különféle érzelmekhez)
+ * - Hangerő vezérlés (0.0-1.0)
+ * - Némítás/feloldás funkcionalitás
+ * - Böngésző automatikus lejátszás házirendjének kezelése
+ * 
+ * @class AudioManager
+ * @example
+ * const audioManager = new AudioManager();
+ * audioManager.playTrack('mrambient.mp3');
+ * audioManager.setVolume(0.7);
+ * audioManager.playSoundEffect('happy');
+ */
+export default class AudioManager{
+    /**
+     * Audio elem háttérzenéhez
+     * @private
+     * @type {HTMLAudioElement}
+     */
+    #music;
+
+    /**
+     * Hogy a hang némítva van-e
+     * @private
+     * @type {boolean}
+     */
+    #muted;
+
+    /**
+     * Aktuális hangerő szint (0.0-1.0)
+     * @private
+     * @type {number}
+     */
+    #volume;
+
+    /**
+     * Zenedalok leképezése
+     * @private
+     * @type {Object&lt;string, string>}
+     */
+    #tracks;
+
+    /**
+     * Hangeffektek leképezése (érzelemalapú)
+     * @private
+     * @type {Object&lt;string, string>}
+     */
+    #soundEffects;
+
+    /**
+     * Új AudioManager-t hoz létre
+     */
+    constructor(){
+        this.#music = document.getElementById('bg-music');
+        this.#muted = false;
+        this.#volume = 0.5;
+        this.#music.volume = this.#volume;
+        // Némított automatikus lejátszás engedélyezése böngésző házirendjéhez
+        this.#music.muted = false;
+        
+        /**
+         * Zenedalok típus szerint
+         * @type {Object&lt;string, string>}
+         */
+        this.tracks = {
+            dialogue: 'assets/music/mrambient.mp3',
+            minigame: 'assets/music/minigame.mp3',
+            exploration: 'assets/music/cyberpunk.mp3'
+        };
+        
+        /**
+         * Hangeffektek érzelem/típus szerint
+         * @type {Object&lt;string, string>}
+         */
+        this.soundEffects = {
+            neutral: 'assets/sounds/dialogue_neutral.mp3',
+            happy: 'assets/sounds/dialogue_happy.mp3',
+            angry: 'assets/sounds/dialogue_angry.mp3',
+            sad: 'assets/sounds/dialogue_sad.mp3',
+            surprised: 'assets/sounds/dialogue_surprised.mp3',
+            confident: 'assets/sounds/dialogue_confident.mp3'
+        };
+    }
+
+    /**
+     * Aktuális hangerő szint lekérése
+     * @type {number}
+     */
+    get volume() {
+        return this.#volume;
+    }
+
+    /**
+     * Az előre meghatározott zenei dalok közötti váltás
+     * 
+     * @param {string} type - Pálya típusa ("dialogue", "minigame", "exploration")
+     */
+    switchTrack(type) {
+        if (this.tracks[type]) {
+            const newSrc = this.tracks[type];
+            // Csak akkor váltson, ha ezt a dallamot nem játssza
+            if (!this.#music.src.includes(newSrc)) {
+                this.#music.src = newSrc;
+                this.playMusic();
+            }
+        }
+    }
+
+    /**
+     * Megadott zenei pálya lejátszása
+     * 
+     * @param {string} musicPath - Zene fájl elérési útja vagy fájlneve
+     * 
+     * @example
+     * audioManager.playTrack('mrambient.mp3');
+     * audioManager.playTrack('assets/music/custom.mp3');
+     */
+    playTrack(musicPath) {
+        if (!musicPath) return;
+        
+        // Teljes elérési út létrehozása, ha csak fájlnév van megadva
+        const fullPath = musicPath.startsWith('assets/') ? musicPath : `assets/music/${musicPath}`;
+        
+        // Csak akkor váltson, ha más pálya
+        if (!this.#music.src.includes(fullPath)) {
+            this.#music.src = fullPath;
+            this.#music.load();
+        }
+        
+        // Lejátszás megkísérlése az automatikus lejátszás házirendjének hibakezelésével
+        const playPromise = this.#music.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('Automatikus lejátszás letiltva vagy hiba:', error);
+                // Az automatikus lejátszás megakadályozva, felhasználó interakcióra van szükség
+            });
+        }
+    }
+    
+    /**
+     * Háttérzene lejátszása
+     * 
+     * Az automatikus lejátszás házirendje korlátozásait kecsesen kezeli.
+     */
+    playMusic() {
+        const playPromise = this.#music.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('Automatikus lejátszás letiltva vagy hiba:', error);
+            });
+        }
+    }
+    
+    /**
+     * Zene lejátszás leállítása
+     */
+    stopMusic(){
+        this.#music.pause();
+    }
+    
+    /**
+     * Hangszint beállítása
+     * 
+     * @param {number} volume - Hangerő szint (0.0-1.0)
+     */
+    setVolume(volume) {
+        this.#volume = Math.max(0, Math.min(1, volume));
+        this.#music.volume = this.#volume;
+    }
+
+    /**
+     * Hangeffekt lejátszása érzelemek alapján
+     * @param {string} emotion - Érzelem típusa (pl.: 'happy', 'angry', 'sad')
+     */
+    playSoundEffect(emotion) {
+        const soundPath = this.soundEffects[emotion] || this.soundEffects.neutral;
+        
+        const sfx = new Audio(soundPath);
+        sfx.volume = this.volume * 0.8; // Kicsit alacsonyabb, mint a zene
+        sfx.play().catch(error => {
+            console.log('Hangeffekt letiltva vagy hiba:', error);
+        });
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>
