@@ -122,6 +122,8 @@ export default class SceneManager {
 
     /**
      * Setup the scene container structure with layers
+     * 
+     * @memberof SceneManager
      * @private
      */
     #setupContainer() {
@@ -145,6 +147,8 @@ export default class SceneManager {
 
     /**
      * Load and render a scene
+     * 
+     * @memberof SceneManager
      * @param {Scene} scene - Scene configuration object
      */
     loadScene(scene) {
@@ -161,7 +165,11 @@ export default class SceneManager {
 
     /**
      * Render background
+     * 
+     * @memberof SceneManager
      * @private
+     * @param {string} backgroundPath - Background image path
+     * @param {number} [opacity=0.7] - Background opacity
      */
     #renderBackground(backgroundPath, opacity = 0.7) {
         if (!backgroundPath) {
@@ -176,7 +184,10 @@ export default class SceneManager {
 
     /**
      * Render all characters in the scene
+     * 
+     * @memberof SceneManager
      * @private
+     * @param {CharacterPosition[]} characters - Array of character positions
      */
     #renderCharacters(characters) {
         this.#characterLayer.innerHTML = '';
@@ -228,7 +239,10 @@ export default class SceneManager {
 
     /**
      * Render all items in the scene
+     * 
+     * @memberof SceneManager
      * @private
+     * @param {Object[]} items - Array of item data
      */
     #renderItems(items) {
         this.#itemLayer.innerHTML = '';
@@ -288,6 +302,8 @@ export default class SceneManager {
 
     /**
      * Update a single character's position
+     * 
+     * @memberof SceneManager
      * @param {string} character - Character key
      * @param {Partial<CharacterPosition>} updates - Properties to update
      */
@@ -303,6 +319,8 @@ export default class SceneManager {
 
     /**
      * Add a character to the current scene
+     * 
+     * @memberof SceneManager
      * @param {CharacterPosition} charPos - Character position data
      */
     addCharacter(charPos) {
@@ -313,6 +331,8 @@ export default class SceneManager {
 
     /**
      * Remove a character from the scene
+     * 
+     * @memberof SceneManager
      * @param {string} character - Character key to remove
      */
     removeCharacter(character) {
@@ -325,6 +345,8 @@ export default class SceneManager {
 
     /**
      * Clear the scene
+     * 
+     * @memberof SceneManager
      */
     clearScene() {
         this.#backgroundEl.style.backgroundImage = 'none';
@@ -334,6 +356,9 @@ export default class SceneManager {
 
     /**
      * Get current scene
+     * 
+     * @memberof SceneManager
+     * @returns {Scene|null} Current scene or null if none loaded
      */
     getCurrentScene() {
         return this.#currentScene;
@@ -341,6 +366,8 @@ export default class SceneManager {
 
     /**
      * Set the callback for character clicks
+     * 
+     * @memberof SceneManager
      * @param {Function} callback - Function to call when character is clicked, receives {character, dialogIndex}
      */
     setOnCharacterClick(callback) {
@@ -349,6 +376,8 @@ export default class SceneManager {
 
     /**
      * Set the callback for item clicks
+     * 
+     * @memberof SceneManager
      * @param {Function} callback - Function to call when item is clicked, receives item data
      */
     setOnItemClick(callback) {

@@ -106,6 +106,7 @@ export default class DialogPanel {
 
     /**
      * SceneManager referencia beállítása karakterek elrejtéséhez/megjelenítéséhez
+     * @memberof DialogPanel
      * @param {SceneManager} sceneManager - Jelenetkezelő
      */
     setSceneManager(sceneManager) {
@@ -114,6 +115,7 @@ export default class DialogPanel {
 
     /**
      * Start displaying a dialog conversation
+     * @memberof DialogPanel
      * @param {string} character - Character key to start conversation with
      * @param {number} dialogIndex - Dialog ID to display
      */
@@ -125,6 +127,10 @@ export default class DialogPanel {
         this.render();
     }
 
+    /**
+     * Dialógus panel HTML-jének renderelése
+     * @memberof DialogPanel
+     */
     render() {
         if (!this.#dialogSystem.isConversationActive()) {
             this.#container.innerHTML = "";
@@ -241,6 +247,7 @@ export default class DialogPanel {
 
     /**
      * End the current conversation and clear the dialog panel
+     * @memberof DialogPanel
      */
     endDialog() {
         this.#hideVisuals();
@@ -253,6 +260,8 @@ export default class DialogPanel {
     /**
      * Hide a character from the scene (during dialog)
      * @private
+     * @memberof DialogPanel
+     * @param {string} characterKey - Karakter kulcsa
      */
     #hideCharacterInScene(characterKey) {
         if (!this.#sceneManager) return;
@@ -270,6 +279,8 @@ export default class DialogPanel {
     /**
      * Show a character back in the scene (after dialog)
      * @private
+     * @memberof DialogPanel
+     * @param {string} characterKey - Karakter kulcsa
      */
     #showCharacterInScene(characterKey) {
         if (!characterKey) return;
@@ -286,6 +297,9 @@ export default class DialogPanel {
 
     /**
      * Show overlay and character sprites with animations
+     * @private
+     * @memberof DialogPanel
+     * @param {string} characterKey - Karakter kulcsa
      */
     #showVisuals(characterKey) {
         const speakerChar = characters[characterKey] || characters.sibling;
@@ -345,6 +359,10 @@ export default class DialogPanel {
     /**
      * Get emotion-specific sprite path
      * @private
+     * @memberof DialogPanel
+     * @param {string} basePath - Alap szprite útvonal
+     * @param {string} emotion - Érzelem típusa
+     * @returns {string} Az érzelem-specifikus szprite útvonala
      */
     #getEmotionSprite(basePath, emotion) {
         if (!basePath || emotion === 'neutral') {
@@ -377,6 +395,8 @@ export default class DialogPanel {
 
     /**
      * Hide overlay and character sprites with animations
+     * @private
+     * @memberof DialogPanel
      */
     #hideVisuals() {
         // Start exit animations

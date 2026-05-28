@@ -53,6 +53,7 @@ export default class MainMenu {
 
     /**
      * GameManager referencia beállítása
+     * @memberof MainMenu
      * @param {GameManager} gameManager - Játék kezelő
      */
     setGameManager(gameManager) {
@@ -62,6 +63,7 @@ export default class MainMenu {
     /**
      * Menü konténer létrehozása
      * @private
+     * @memberof MainMenu
      */
     #createMenuContainer() {
         if (document.getElementById('main-menu')) {
@@ -77,6 +79,7 @@ export default class MainMenu {
 
     /**
      * Főmenü megjelenítése
+     * @memberof MainMenu
      */
     showMenu() {
         this.#isSettingsOpen = false;

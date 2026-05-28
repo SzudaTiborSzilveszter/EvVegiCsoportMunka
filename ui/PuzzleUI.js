@@ -39,6 +39,7 @@ export default class PuzzleUI {
     /**
      * UI renderelése
      * 
+     * @memberof PuzzleUI
      * @param {PuzzleGame} game - Puzzle játék
      */
     render(game) {
@@ -79,6 +80,15 @@ export default class PuzzleUI {
     }
 
     #renderTile(tile, isConnected) {
+        /**
+         * Csempe renderelése
+         * 
+         * @memberof PuzzleUI
+         * @private
+         * @param {Object} tile - Csempe objektum
+         * @param {boolean} isConnected - Csatlakozva van-e
+         * @returns {string} HTML csempe
+         */
         const classes = ['puzzle-tile'];
         if (tile.isStart) classes.push('start');
         if (tile.isCore) classes.push('core');

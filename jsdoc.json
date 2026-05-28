@@ -21,5 +21,18 @@
         "default": {
             "outputSourceFiles": true
         }
+    },
+    "better-docs": {
+        "name": "Év Vegi Csoport Munka - Dokumentáció",
+        "logo": "",
+        "filter": false,
+        "hideModulePattern": "^(?!.*\\.js$)",
+        "navLinks": [
+            {
+                "label": "GitHub",
+                "href": "#"
+            }
+        ],
+        "trackingCode": ""
     }
 }

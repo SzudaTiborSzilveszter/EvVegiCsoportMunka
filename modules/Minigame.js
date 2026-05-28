@@ -25,6 +25,8 @@ export default class Minigame {
 
     /**
      * Start the minigame
+     * 
+     * @memberof Minigame
      */
     start() {
         this.#isActive = true;
@@ -34,6 +36,9 @@ export default class Minigame {
 
     /**
      * End the minigame successfully
+     * 
+     * @memberof Minigame
+     * @returns {boolean} Success
      */
     succeed() {
         if (!this.#isActive) return false;
@@ -49,6 +54,9 @@ export default class Minigame {
 
     /**
      * End the minigame with failure
+     * 
+     * @memberof Minigame
+     * @returns {boolean} Success
      */
     fail() {
         if (!this.#isActive) return false;
@@ -64,6 +72,9 @@ export default class Minigame {
 
     /**
      * Get game type
+     * 
+     * @memberof Minigame
+     * @returns {string} Game type
      */
     getType() {
         return this.#type;
@@ -71,6 +82,9 @@ export default class Minigame {
 
     /**
      * Get difficulty
+     * 
+     * @memberof Minigame
+     * @returns {number} Difficulty level
      */
     getDifficulty() {
         return this.#difficulty;
@@ -78,6 +92,9 @@ export default class Minigame {
 
     /**
      * Check if game is currently active
+     * 
+     * @memberof Minigame
+     * @returns {boolean} Is active
      */
     isActive() {
         return this.#isActive;
@@ -85,6 +102,9 @@ export default class Minigame {
 
     /**
      * Get elapsed time in milliseconds
+     * 
+     * @memberof Minigame
+     * @returns {number} Elapsed time
      */
     getElapsedTime() {
         if (!this.#isActive) return this.#endTime - this.#startTime;
@@ -95,6 +115,9 @@ export default class Minigame {
      * Calculate difficulty multiplier (affects timing, accuracy, etc.)
      * Difficulty 1 = easy (slower, more forgiving)
      * Difficulty 5 = hard (faster, less forgiving)
+     * 
+     * @memberof Minigame
+     * @returns {number} Difficulty multiplier
      */
     getDifficultyMultiplier() {
         return 0.5 + (this.#difficulty * 0.1);

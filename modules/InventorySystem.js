@@ -45,6 +45,7 @@ export class InventorySystem {
      * Ha a tárgy halmozható és már létezik a leltárban, akkor növeli a mennyiséget.
      * Egyébként új helyként hozzáadja.
      * 
+     * @memberof InventorySystem
      * @param {string|Object} itemOrId - Tárgy ID stringje vagy tárgy objektum
      * @param {string} itemOrId.id - Egyedi tárgy azonosító
      * @param {string} itemOrId.name - Megjelenítési név
@@ -100,6 +101,7 @@ export class InventorySystem {
     /**
      * Az összes leltárban lévő tárgyat adja vissza
      * 
+     * @memberof InventorySystem
      * @returns {Array<Object>} A leltárban lévő tárgyak tömbje
      */
     getItems() { 

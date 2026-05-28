@@ -38,6 +38,8 @@ export default class MinigameManager {
 
     /**
      * Start a minigame
+     * 
+     * @memberof MinigameManager
      * @param {string} gameId - The minigame ID from config
      * @param {Object} rewards - Optional rewards on completion {nextScene, rewardItem}
      * @param {Function} onCompletion - Optional callback for completion handling
@@ -85,7 +87,12 @@ export default class MinigameManager {
 
     /**
      * Hacking játék inicializálása
+     * 
+     * @memberof MinigameManager
      * @private
+     * @param {number} difficulty - Game difficulty
+     * @param {Function} onSuccess - Success callback
+     * @param {Function} onFailure - Failure callback
      */
     #initializeHackingGame(difficulty, onSuccess, onFailure) {
         const hackingGame = new HackingGame(
@@ -108,7 +115,12 @@ export default class MinigameManager {
 
     /**
      * Lockpicking játék inicializálása
+     * 
+     * @memberof MinigameManager
      * @private
+     * @param {number} difficulty - Game difficulty
+     * @param {Function} onSuccess - Success callback
+     * @param {Function} onFailure - Failure callback
      */
     #initializeLockpickingGame(difficulty, onSuccess, onFailure) {
         const lockpickingGame = new LockpickingGame(
@@ -130,7 +142,12 @@ export default class MinigameManager {
 
     /**
      * Puzzle játék inicializálása
+     * 
+     * @memberof MinigameManager
      * @private
+     * @param {number} difficulty - Game difficulty
+     * @param {Function} onSuccess - Success callback
+     * @param {Function} onFailure - Failure callback
      */
     #initializePuzzleGame(difficulty, onSuccess, onFailure) {
         const puzzleGame = new PuzzleGame(
@@ -152,7 +169,11 @@ export default class MinigameManager {
 
     /**
      * Handle successful game completion
+     * 
+     * @memberof MinigameManager
      * @private
+     * @param {Object} config - Game configuration
+     * @param {Object} rewards - Rewards object
      */
     #handleSuccess(config, rewards) {
         console.log(`[MinigameManager] Game succeeded!`, rewards);
@@ -183,7 +204,10 @@ export default class MinigameManager {
 
     /**
      * Handle game failure
+     * 
+     * @memberof MinigameManager
      * @private
+     * @param {Object} config - Game configuration
      */
     #handleFailure(config) {
         console.log(`[MinigameManager] Game failed!`);
@@ -209,6 +233,9 @@ export default class MinigameManager {
 
     /**
      * Get the currently active game
+     * 
+     * @memberof MinigameManager
+     * @returns {Minigame|null} Current game or null
      */
     getCurrentGame() {
         return this.#currentGame;
@@ -216,6 +243,9 @@ export default class MinigameManager {
 
     /**
      * Check if a game is currently running
+     * 
+     * @memberof MinigameManager
+     * @returns {boolean} Whether a game is active
      */
     isGameActive() {
         return this.#currentGame !== null && this.#currentGame.isActive();
@@ -223,6 +253,8 @@ export default class MinigameManager {
 
     /**
      * Stop the current game (player quits)
+     * 
+     * @memberof MinigameManager
      */
     cancelGame() {
         if (this.#currentGame && this.#currentGame.isActive()) {
@@ -233,6 +265,8 @@ export default class MinigameManager {
 
     /**
      * Set completion callback for minigame rewards
+     * 
+     * @memberof MinigameManager
      * @param {Function} callback - Called on success with {success, rewards}
      */
     setOnCompletion(callback) {

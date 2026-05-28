@@ -49,6 +49,7 @@ export default class TraitSystem {
      * 
      * Az értékek automatikusan korlátozottak 0-100 között.
      * 
+     * @memberof TraitSystem
      * @param {Object} modifier - Módosítandó tulajdonságok delta értékekkel
      * @param {number} [modifier.empathy] - Empátia módosítása
      * @param {number} [modifier.aggression] - Agresszió módosítása
@@ -76,6 +77,7 @@ export default class TraitSystem {
     /**
      * Az adott tulajdonság értékét adja vissza
      * 
+     * @memberof TraitSystem
      * @param {string} trait - Tulajdonság neve (empathy, aggression, desperation, coldness, trust)
      * @returns {number} Tulajdonság értéke (0-100)
      */
@@ -86,6 +88,7 @@ export default class TraitSystem {
     /**
      * Az összes tulajdonság értékét adja vissza egy új objektumként
      * 
+     * @memberof TraitSystem
      * @returns {Object<string, number>} Az összes tulajdonság értékét tartalmazó objektum
      */
     getAllTraits() {

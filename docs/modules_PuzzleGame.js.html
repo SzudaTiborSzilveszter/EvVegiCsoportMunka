@@ -1,0 +1,556 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> modules/PuzzleGame.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="AudioManager.html">AudioManager</a></li><li><a href="DialogPanel.html">DialogPanel</a></li><li><a href="DialogSystem.html">DialogSystem</a></li><li><a href="GameManager.html">GameManager</a></li><li><a href="InventorySystem.html">InventorySystem</a></li><li><a href="InventorySystem_InventorySystem.html">InventorySystem</a></li><li><a href="InventoryUI.html">InventoryUI</a></li><li><a href="LockpickingUI.html">LockpickingUI</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="MinigameUI.html">MinigameUI</a></li><li><a href="PuzzleUI.html">PuzzleUI</a></li><li><a href="SceneManager.html">SceneManager</a></li><li><a href="TraitSystem.html">TraitSystem</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ITEMS">ITEMS</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#getCurrentScene">getCurrentScene</a></li><li><a href="global.html#getDifficulty">getDifficulty</a></li><li><a href="global.html#getGameBoard">getGameBoard</a></li><li><a href="global.html#getGridData">getGridData</a></li><li><a href="global.html#getSelectedPath">getSelectedPath</a></li><li><a href="global.html#getStoryState">getStoryState</a></li><li><a href="global.html#getTargetCodes">getTargetCodes</a></li><li><a href="global.html#hideMenu">hideMenu</a></li><li><a href="global.html#isActive">isActive</a></li><li><a href="global.html#isCellSelectable">isCellSelectable</a></li><li><a href="global.html#recordChoice">recordChoice</a></li><li><a href="global.html#scenes">scenes</a></li><li><a href="global.html#selectCell">selectCell</a></li><li><a href="global.html#showFailure">showFailure</a></li><li><a href="global.html#showSuccess">showSuccess</a></li><li><a href="global.html#storyFlow">storyFlow</a></li><li><a href="global.html#volume">volume</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>modules/PuzzleGame.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const DIRS = ['top', 'right', 'bottom', 'left'];
+const DIR_INDEX = {
+    top: 0,
+    right: 1,
+    bottom: 2,
+    left: 3
+};
+
+const VECTORS = {
+    top: { dr: -1, dc: 0, opposite: 'bottom' },
+    right: { dr: 0, dc: 1, opposite: 'left' },
+    bottom: { dr: 1, dc: 0, opposite: 'top' },
+    left: { dr: 0, dc: -1, opposite: 'right' }
+};
+
+function rotateConnections(connections, steps) {
+    const normalized = ((steps % 4) + 4) % 4;
+    const rotated = [false, false, false, false];
+
+    for (let i = 0; i &lt; 4; i++) {
+        rotated[(i + normalized) % 4] = connections[i];
+    }
+
+    return rotated;
+}
+
+export default class PuzzleGame {
+    #difficulty;
+    #size;
+    #tiles;
+    #isActive;
+    #onWin;
+    #onLose;
+    #moveCount;
+    #startIndex;
+    #coreIndex;
+
+    constructor(difficulty, onWin, onLose) {
+        this.#difficulty = difficulty;
+        this.#size = Math.min(6, Math.max(3, difficulty + 2));
+        this.#onWin = onWin;
+        this.#onLose = onLose;
+        this.#isActive = true;
+        this.#moveCount = 0;
+        this.#tiles = [];
+        this.#startIndex = 0;
+        this.#coreIndex = this.#size * this.#size - 1;
+
+        this.#generatePuzzle();
+    }
+
+    #index(row, col) {
+        /**
+         * Calculate tile index from row and column
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {number} row - Row coordinate
+         * @param {number} col - Column coordinate
+         * @returns {number} Tile index
+         */
+        return row * this.#size + col;
+    }
+
+    #inBounds(row, col) {
+        /**
+         * Check if coordinates are within puzzle bounds
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {number} row - Row coordinate
+         * @param {number} col - Column coordinate
+         * @returns {boolean} True if in bounds
+         */
+        return row >= 0 &amp;&amp; col >= 0 &amp;&amp; row &lt; this.#size &amp;&amp; col &lt; this.#size;
+    }
+
+    #randomInt(max) {
+        /**
+         * Generate random integer
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {number} max - Maximum value
+         * @returns {number} Random integer
+         */
+        return Math.floor(Math.random() * max);
+    }
+
+    #generatePathCoordinates() {
+        /**
+         * Generate path from start to core
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @returns {Object[]} Array of {row, col} coordinates
+         */
+        const path = [{ row: 0, col: 0 }];
+        let row = 0;
+        let col = 0;
+
+        while (row !== this.#size - 1 || col !== this.#size - 1) {
+            const canGoDown = row &lt; this.#size - 1;
+            const canGoRight = col &lt; this.#size - 1;
+
+            if (canGoDown &amp;&amp; canGoRight) {
+                if (Math.random() > 0.5) {
+                    row++;
+                } else {
+                    col++;
+                }
+            } else if (canGoDown) {
+                row++;
+            } else {
+                col++;
+            }
+
+            path.push({ row, col });
+        }
+
+        return path;
+    }
+
+    #connectionsFromDirs(dirs) {
+        /**
+         * Convert direction array to connections array
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {string[]} dirs - Direction names
+         * @returns {boolean[]} Connection array
+         */
+        const result = [false, false, false, false];
+        dirs.forEach((dir) => {
+            result[DIR_INDEX[dir]] = true;
+        });
+        return result;
+    }
+
+    #randomFillerConnections() {
+        /**
+         * Generate random filler tile connections
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @returns {boolean[]} Connection array
+         */
+        const templates = [
+            this.#connectionsFromDirs(['top', 'bottom']),
+            this.#connectionsFromDirs(['left', 'right']),
+            this.#connectionsFromDirs(['top', 'right']),
+            this.#connectionsFromDirs(['right', 'bottom']),
+            this.#connectionsFromDirs(['bottom', 'left']),
+            this.#connectionsFromDirs(['left', 'top']),
+            this.#connectionsFromDirs(['top', 'right', 'bottom']),
+            this.#connectionsFromDirs(['right', 'bottom', 'left']),
+            this.#connectionsFromDirs(['top', 'bottom', 'left'])
+        ];
+
+        return [...templates[this.#randomInt(templates.length)]];
+    }
+
+    #directionBetween(a, b) {
+        /**
+         * Get direction from tile a to tile b
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {Object} a - First tile coordinates
+         * @param {Object} b - Second tile coordinates
+         * @returns {string|null} Direction or null if not adjacent
+         */
+        if (b.row === a.row - 1 &amp;&amp; b.col === a.col) return 'top';
+        if (b.row === a.row + 1 &amp;&amp; b.col === a.col) return 'bottom';
+        if (b.row === a.row &amp;&amp; b.col === a.col - 1) return 'left';
+        if (b.row === a.row &amp;&amp; b.col === a.col + 1) return 'right';
+        return null;
+    }
+
+    #generatePuzzle() {
+        /**
+         * Generate puzzle board
+         * 
+         * @memberof PuzzleGame
+         * @private
+         */
+        const path = this.#generatePathCoordinates();
+        const pathMap = new Map();
+
+        path.forEach((coord, index) => {
+            pathMap.set(this.#index(coord.row, coord.col), { coord, index });
+        });
+
+        for (let row = 0; row &lt; this.#size; row++) {
+            for (let col = 0; col &lt; this.#size; col++) {
+                const idx = this.#index(row, col);
+                const pathInfo = pathMap.get(idx);
+
+                let baseConnections;
+                let isStart = false;
+                let isCore = false;
+
+                if (pathInfo) {
+                    const pathPos = pathInfo.index;
+                    const dirs = [];
+
+                    if (pathPos > 0) {
+                        const prev = path[pathPos - 1];
+                        const prevDir = this.#directionBetween(path[pathPos], prev);
+                        if (prevDir) dirs.push(prevDir);
+                    }
+
+                    if (pathPos &lt; path.length - 1) {
+                        const next = path[pathPos + 1];
+                        const nextDir = this.#directionBetween(path[pathPos], next);
+                        if (nextDir) dirs.push(nextDir);
+                    }
+
+                    baseConnections = this.#connectionsFromDirs(dirs);
+                    isStart = pathPos === 0;
+                    isCore = pathPos === path.length - 1;
+                } else {
+                    baseConnections = this.#randomFillerConnections();
+                }
+
+                this.#tiles.push({
+                    index: idx,
+                    row,
+                    col,
+                    baseConnections,
+                    rotation: this.#randomInt(4),
+                    isStart,
+                    isCore,
+                    locked: false
+                });
+            }
+        }
+
+        if (this.isSolved()) {
+            const nonTerminal = this.#tiles.find((tile) => !tile.isStart &amp;&amp; !tile.isCore);
+            if (nonTerminal) {
+                nonTerminal.rotation = (nonTerminal.rotation + 1) % 4;
+            }
+        }
+    }
+
+    /**
+     * Get difficulty level
+     * 
+     * @memberof PuzzleGame
+     * @returns {number} Difficulty
+     */
+    getDifficulty() {
+        return this.#difficulty;
+    }
+
+    /**
+     * Get puzzle grid size
+     * 
+     * @memberof PuzzleGame
+     * @returns {number} Grid size
+     */
+    getSize() {
+        return this.#size;
+    }
+
+    /**
+     * Check if game is active
+     * 
+     * @memberof PuzzleGame
+     * @returns {boolean} Is active
+     */
+    isActive() {
+        return this.#isActive;
+    }
+
+    /**
+     * Get move count
+     * 
+     * @memberof PuzzleGame
+     * @returns {number} Number of moves
+     */
+    getMoveCount() {
+        return this.#moveCount;
+    }
+
+    #getEffectiveConnections(tile) {
+        /**
+         * Get tile connections after rotation
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {Object} tile - Tile object
+         * @returns {boolean[]} Effective connections
+         */
+        return rotateConnections(tile.baseConnections, tile.rotation);
+    }
+
+    /**
+     * Get board data for rendering
+     * 
+     * @memberof PuzzleGame
+     * @returns {Object[]} Board tile data
+     */
+    getBoardData() {
+        return this.#tiles.map((tile) => ({
+            index: tile.index,
+            row: tile.row,
+            col: tile.col,
+            rotation: tile.rotation,
+            isStart: tile.isStart,
+            isCore: tile.isCore,
+            locked: tile.locked,
+            connections: this.#getEffectiveConnections(tile)
+        }));
+    }
+
+    #getNeighbors(tile) {
+        /**
+         * Get adjacent connected tiles
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {Object} tile - Tile object
+         * @returns {number[]} Neighbor indices
+         */
+        const currentConnections = this.#getEffectiveConnections(tile);
+        const neighbors = [];
+
+        for (let i = 0; i &lt; DIRS.length; i++) {
+            if (!currentConnections[i]) continue;
+
+            const dir = DIRS[i];
+            const vector = VECTORS[dir];
+            const nr = tile.row + vector.dr;
+            const nc = tile.col + vector.dc;
+
+            if (!this.#inBounds(nr, nc)) continue;
+
+            const neighbor = this.#tiles[this.#index(nr, nc)];
+            const neighborConnections = this.#getEffectiveConnections(neighbor);
+            const oppositeIndex = DIR_INDEX[vector.opposite];
+
+            if (neighborConnections[oppositeIndex]) {
+                neighbors.push(neighbor.index);
+            }
+        }
+
+        return neighbors;
+    }
+
+    #computeReachableFromStart() {
+        /**
+         * Compute connected tiles from start
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @returns {Set&lt;number>} Set of reachable tile indices
+         */
+        const visited = new Set();
+        const queue = [this.#startIndex];
+        visited.add(this.#startIndex);
+
+        while (queue.length > 0) {
+            const current = queue.shift();
+            const tile = this.#tiles[current];
+            const neighbors = this.#getNeighbors(tile);
+
+            neighbors.forEach((nextIndex) => {
+                if (!visited.has(nextIndex)) {
+                    visited.add(nextIndex);
+                    queue.push(nextIndex);
+                }
+            });
+        }
+
+        return visited;
+    }
+
+    /**
+     * Get connected tile indices
+     * 
+     * @memberof PuzzleGame
+     * @returns {number[]} Array of connected tile indices
+     */
+    getConnectedTileIndices() {
+        return Array.from(this.#computeReachableFromStart());
+    }
+
+    /**
+     * Get puzzle progress
+     * 
+     * @memberof PuzzleGame
+     * @returns {Object} Progress object with connected, total, reachesCore
+     */
+    getProgress() {
+        const connected = this.#computeReachableFromStart();
+        return {
+            connected: connected.size,
+            total: this.#tiles.length,
+            reachesCore: connected.has(this.#coreIndex)
+        };
+    }
+
+    /**
+     * Check if puzzle is solved
+     * 
+     * @memberof PuzzleGame
+     * @returns {boolean} Is solved
+     */
+    isSolved() {
+        const connected = this.#computeReachableFromStart();
+        return connected.has(this.#coreIndex);
+    }
+
+    rotateTile(tileIndex, steps = 1) {
+        if (!this.#isActive) return false;
+
+        const tile = this.#tiles[tileIndex];
+        if (!tile || tile.locked) return false;
+
+        tile.rotation = ((tile.rotation + steps) % 4 + 4) % 4;
+        this.#moveCount++;
+
+        if (this.isSolved()) {
+            this.#isActive = false;
+            this.#onWin();
+        }
+
+        return true;
+    }
+
+    fail() {
+        if (!this.#isActive) return false;
+        this.#isActive = false;
+        this.#onLose();
+        return true;
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

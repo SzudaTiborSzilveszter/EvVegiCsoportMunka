@@ -50,6 +50,7 @@ export default class InventoryUI {
     /**
      * UI inicializálása
      * @private
+     * @memberof InventoryUI
      */
     #init() {
         // Hátizsák gomb létrehozása

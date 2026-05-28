@@ -15,6 +15,8 @@ export default class HackingUI {
 
     /**
      * Hacking UI renderelése
+     * 
+     * @memberof HackingUI
      * @param {HackingGame} hackingGame - A HackingGame példány
      */
     render(hackingGame) {
@@ -85,7 +87,10 @@ export default class HackingUI {
 
     /**
      * Cella kattintás kezelése
+     * 
+     * @memberof HackingUI
      * @private
+     * @param {number} cellIndex - Cella indexe
      */
     #handleCellClick(cellIndex) {
         if (!this.#hackingGame.isActive()) return;

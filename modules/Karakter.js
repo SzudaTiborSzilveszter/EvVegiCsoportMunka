@@ -1,6 +1,4 @@
-// JAVÍTOTT SOR: Mivel egy mappában vannak
 import TraitSystem from './TraitSystem.js'; 
-// JAVÍTOTT SOR: A data mappa a modules mellett van, így innen nézve ../data/
 import { characterTraits } from '../data/traits.js';
 
 export default class Karakter {

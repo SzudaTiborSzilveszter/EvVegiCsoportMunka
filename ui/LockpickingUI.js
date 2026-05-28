@@ -39,6 +39,7 @@ export default class LockpickingUI {
     /**
      * UI renderelése
      * 
+     * @memberof LockpickingUI
      * @param {LockpickingGame} game - Lockpicking játék
      */
     render(game) {

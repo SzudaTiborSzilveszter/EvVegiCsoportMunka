@@ -39,6 +39,7 @@ export default class MinigameUI {
     /**
      * Minigame renderelése
      * 
+     * @memberof MinigameUI
      * @param {Minigame} game - Minigame példány
      * @param {Object} config - Játék konfigurációja
      */

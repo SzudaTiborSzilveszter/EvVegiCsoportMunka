@@ -50,18 +50,51 @@ export default class PuzzleGame {
     }
 
     #index(row, col) {
+        /**
+         * Calculate tile index from row and column
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {number} row - Row coordinate
+         * @param {number} col - Column coordinate
+         * @returns {number} Tile index
+         */
         return row * this.#size + col;
     }
 
     #inBounds(row, col) {
+        /**
+         * Check if coordinates are within puzzle bounds
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {number} row - Row coordinate
+         * @param {number} col - Column coordinate
+         * @returns {boolean} True if in bounds
+         */
         return row >= 0 && col >= 0 && row < this.#size && col < this.#size;
     }
 
     #randomInt(max) {
+        /**
+         * Generate random integer
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {number} max - Maximum value
+         * @returns {number} Random integer
+         */
         return Math.floor(Math.random() * max);
     }
 
     #generatePathCoordinates() {
+        /**
+         * Generate path from start to core
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @returns {Object[]} Array of {row, col} coordinates
+         */
         const path = [{ row: 0, col: 0 }];
         let row = 0;
         let col = 0;
@@ -89,6 +122,14 @@ export default class PuzzleGame {
     }
 
     #connectionsFromDirs(dirs) {
+        /**
+         * Convert direction array to connections array
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {string[]} dirs - Direction names
+         * @returns {boolean[]} Connection array
+         */
         const result = [false, false, false, false];
         dirs.forEach((dir) => {
             result[DIR_INDEX[dir]] = true;
@@ -97,6 +138,13 @@ export default class PuzzleGame {
     }
 
     #randomFillerConnections() {
+        /**
+         * Generate random filler tile connections
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @returns {boolean[]} Connection array
+         */
         const templates = [
             this.#connectionsFromDirs(['top', 'bottom']),
             this.#connectionsFromDirs(['left', 'right']),
@@ -113,6 +161,15 @@ export default class PuzzleGame {
     }
 
     #directionBetween(a, b) {
+        /**
+         * Get direction from tile a to tile b
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {Object} a - First tile coordinates
+         * @param {Object} b - Second tile coordinates
+         * @returns {string|null} Direction or null if not adjacent
+         */
         if (b.row === a.row - 1 && b.col === a.col) return 'top';
         if (b.row === a.row + 1 && b.col === a.col) return 'bottom';
         if (b.row === a.row && b.col === a.col - 1) return 'left';
@@ -121,6 +178,12 @@ export default class PuzzleGame {
     }
 
     #generatePuzzle() {
+        /**
+         * Generate puzzle board
+         * 
+         * @memberof PuzzleGame
+         * @private
+         */
         const path = this.#generatePathCoordinates();
         const pathMap = new Map();
 
@@ -181,26 +244,64 @@ export default class PuzzleGame {
         }
     }
 
+    /**
+     * Get difficulty level
+     * 
+     * @memberof PuzzleGame
+     * @returns {number} Difficulty
+     */
     getDifficulty() {
         return this.#difficulty;
     }
 
+    /**
+     * Get puzzle grid size
+     * 
+     * @memberof PuzzleGame
+     * @returns {number} Grid size
+     */
     getSize() {
         return this.#size;
     }
 
+    /**
+     * Check if game is active
+     * 
+     * @memberof PuzzleGame
+     * @returns {boolean} Is active
+     */
     isActive() {
         return this.#isActive;
     }
 
+    /**
+     * Get move count
+     * 
+     * @memberof PuzzleGame
+     * @returns {number} Number of moves
+     */
     getMoveCount() {
         return this.#moveCount;
     }
 
     #getEffectiveConnections(tile) {
+        /**
+         * Get tile connections after rotation
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {Object} tile - Tile object
+         * @returns {boolean[]} Effective connections
+         */
         return rotateConnections(tile.baseConnections, tile.rotation);
     }
 
+    /**
+     * Get board data for rendering
+     * 
+     * @memberof PuzzleGame
+     * @returns {Object[]} Board tile data
+     */
     getBoardData() {
         return this.#tiles.map((tile) => ({
             index: tile.index,
@@ -215,6 +316,14 @@ export default class PuzzleGame {
     }
 
     #getNeighbors(tile) {
+        /**
+         * Get adjacent connected tiles
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @param {Object} tile - Tile object
+         * @returns {number[]} Neighbor indices
+         */
         const currentConnections = this.#getEffectiveConnections(tile);
         const neighbors = [];
 
@@ -241,6 +350,13 @@ export default class PuzzleGame {
     }
 
     #computeReachableFromStart() {
+        /**
+         * Compute connected tiles from start
+         * 
+         * @memberof PuzzleGame
+         * @private
+         * @returns {Set<number>} Set of reachable tile indices
+         */
         const visited = new Set();
         const queue = [this.#startIndex];
         visited.add(this.#startIndex);
@@ -261,10 +377,22 @@ export default class PuzzleGame {
         return visited;
     }
 
+    /**
+     * Get connected tile indices
+     * 
+     * @memberof PuzzleGame
+     * @returns {number[]} Array of connected tile indices
+     */
     getConnectedTileIndices() {
         return Array.from(this.#computeReachableFromStart());
     }
 
+    /**
+     * Get puzzle progress
+     * 
+     * @memberof PuzzleGame
+     * @returns {Object} Progress object with connected, total, reachesCore
+     */
     getProgress() {
         const connected = this.#computeReachableFromStart();
         return {
@@ -274,6 +402,12 @@ export default class PuzzleGame {
         };
     }
 
+    /**
+     * Check if puzzle is solved
+     * 
+     * @memberof PuzzleGame
+     * @returns {boolean} Is solved
+     */
     isSolved() {
         const connected = this.#computeReachableFromStart();
         return connected.has(this.#coreIndex);

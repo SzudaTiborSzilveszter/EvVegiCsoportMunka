@@ -62,6 +62,7 @@ export default class DialogSystem {
     /**
      * Új dialógus beszélgetést kezd egy karakterrel
      * 
+     * @memberof DialogSystem
      * @param {string} character - Karakter kulcsa (pl.: "sibling", "mainCharacter", "robot")
      * @param {number} dialogIndex - Kezdő dialógus ID-ja
      * 
@@ -76,6 +77,7 @@ export default class DialogSystem {
     /**
      * Az aktuális dialógus objektumot adja vissza
      * 
+     * @memberof DialogSystem
      * @returns {Object|null} Az aktuális dialógus objektum vagy null ha nincs aktív beszélgetés
      */
     getCurrentDialog() {
@@ -87,6 +89,7 @@ export default class DialogSystem {
     /**
      * Az aktuális dialógus szövegét adja vissza
      * 
+     * @memberof DialogSystem
      * @returns {string} Dialógus szöveg vagy üres string
      */
     getDialogText() {
@@ -97,6 +100,7 @@ export default class DialogSystem {
     /**
      * Elérhető választásokat adja vissza az aktuális dialógushoz
      * 
+     * @memberof DialogSystem
      * @returns {Array<Object>} Választás objektumok tömbje
      */
     getChoices() {
@@ -107,6 +111,7 @@ export default class DialogSystem {
     /**
      * Ellenőrzi, hogy az aktuális dialógusnak vannak-e választásai
      * 
+     * @memberof DialogSystem
      * @returns {boolean} Igaz, ha a dialógusnak vannak választásai
      */
     hasChoices() {
@@ -119,6 +124,7 @@ export default class DialogSystem {
      * 
      * Alkalmazva a karaktertulajdonság módosításokat ha léteznek, és szignálja a következő karaktert/dialógust.
      * 
+     * @memberof DialogSystem
      * @param {number} choiceIndex - A kiválasztott választás indexe
      * @returns {boolean} Igaz, ha a választás sikeresen kiválasztásra került
      * 
@@ -144,6 +150,7 @@ export default class DialogSystem {
     /**
      * Az aktuálisan beszélő karaktert adja vissza
      * 
+     * @memberof DialogSystem
      * @returns {string|null} Karakter kulcsa vagy null
      */
     getCurrentCharacter() {
@@ -153,6 +160,7 @@ export default class DialogSystem {
     /**
      * Az aktuális dialógus indexet adja vissza
      * 
+     * @memberof DialogSystem
      * @returns {number|null} Dialógus ID vagy null
      */
     getCurrentDialogIndex() {
@@ -162,6 +170,7 @@ export default class DialogSystem {
     /**
      * Ellenőrzi, hogy van-e aktív beszélgetés
      * 
+     * @memberof DialogSystem
      * @returns {boolean} Igaz, ha van aktív beszélgetés
      */
     isConversationActive() {
@@ -172,6 +181,8 @@ export default class DialogSystem {
      * Lezárja az aktuális beszélgetést
      * 
      * Töröl minden aktuális karakter és dialógus indexet.
+     * 
+     * @memberof DialogSystem
      */
     endConversation() {
         this.#currentCharacter = null;
@@ -181,6 +192,7 @@ export default class DialogSystem {
     /**
      * Előrehalad az aktuális karakter következő dialógusához
      * 
+     * @memberof DialogSystem
      * @returns {boolean} Igaz, ha a következő dialógus létezik és betöltésre került, hamis egyébként
      */
     nextDialogOfCurrentCharacter() {

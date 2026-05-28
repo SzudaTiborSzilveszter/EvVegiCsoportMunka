@@ -97,6 +97,7 @@ export default class AudioManager{
     /**
      * Az előre meghatározott zenei dalok közötti váltás
      * 
+     * @memberof AudioManager
      * @param {string} type - Pálya típusa ("dialogue", "minigame", "exploration")
      */
     switchTrack(type) {
@@ -113,6 +114,7 @@ export default class AudioManager{
     /**
      * Megadott zenei pálya lejátszása
      * 
+     * @memberof AudioManager
      * @param {string} musicPath - Zene fájl elérési útja vagy fájlneve
      * 
      * @example
@@ -145,6 +147,8 @@ export default class AudioManager{
      * Háttérzene lejátszása
      * 
      * Az automatikus lejátszás házirendje korlátozásait kecsesen kezeli.
+     * 
+     * @memberof AudioManager
      */
     playMusic() {
         const playPromise = this.#music.play();
@@ -157,6 +161,8 @@ export default class AudioManager{
     
     /**
      * Zene lejátszás leállítása
+     * 
+     * @memberof AudioManager
      */
     stopMusic(){
         this.#music.pause();
@@ -165,6 +171,7 @@ export default class AudioManager{
     /**
      * Hangszint beállítása
      * 
+     * @memberof AudioManager
      * @param {number} volume - Hangerő szint (0.0-1.0)
      */
     setVolume(volume) {
@@ -174,6 +181,8 @@ export default class AudioManager{
 
     /**
      * Hangeffekt lejátszása érzelemek alapján
+     * 
+     * @memberof AudioManager
      * @param {string} emotion - Érzelem típusa (pl.: 'happy', 'angry', 'sad')
      */
     playSoundEffect(emotion) {

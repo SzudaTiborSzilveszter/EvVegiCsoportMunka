@@ -130,6 +130,8 @@ export default class GameManager {
 
     /**
      * Setup all event listeners
+     * @private
+     * @memberof GameManager
      */
     #setupEventListeners() {
         console.log('[GameManager] Setting up event listeners...');
@@ -173,6 +175,7 @@ export default class GameManager {
 
     /**
      * Start the game with a scene
+     * @memberof GameManager
      * @param {string} sceneId - Scene to load
      */
     startGame(sceneId) {
@@ -181,6 +184,7 @@ export default class GameManager {
 
     /**
      * Load a scene and check conditions
+     * @memberof GameManager
      * @param {string} sceneId - Scene ID to load
      * @returns {boolean} success
      */
@@ -208,6 +212,7 @@ export default class GameManager {
 
     /**
      * Start a dialog with a character
+     * @memberof GameManager
      * @param {string} character - Character key
      * @param {number} dialogIndex - Dialog ID
      */
@@ -220,6 +225,7 @@ export default class GameManager {
      * Called when a dialog ends
      * Handles scene transitions and story progression
      * @private
+     * @memberof GameManager
      */
     #onDialogEnd() {
         console.log('[GameManager] #onDialogEnd() called');
@@ -258,6 +264,9 @@ export default class GameManager {
     /**
      * Check if story conditions are met
      * @private
+     * @memberof GameManager
+     * @param {Object} flags - Szükséges jelzők
+     * @returns {boolean} Igaz, ha teljesülnek a feltételek
      */
     #checkConditions(flags) {
         for (const [flag, required] of Object.entries(flags)) {
@@ -270,6 +279,7 @@ export default class GameManager {
 
     /**
      * Set a story flag/variable
+     * @memberof GameManager
      * @param {string} flag - Flag name
      * @param {any} value - Flag value
      */
@@ -280,6 +290,9 @@ export default class GameManager {
 
     /**
      * Get a story flag
+     * @memberof GameManager
+     * @param {string} flag - Flag name
+     * @returns {any} A jelző értéke vagy null
      */
     getFlag(flag) {
         return this.#storyFlags[flag] ?? null;
@@ -288,6 +301,8 @@ export default class GameManager {
     /**
      * Handle item pickup
      * @private
+     * @memberof GameManager
+     * @param {Object} itemData - Az elemadatok
      */
     #onItemPickup(itemData) {
         console.log(`📦 Item clicked: ${itemData.itemId}`, itemData);
