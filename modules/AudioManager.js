@@ -67,7 +67,7 @@ export default class AudioManager{
          * @type {Object<string, string>}
          */
         this.tracks = {
-            dialogue: 'assets/music/mrambient.mp3',
+            dialogue: 'assets/music/mrambiant.mp3',
             minigame: 'assets/music/minigame.mp3',
             exploration: 'assets/music/cyberpunk.mp3'
         };
