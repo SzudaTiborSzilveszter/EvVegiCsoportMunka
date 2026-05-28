@@ -27,9 +27,9 @@ export const scenes = {
             {
                 itemId: 'drone_pickup',
                 sprite: '/assets/sprites/drone_pickup.png',
-                x: 33.3,      
-                y: 75,      
-                scale: 1.1, 
+                x: 34.1,      
+                y: 78.9,      
+                scale: 1.4, 
                 zIndex: 5,  
                 opacity: 1,
                 minigame: {
@@ -135,9 +135,9 @@ export const scenes = {
                 itemId: 'storage_safe',
                 sprite: '/assets/sprites/storage_safe.png',
                 isInvisible: false,           
-                x: 60,
-                y: 40,
-                scale: 3,
+                x: 58,
+                y: 50,
+                scale: 3.5,
                 zIndex: 3,
                 minigame: {
                     gameId: 'lockpicking_2',
