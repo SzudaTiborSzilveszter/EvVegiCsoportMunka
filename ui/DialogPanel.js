@@ -25,11 +25,13 @@ export default class DialogPanel {
         this.#leftSprite = document.createElement('img');
         this.#leftSprite.className = 'dialog-sprite left';
         this.#leftSprite.alt = 'Speaker';
+        this.#leftSprite.setAttribute('data-sprite-type', 'left');
         document.body.appendChild(this.#leftSprite);
 
         this.#rightSprite = document.createElement('img');
         this.#rightSprite.className = 'dialog-sprite right';
         this.#rightSprite.alt = 'Player Character';
+        this.#rightSprite.setAttribute('data-sprite-type', 'right');
         document.body.appendChild(this.#rightSprite);
     }
 
@@ -238,6 +240,13 @@ export default class DialogPanel {
             this.#leftSprite.classList.add('surprised-female');
         } else {
             this.#leftSprite.classList.remove('surprised-female');
+        }
+
+        // Add special class for surprised emotion (any character)
+        if (emotion === 'surprised') {
+            this.#leftSprite.classList.add('surprised-emotion');
+        } else {
+            this.#leftSprite.classList.remove('surprised-emotion');
         }
 
         // Play emotion sound effect
