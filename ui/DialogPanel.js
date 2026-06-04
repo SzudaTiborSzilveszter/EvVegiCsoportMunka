@@ -390,7 +390,7 @@ export default class DialogPanel {
         if (!baseName) return basePath; // Can't determine, return original
 
         // Standard pattern: {emotion}_{gender}_player{_close}.png
-        return `/assets/sprites/${prefix}_${baseName}.png`;
+        return `assets/sprites/${prefix}_${baseName}.png`;
     }
 
     /**
